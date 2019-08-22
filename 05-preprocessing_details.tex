@@ -1,0 +1,195 @@
+\newpage
+\subsection{Budowa}
+W tej części opisana zostanie budowa modułu Preprocessingu - z jakich fragmentów się składa
+oraz za co one odpowiadają. Opisane zostaną tylko ważniejsze fragmenty kodu z racji na jego 
+obszerność.
+
+\subsubsection{Preprocessing [ klasa ] }
+\begin{import}
+from library.preprocessing.preprocessing import Preprocessing
+\end{import}
+
+Ta klasa, a raczej jej użycie zostało opisane w punkcie wyżej. Wszystkie elementy biblioteki opisane
+poniżej są wykorzystywane przez tą klasę. Jest to klasa modułu preprocessingu przeznaczona
+do domyślnego użycia.
+
+\subsubsection{CharactersMapper [ klasa ] }
+\begin{import}
+from library.preprocessing.preprocessing import CharactersMapper
+\end{import}
+Ta klasa, jest odpowiedzialna za redukcję alfabetu tekstów wejściowych. 
+
+Przyjmuje takie argumenty jak: 
+
+\begin{itemize}
+	\item language
+	\item data\_path
+	\item mapped\_save\_path
+	\item log\_lvl
+\end{itemize}
+
+Wszystkie te argumenty funkcojonują tak samo jak w klasie Preprocessing.
+
+
+\subsubsection{ToTensor [ klasa ] }
+\begin{import}
+from library.preprocessing.preprocessing import ToTensor
+\end{import}
+Ta klasa, jest odpowiedzialna za zamiane tekstów na tensory.
+
+Przyjmuje takie argumenty jak: 
+
+\begin{itemize}
+	\item language
+	\item tensors\_path
+	\item mapped\_source\_path
+	\item batch\_size
+	\item log\_lvl
+	\item reduced\_authors
+\end{itemize}
+
+Wszystkie te argumenty z jednym wyjątkiem funkcjonują tak samo jak w klasie Preprocessing. 
+Tym wyjątkiem jest reduced\_authors, które pozwala na bezpośrednie przekazanie obiektu z danymi 
+zredukowanych tekstów do obiektu ToTensor, w ten sposób oszczędzany jest czas ładowania tekstów z 
+dysku. Jeśli jest on podany argument mapped\_source\_path jest ignorowany.
+
+
+
+\subsubsection{text\_to\_tensor [ metoda ] }
+\begin{import}
+from library.preprocessing.to_tensor.convert import text_to_tensor
+\end{import}
+Ta metoda, jest odpowiedzialna za zamiane tekstów na tensory.
+
+Przyjmuje takie argumenty jak: 
+
+\begin{itemize}
+	\item alphabet: List
+	\item text: str
+\end{itemize}
+
+Szczegóły w dokumentacji w kodzie.
+
+\subsubsection{char\_to\_tensor [ metoda ] }
+\begin{import}
+from library.preprocessing.to_tensor.convert import char_to_tensor
+\end{import}
+Ta metoda, jest odpowiedzialna za zamiane znaków na wektory.
+
+Przyjmuje takie argumenty jak: 
+
+\begin{itemize}
+	\item alphabet: List
+	\item char: str
+\end{itemize}
+
+Szczegóły w dokumentacji w kodzie.
+
+
+\subsubsection{wbudowane alfabety [ listy ] }
+
+\begin{itemize} 
+
+\item angielski
+\begin{import}
+from library.preprocessing.to_tensor.alphabets.en_alphabet import alphabet
+\end{import}
+
+
+\item hiszpański
+\begin{import}
+from library.preprocessing.to_tensor.alphabets.es_alphabet import alphabet
+\end{import}
+
+
+\item grecki
+\begin{import}
+from library.preprocessing.to_tensor.alphabets.gr_alphabet import alphabet
+\end{import}
+
+
+\item holenderski
+\begin{import}
+from library.preprocessing.to_tensor.alphabets.nl_alphabet import alphabet
+\end{import}
+\end{itemize}
+
+
+\subsubsection{TextFileLoader [ klasa ] }
+Po wywołaniu konstruktora ładuje do pamięci zawartośc pliku spod podanej ścieżki. Mamy następnie 
+dostęp do jej dwóch wersji - w postaci stringa lub listy (każdy element jest pojedynczą 
+linią będącą stringiem)
+
+
+\begin{python}
+from library.preprocessing.files.files_operations import TextFileLoader
+
+tfl = TextFileLoader(path="path/to/file")
+tfl.lines  # text as lines
+tfl.text   # whole text
+\end{python}
+
+\subsubsection{save\_to\_file [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import save_to_file
+\end{import}
+
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+	\item filename: str
+	\item content: str
+\end{itemize}
+
+\subsubsection{check\_if\_directory [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import check_if_directory
+\end{import}
+Zwraca True jeśli element spod podanej ścieżki jest katalogiem, False w przeciwnym wypadku.
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+\end{itemize}
+
+\subsubsection{check\_if\_file [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import check_if_file
+\end{import}
+Zwraca True jeśli element spod podanej ścieżki jest plikiem, False w przeciwnym wypadku.
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+\end{itemize}
+
+\subsubsection{check\_if\_directory\_exists [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import check_if_directory_exists
+\end{import}
+Jeśli katalog spod podanej ścieżki nie istnieje rzuca wyjątek FileNotFound.
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+\end{itemize}
+
+\subsubsection{create\_file [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import create_file
+\end{import}
+Tworzy plik pod podaną ścieżką. 
+
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item alphabet: List
+	\item char: str
+\end{itemize}
+
+\subsubsection{remove\_directory [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import remove_directory
+\end{import}
+
+Usuwa katalog spod podanej ścieżki.
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+\end{itemize}

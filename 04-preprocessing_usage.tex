@@ -1,215 +1,4 @@
 \newpage
-\section{Preprocessing}
-
-Preprocessing to moduł naszej biblioteki odpowiedzialny za przetwarzanie tekstów na format
-nadający się do szkolenia sieci. 
-
-\subsection{Teoria}
-
-Proces preprocessingu dzieli się na dwa etapy.
-\begin{enumerate}
-	\item Redukcja alfabetu (mapowanie znaków)
-	\item Zamiana zredukowanych tekstów na tensory
-\end{enumerate}
-
-Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
-\languages 
-
-
-\subsubsection{Redukcja alfabetu}
-Redukcja alfabetu to sprytny sposób zmniejszenia ilości znaków w alfabecie, tak by uczenie sieci było
-efektywniejsze. Możemy definiować nasze własne 'mappery'. Przykład pliku do redukcji alfabetu języka
-angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
-czytelność)
-
-\begin{python}
-charmap = {
-    u' ': u' ',                 # kept Zs (92447)
-    u'e': u'e',
-    u't': u't',
-    u'o': u'o',
-    u'a': u'a',
-    u'n': u'n',
-    u'i': u'i',
-    u's': u's',
-    u'h': u'h',
-    u'r': u'r',
-    u'\n': u'\n',               # kept Cc (13082)
-    u'l': u'l',
-    u'd': u'd',
-    u'u': u'u',
-    u'y': u'y',
-    u'm': u'm',
-    u'g': u'g',
-    u'w': u'w',
-    u',': u',',                 # kept Po (5250)
-    u"'": "'",                  # single quote
-    u'.': u'.',                 # kept Po (4826)
-    u'f': u'f',
-    u'c': u'c',
-    u'b': u'b',
-    u'p': u'p',
-    u'-': u'-',                 # kept Pd (3253)
-    u'k': u'k',
-    u'I': u'\xb9i',             # decomposed caps
-    u'v': u'v',
-}
-\end{python}
-
-\newpage
-\subsubsection{Zamiana tekstów na tensory}
-Aby zamienić teksty na tensory potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
-elementy są znakami. Tak wygląda fragment alfabetu z języka angielskiego:
-\begin{python}
-alphabet = [
-    ' ',
-    'e',
-    't',
-    'o',
-    'a',
-    'n',
-    'i',
-    's',
-    'h',
-    'r',  # 10
-    '\\n',
-    'l',
-    'd',
-    'u',
-    'y',
-    'm',
-    'g',
-    'w',
-    ',',
-    "'",  # 20
-    '.',
-    'f',
-    'c',
-    'b',
-]
-\end{python}
-
-Każdy znak zredukowanego pliku wejściowego zamieniany jest na wektor wykorzystując alfabet, 
-a wektory 'umieszczane' są w tensorze. Zamianę liter na wektory najłatwiej pokazać na przykładzie.
-
-Załóżmy że nasz alfabet wygląda następująco:
-
-\begin{python}
-alphabet = [
-    'a',  #0
-    'b',  #1
-    'c',  #2
-    'd',  #3
- ]
-\end{python} 
-Jeśli zamienimy literę 'a' na wektor otrzymamy: 
- 
-\vspace{2mm}
-$
-\begin{bmatrix} 
-1, & 0, & 0, & 0
-\end{bmatrix} 
-$
-\vspace{2mm}
-
-Ponieważ litera 'a' jest na pozycji 0 w alfabecie liczba 1 pojawiła się na pozycji 0 w wektorze.
-Długość wektora wynosi 4 ponieważ tyle znaków znajduje się w alfabecie. A więc dla litery 
-'c' wektor wyglądałby w następujący sposób:
-
-\vspace{2mm}
-$
-\begin{bmatrix} 
-0, & 0, & 1, & 0
-\end{bmatrix} 
-$
-\vspace{2mm}
-
-W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorach.
-
-TODO
-TU OPISAĆ BUDOWE TENSORÓW
-
-\newpage
-\subsection{Pliki wejściowe oraz wyjściowe}
-Aby korzystać z modułu preprocessingu należy zachować określoną konwencję danych wejściowych. 
-
-\subsubsection{Struktura wejścia}
-
-\begin{enumerate}
-	\item Wszystkie pliki tekstowe muszą być w formacie txt,
-	\item folder z danymi wejściwoymi musi mieć konkretną strukture. W folderze każdego autora
-		  powinny znajdować się jego teksty: 
-			\begin{itemize}
-				\item knownX.txt gdzie X jest numerem tekstu, tekstów known.txt może być wiele.
-				\item unknown.txt
-			\end{itemize}
-\end{enumerate}
-
-Przykład: 
-
-\myspace
-\dirtree{%
-.1 data.
-.2 authors.
-.3 EN001.
-.4 known01.txt.
-.4 unknown.txt.
-.3 EN002.
-.4 known01.txt.
-.4 known02.txt.
-.4 known03.txt.
-.4 unknown.txt.
-.3 EN003.
-.4 known01.txt.
-.4 unknown.txt.
-.3 EN004.
-.4 known01.txt.
-.4 known01.txt.
-.4 unknown.txt.
-.3 EN005.
-.4 known01.txt.
-.4 unknown.txt.
-}
-\myspace
-
-\newpage
-\subsubsection{Struktura wyjścia}
-
-Wszystkie pliki wejściowe są zamieniane na tensory i dzielone na batche. Wszystkie pliki knownX.txt 
-danego autora są wcześniej łączone w jeden plik, który póniej staje się tensorem. W ten sposób 
-otrzymujemy następująco wyglądający folder wyjściowy, gdzie każdy plik ENX.pt (gdzie X to numer)
- jest tensorem:
-
-\myspace
-\dirtree{%
-.1 tensors.
-.2 known.
-.3 EN001.
-.4 EN001.pt.
-.3 EN002.
-.4 EN002.pt.
-.3 EN003.
-.4 EN003.pt.
-.3 EN004.
-.4 EN004.pt.
-.3 EN005.
-.4 EN005.pt.
-.2 unknown.
-.3 EN001.
-.4 EN001.pt.
-.3 EN002.
-.4 EN002.pt.
-.3 EN003.
-.4 EN003.pt.
-.3 EN004.
-.4 EN004.pt.
-.3 EN005.
-.4 EN005.pt.
-}
-\myspace
-
-
-\newpage
 \subsection{Jak korzystać?}
 Moduł preprocessingu został stworzony z myślą o prostej i intuicyjnej obsłudze. Wykorzystane przy
 tym zostały Pythone'owe słowniki które pozwalają na uproszczenie sygnatury funkcji o parametry, które
@@ -253,7 +42,9 @@ odpowiedni obiekt i przystąpić do preprocessingu. Zakładamy że wszystkie lin
 tutaj kodu znajdują się w widocznym na diagramie struktury folderów pliku main.py.
 
 \begin{python}
-pr = Preprocessing()
+from library.preprocessing.preprocessing import Preprocessing
+
+Preprocessing()
 
 \end{python}
 
@@ -267,6 +58,7 @@ oto wszystkie możliwe parametry:
 	\item mapped\_source\_path
 	\item batch\_size
 	\item log\_lvl
+	\item only\_reduce
 \end{itemize}
 
 Parametry możemy używać w dowolnej kombinacji, jednak nie wszystkie z nich będą miały sens. Zbędne
@@ -275,8 +67,9 @@ parametry będą ignorowane.
 \subsubsection{language}
 Parametr language jest parametrem obowiązkowym i pozwala nam określić język tekstów wejściowych.
 \begin{python}
-language = 'en'
-Preprocessing(language=language)
+from library.preprocessing.preprocessing import Preprocessing
+
+Preprocessing(language="en")
 
 \end{python}
 
@@ -294,10 +87,10 @@ Domyślnie dostępnymi językami w bibliotece są:
 Parametr data\_path pozwala nam zdefiniować ścieżkę do danych wejściowych. W naszym przypadku
 będzie ona wyglądała w następujący sposób:
 \begin{python}
-language = 'en'
-data_path = "../data/authors/"
-Preprocessing(language=language,
-              data_path=data_path
+from library.preprocessing.preprocessing import Preprocessing
+
+Preprocessing(language="en",
+              data_path="../data/authors/")
                    
 \end{python}
 
@@ -321,17 +114,16 @@ Struktura katalogów po wykonaniu będzie wyglądać następująco:
 }
 \myspace
 
-
+\newpage
 \subsubsection{tensors\_path}
-Jeśli chcemy zdefiniować ścieżkę zapisu tensorów możemy tego dokonać używając parametru tensors\_path.
-Dla przykładu zdefiniuję ją w następujący sposób. 
+Jeśli chcemy zdefiniować ścieżkę zapisu tensorów możemy tego dokonać używając parametru 
+tensors\_path. Dla przykładu zdefiniuję ją w następujący sposób. 
 \begin{python}
-language = 'en'
-data_path = "../data/authors/"
-tensors_path = "../data/tensors/"
-Preprocessing(language=language,
-              data_path=data_path,
-              tensors_path=tensors_path)
+from library.preprocessing.preprocessing import Preprocessing
+
+Preprocessing(language="en",
+              data_path="../data/authors/",
+              tensors_path="../data/tensors/")
                    
 \end{python}
 
@@ -352,16 +144,16 @@ Wszystkie operacje wykonywane są w tym przypadku przy użyciu pamięci ram.
 \subsubsection{mapped\_save\_path}
 Mamy równiez możliwość zapisania plików o zredukowanym alfabecie jeśli chcielibyśmy je przejrzeć lub
 wykorzystać w przyszłości ponownie. Do tego służy opisywany właśnie parametr mapped\_save\_path.
+UWAGA! Za każdym razem kiedy korzystamy z tego argumentu wszystkie pliki spod wskazanej ścieżki są 
+usuwane.
 
 \begin{python}
-language = 'en'
-data_path = "../data/authors/"
-tensors_path = "../data/tensors/"
-mapped_save_path = "../data/reduced_authors/"
-Preprocessing(language=language,
-              data_path=data_path,
-              tensors_path=tensors_path
-              mapped_save_path=mapped_save_path)
+from library.preprocessing.preprocessing import Preprocessing
+
+Preprocessing(language="en",
+              data_path="../data/authors/",
+              tensors_path="../data/tensors/"
+              mapped_save_path="../data/reduced_authors/")
                    
 \end{python}
 Stuktura zredukowanego katalogu z tekstami jest identyczna jak struktura katalogu wejściowego. 
@@ -381,7 +173,7 @@ Po wykonaniu pliku main.py otrzymamy następującą strukture katalogów:
 
 Wszystkie operacje wykonywane są w tym przypadku przy użyciu pamięci ram.
 
-
+\newpage
 \subsubsection{mapped\_source\_path}
 Jeśli chcielibyśmy skorzystać ze zredukowanych wcześniej tekstów, które mamy zapisane na dysku 
 możemy w tym celu użyć parametru mapped\_source\_path.
@@ -397,12 +189,11 @@ Załóżmy przy tym następujące drzewo katalogów:
 \myspace
 
 \begin{python}
-language = 'en'
-tensors_path = "../data/tensors/"
-mapped_source_path = "../data/reduced_authors/"
-Preprocessing(language=language,
-              tensors_path=tensors_path,
-              mapped_source_path=mapped_source_path)
+from library.preprocessing.preprocessing import Preprocessing
+
+Preprocessing(language="en",
+              tensors_path="../data/tensors/",
+              mapped_source_path="../data/reduced_authors/")
                    
 \end{python}
 
@@ -437,11 +228,13 @@ Załóżmy wejściowe drzewo katalogów:
 
 Kod wyglądałby następująco:
 \begin{python}
-Preprocessing(language=language,
-              data_path=data_path,
-              tensors_path=tensors_path,
-              mapped_save_path=mapped_save_path,
-              mapped_source_path=mapped_source_path)
+from library.preprocessing.preprocessing import Preprocessing
+
+Preprocessing(language="en",
+              data_path="../data/authors/",
+              tensors_path="../data/tensors/",
+              mapped_save_path="../data/reduced_authors/",
+              mapped_source_path="../data/reduced_authors/")
 
 \end{python}
 
@@ -463,6 +256,24 @@ Wyjściowe drzewo katalogów będzie wyglądać następująco:
 
 \myspace
 
+\subsubsection{only\_reduce}
+Możemy także skorzystać tylko z redukcji, bez tworzenia tensorów. Służy do tego argument only\_reduce.
+Aby nastąpiła jedynie redukcja alfabetu należy ustawić go na True jak w kodzie poniżej:
+
+\begin{python}
+from library.preprocessing.preprocessing import Preprocessing
+
+Preprocessing(language='en',
+              data_path="../data/authors/",
+              mapped_save_path = "../data/reduced_authors/",
+              reduce_only=True)
+
+\end{python}
+
 \subsubsection{batch\_size}
+\TODO{opisac} 
+
 \subsubsection{log\_lvl}
-\subsection{Budowa}
+
+\TODO{opisac}
+
