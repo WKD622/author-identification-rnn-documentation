@@ -130,6 +130,14 @@ TODO
 TU OPISAĆ BUDOWE TENSORÓW
 
 \newpage
+\subsubsection{Rozdzielenie tensorów na paczki}
+Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
+Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie. Po przygotowaniu tensora wypełnionego wektorami
+wysyłamy go do BatchProcessora, którzy dzieli nasze dane na paczki o określonym rozmiarze. 
+
+\vspace{2mm}
+Tak przygotowane zestawy danych możemy ładować do sieci.
+
 \subsection{Pliki wejściowe oraz wyjściowe}
 Aby korzystać z modułu preprocessingu należy zachować określoną konwencję danych wejściowych. 
 
@@ -464,5 +472,23 @@ Wyjściowe drzewo katalogów będzie wyglądać następująco:
 \myspace
 
 \subsubsection{batch\_size}
+Możemy również zdefiniować rozmiar paczek na jakie podzielony zostanie nasz tensor. Dokonać tego możemy poprzez
+parametr batch\_size. Domyślna wartość tego parametru to 20.
+
+\begin{python}
+language = 'en'
+data_path = "../data/authors/"
+tensors_path = "../data/tensors/"
+mapped_save_path = "../data/reduced_authors/"
+Preprocessing(language=language,
+              data_path=data_path,
+              tensors_path=tensors_path,
+              mapped_save_path=mapped_save_path,
+              batch_size=30)
+
+\end{python}
+
+W takim wypadku dane zostaną podzielone na paczki o rozmiarze 30.
+                  
 \subsubsection{log\_lvl}
 \subsection{Budowa}
