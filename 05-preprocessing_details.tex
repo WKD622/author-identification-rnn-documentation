@@ -1,0 +1,411 @@
+\newpage
+\subsection{Budowa}
+W tej części opisana zostanie budowa modułu Preprocessingu - z jakich fragmentów się składa
+oraz za co one odpowiadają. Opisane zostaną tylko ważniejsze fragmenty kodu z racji na jego 
+obszerność.
+
+Budowa modułu preprocessingu:
+
+
+\myspace
+\dirtree{%
+.1 preprocessing.
+.2 batch\_processing \DTcomment{metody niskopoziome odpowiedzialne za podział na batche}.
+.2 chars\_mapping \DTcomment{metody niskopoziome odpowiedzialne za redukcje alfabetów}.
+.2 data\_structs	\DTcomment{klasy do trzymania tekstów w formie obiektów}.
+.2 files \DTcomment{metody niskopoziome odpowiedzialne za operacje na plikach}.
+.2 to\_tensor \DTcomment{metody niskopoziome odpowiedzialne za zamiane tekstu na tensory}.
+.2 constants.py	\DTcomment{wszystkie stałe}.
+.2 exceptions.py \DTcomment{wszystkie wyjątki}.
+.2 preprocessing.py \DTcomment{główny plik modułu}.
+}
+\myspace
+
+\subsubsection{preprocessing.py}
+
+\myspace
+\dirtree{%
+.1 preprocessing.
+.2 batch\_processing.
+.2 chars\_mapping.
+.2 data\_structs.
+.2 files.
+.2 to\_tensor.
+.2 constants.py.
+.2 exceptions.py.
+.2 preprocessing.py <--------------------------------------------------.
+}
+\myspace
+
+\begin{itemize}
+	
+\item  {Preprocessing [ klasa ] }
+\begin{import}
+from library.preprocessing.preprocessing import Preprocessing
+\end{import}
+
+Ta klasa, a raczej jej użycie zostało opisane w punkcie wyżej. Wszystkie elementy biblioteki opisane
+poniżej są wykorzystywane przez tą klasę. Jest to klasa modułu preprocessingu przeznaczona
+do domyślnego użycia.
+
+\item  {CharactersMapper [ klasa ] }
+\begin{import}
+from library.preprocessing.preprocessing import CharactersMapper
+\end{import}
+Ta klasa, jest odpowiedzialna za redukcję alfabetu tekstów wejściowych. 
+
+Przyjmuje takie argumenty jak: 
+
+\begin{itemize}
+	\item language
+	\item data\_path
+	\item mapped\_save\_path
+	\item log\_lvl
+\end{itemize}
+
+Wszystkie te argumenty funkcojonują tak samo jak w klasie Preprocessing.
+
+
+\item  {ToTensor [ klasa ] }
+\begin{import}
+from library.preprocessing.preprocessing import ToTensor
+\end{import}
+Ta klasa, jest odpowiedzialna za zamiane tekstów na tensory.
+
+Przyjmuje takie argumenty jak: 
+
+\begin{itemize}
+	\item language
+	\item tensors\_path
+	\item mapped\_source\_path
+	\item batch\_size
+	\item log\_lvl
+	\item reduced\_authors
+\end{itemize}
+
+Wszystkie te argumenty z jednym wyjątkiem funkcjonują tak samo jak w klasie Preprocessing. 
+Tym wyjątkiem jest reduced\_authors, które pozwala na bezpośrednie przekazanie obiektu z danymi 
+zredukowanych tekstów do obiektu ToTensor, w ten sposób oszczędzany jest czas ładowania tekstów z 
+dysku. Jeśli jest on podany argument mapped\_source\_path jest ignorowany.
+
+\end{itemize}
+
+\subsubsection{exceptions.py}
+
+\myspace
+\dirtree{%
+.1 preprocessing.
+.2 batch\_processing.
+.2 chars\_mapping.
+.2 data\_structs.
+.2 files.
+.2 to\_tensor.
+.2 constants.py.
+.2 exceptions.py <--------------------------------------------------.
+.2 preprocessing.py.
+}
+\myspace
+\begin{import}
+from library.preprocessing import exceptions
+\end{import}
+
+W tym pliku znajdują się deklaracje wszystkich wyjątków używanych w module preprocessing
+
+Są to:
+\begin{itemize}
+	\item WrongDataStructureException
+	\item NotMappedDataException
+	\item NoDataSourceSpecified
+	\item NoLanguageSpecified
+\end{itemize}
+
+\newpage
+\subsubsection{to\_tensor}
+
+\myspace
+\dirtree{%
+.1 preprocessing.
+.2 batch\_processing.
+.2 chars\_mapping.
+.2 data\_structs.
+.2 files.
+.2 to\_tensor <--------------------------------------------------.
+.3 alphabets.
+.4 en\_alphabet.py.
+.4 es\_alphabet.py.
+.4 gr\_alphabet.py.
+.4 nl\_alphabet.py.
+.3 convert.py.
+.2 constants.py.
+.2 exceptions.py.
+.2 preprocessing.py.
+}
+\myspace
+
+\begin{itemize}
+
+\item{text\_to\_tensor [ metoda ] }
+
+\begin{import}
+from library.preprocessing.to_tensor.convert import text_to_tensor
+\end{import}
+	
+Ta metoda jest odpowiedzialna za zamiane tekstów na tensory.
+
+Przyjmuje takie argumenty jak: 
+
+\begin{itemize}
+	\item alphabet: List
+	\item text: str
+\end{itemize}
+
+Szczegóły w dokumentacji w kodzie.
+
+\item{char\_to\_tensor [ metoda ] }
+\begin{import}
+from library.preprocessing.to_tensor.convert import char_to_tensor
+\end{import}
+Ta metoda jest odpowiedzialna za zamiane znaków na wektory.
+
+Przyjmuje takie argumenty jak: 
+
+\begin{itemize}
+	\item alphabet: List
+	\item char: str
+\end{itemize}
+
+Szczegóły w dokumentacji w kodzie.
+
+
+\item{wbudowane alfabety [ listy ] }
+
+\begin{itemize} 
+
+\item angielski
+\begin{import}
+from library.preprocessing.to_tensor.alphabets.en_alphabet import alphabet
+\end{import}
+
+
+\item hiszpański
+\begin{import}
+from library.preprocessing.to_tensor.alphabets.es_alphabet import alphabet
+\end{import}
+
+
+\item grecki
+\begin{import}
+from library.preprocessing.to_tensor.alphabets.gr_alphabet import alphabet
+\end{import}
+
+
+\item holenderski
+\begin{import}
+from library.preprocessing.to_tensor.alphabets.nl_alphabet import alphabet
+\end{import}
+	
+\end{itemize}
+
+\end{itemize}
+
+
+\subsubsection{files}
+
+\myspace
+\dirtree{%
+.1 preprocessing.
+.2 batch\_processing.
+.2 chars\_mapping.
+.2 data\_structs.
+.2 files <--------------------------------------------------.
+.3 files\_operations.py.
+.3 json\_loader.py.
+.3 name\_convencion.py.
+.2 to\_tensor.
+.2 constants.py.
+.2 exceptions.py.
+.2 preprocessing.py.
+}
+\myspace
+
+\begin{itemize}
+
+\item{TextFileLoader [ klasa ] }
+
+\begin{python}
+from library.preprocessing.files.files_operations import TextFileLoader
+
+tfl = TextFileLoader(path="path/to/file")
+tfl.lines  # text as lines
+tfl.text   # whole text
+\end{python}
+
+Po wywołaniu konstruktora ładuje do pamięci zawartość pliku spod podanej ścieżki. Mamy następnie 
+dostęp do jej dwóch wersji - w postaci stringa lub listy (każdy element jest pojedynczą 
+linią będącą stringiem)
+
+\item{save\_to\_file [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import save_to_file
+\end{import}
+
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+	\item filename: str
+	\item content: str
+\end{itemize}
+
+\item{check\_if\_directory [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import check_if_directory
+\end{import}
+Zwraca True jeśli element spod podanej ścieżki jest katalogiem, False w przeciwnym wypadku.
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+\end{itemize}
+
+\item{check\_if\_file [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import check_if_file
+\end{import}
+Zwraca True jeśli element spod podanej ścieżki jest plikiem, False w przeciwnym wypadku.
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+\end{itemize}
+
+\item{check\_if\_directory\_exists [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import check_if_directory_exists
+\end{import}
+Jeśli katalog spod podanej ścieżki nie istnieje rzuca wyjątek FileNotFound.
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+\end{itemize}
+
+\item{create\_file [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import create_file
+\end{import}
+Tworzy plik pod podaną ścieżką. 
+
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item alphabet: List
+	\item char: str
+\end{itemize}
+
+\item{remove\_directory [ metoda ] }
+\begin{import}
+from library.preprocessing.files.files_operations import remove_directory
+\end{import}
+
+Usuwa katalog spod podanej ścieżki.
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item path: str
+\end{itemize}
+
+\end{itemize}
+
+\newpage
+
+\subsubsection{chars\_mapping}
+
+\myspace
+\dirtree{%
+.1 preprocessing.
+.2 batch\_processing.
+.2 chars\_mapping <--------------------------------------------------.
+.3 mappers.
+.4 en\_mapper.py.
+.4 es\_mapper.py.
+.4 gr\_mapper.py.
+.4 nl\_mapper.py.
+.3 map.py.
+.2 data\_structs.
+.2 files.
+.2 to\_tensor.
+.2 constants.py.
+.2 exceptions.py.
+.2 preprocessing.py.
+}
+\myspace
+
+\begin{itemize}
+
+\item{map\_characters [ metoda ] }
+\begin{import}
+from library.preprocessing.chars_mapping.map import map_characters
+\end{import}
+
+Redukuje znaki w podanym stringu na podstawie słownika. 
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item mapper: dict
+	\item text: str
+\end{itemize}
+
+
+\item{wbudowane mappery [ słowniki ] }
+
+\begin{itemize} 
+
+\item angielski
+\begin{import}
+from library.preprocessing.chars_mapping.mappers.en_mapper import charmap
+\end{import}
+
+
+\item hiszpański
+\begin{import}
+from library.preprocessing.chars_mapping.mappers.es_mapper import charmap
+\end{import}
+
+
+\item grecki
+\begin{import}
+from library.preprocessing.chars_mapping.mappers.gr_mapper import charmap
+\end{import}
+
+
+\item holenderski
+\begin{import}
+from library.preprocessing.chars_mapping.mappers.nl_mapper import charmap
+\end{import}
+
+\end{itemize}
+
+\end{itemize}
+
+\newpage
+\subsubsection{batch\_processing}
+
+\myspace
+\dirtree{%
+.1 preprocessing.
+.2 batch\_processing <--------------------------------------------------.
+.3 batch.py.
+.2 chars\_mapping.
+.2 data\_structs.
+.2 files.
+.2 to\_tensor.
+.2 constants.py.
+.2 exceptions.py.
+.2 preprocessing.py.
+}
+\myspace
+
+\begin{itemize}
+
+\item {BatchProcessor [ klasa ] }
+\begin{import}
+from library.preprocessing.batch_processing.batch import BatchProcessor
+\end{import}
+
+\TODO {uzupełnić}
+
+\end{itemize}
