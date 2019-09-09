@@ -1,8 +1,7 @@
 \newpage
 \section{Preprocesing}
 
-\texttt{Preprocessing} to moduł naszej biblioteki odpowiedzialny za przetwarzanie tekstów na format
-nadający się do szkolenia sieci. 
+Preprocesing to proces przygotowywania danych wejściowych tak by nadawały się do szkolenia sieci.
 
 \subsection{Teoria}
 
@@ -55,6 +54,9 @@ charmap = {
     u'v': u'v',
 }
 \end{python}
+
+Tak przygotowany 'mapper' pozwala na zamiane wybranych znaków, które nie są kluczowe w procesie 
+szkolenia sieci na wybrane, inne znaki.
 
 \newpage
 \subsubsection{Zamiana tekstów na tensory}
@@ -124,17 +126,15 @@ $
 $
 \vspace{2mm}
 
-W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorach.
-
-\TODO{opisać budowę tensorów}
+W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorze.
 
 \subsubsection{Rozdzielenie tensorów na paczki}
 Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
-Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie. Po przygotowaniu tensora wypełnionego wektorami
-wysyłamy go do BatchProcessora, którzy dzieli nasze dane na paczki o określonym rozmiarze. 
+Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie.
 
-\vspace{2mm}
-Tak przygotowane zestawy danych możemy ładować do sieci.
+\TODO{opisać budowę tensorów po podziale na batche}
+
+Tak przygotowane zestawy danych możemy wykorzystać do szkolenia sieci.
 
 
 \newpage
