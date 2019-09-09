@@ -4,18 +4,22 @@
 
 \subsection{Definicja problemu}
 Zadanie identyfikacji autorstwa tekstu to ocena czy autor danego zbioru tekstów jest również 
-autorem kwestionowanego tekstu. Inspiracją jest zadanie konkursu PAN 2015. Uczestnicy otrzymali skończony zbiór dokumentów pewnego autora
-oraz jeden dokument, którego autorstwo nie było znane. Ich celem było odpowiedzenie na pytanie, czy dany autor napisał nieznany dokument.
-Najskuteczniejszym rozwiązaniem okazało się użycie wielogłowicowych, rekurencyjnych sieci neuronowych Douglasa Bagnalla.
+autorem kwestionowanego tekstu. Inspiracją jest zadanie konkursu PAN 2015. Uczestnicy otrzymali 
+skończony zbiór dokumentów pewnego autora oraz jeden dokument, którego autorstwo nie było znane.
+Ich celem było odpowiedzenie na pytanie, czy dany autor napisał nieznany dokument.
+Najskuteczniejszym rozwiązaniem okazało się użycie wielogłowicowych, rekurencyjnych sieci 
+neuronowych Douglasa Bagnalla.
 
  
 \subsection{Cel pracy}
 Celem projektu jest stworzenie biblioteki do tworzenia i trenowania sieci dla zadania 
-identyfikacji autorstwa tekstów. Praca ta ma rozwijać pracę inżynierską Marcina Radzio. Osiągnięto pozytywne wyniki dla języka angielskiego, natomiast 
-dla pozostałych z wyżej wymienionych języków są one nadal niezadowalające.
+identyfikacji autorstwa tekstów. Praca ta jest rozwinięciem pracy inżynierskiej o tytule 
+\texttt{Author Identification With Recurrent Neural Networks}. Osiągnięto w niej pozytywne wyniki dla języka 
+angielskiego, natomiast dla pozostałych z wyżej wymienionych języków pozostał obszar do 
+poprawy, w który to wpasowuje się ta praca.
 
 
-\subsection{Motywacja do pracy}
+\subsection{Motywacja}
 Mimo pojawienia się wielu zaawansowanych narzędzi do łatwego tworzenia nawet bardzo skomplikowanych sieci, 
 zapewniających przy tym szybką naukę oraz kontrolę nad jej przebiegiem wciąż brakuje biblioteki, dla zadania identyfikacji autorstwa 
 tekstu.
@@ -36,7 +40,7 @@ Biblioteka powstanie w języku Python przy wykorzystaniu biblioteki PyTorch.
 Stworzenie biblioteki wiąże się z intensywnym treningiem oraz ewaluacją
 generowanych sieci, stąd jednym z czynników ryzyka będzie mała ilość czasu, który będzie potrzebny na wszystkie 
 obliczenia. Będą one wymagać dużej ilości czasu procesora. W tym wypadku wszystkie obliczenia 
-będą prowadzone z wykorzystaniem Prometeusza.
+będą prowadzone z wykorzystaniem superkomutera Prometeusz.
 
 \subsubsection{Wiedza na temat sieci neuronowych}
 Sieci neuronowe są złożoną dziedziną nauki, która wymaga sprawnego posługiwania się formalizmem matematycznym.

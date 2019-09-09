@@ -1,227 +1,8 @@
 \newpage
-\section{Preprocessing}
-
-Preprocessing to moduł naszej biblioteki odpowiedzialny za przetwarzanie tekstów na format
-nadający się do szkolenia sieci. 
-
-\subsection{Teoria}
-
-Proces preprocessingu dzieli się na dwa etapy.
-\begin{enumerate}
-	\item Redukcja alfabetu (mapowanie znaków)
-	\item Zamiana zredukowanych tekstów na tensory
-\end{enumerate}
-
-Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
-\languages 
-
-
-\subsubsection{Redukcja alfabetu}
-Redukcja alfabetu to sprytny sposób zmniejszenia ilości znaków w alfabecie, tak by uczenie sieci było
-efektywniejsze. Możemy definiować nasze własne 'mappery'. Przykład pliku do redukcji alfabetu języka
-angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
-czytelność)
-
-\begin{python}
-charmap = {
-    u' ': u' ',                 # kept Zs (92447)
-    u'e': u'e',
-    u't': u't',
-    u'o': u'o',
-    u'a': u'a',
-    u'n': u'n',
-    u'i': u'i',
-    u's': u's',
-    u'h': u'h',
-    u'r': u'r',
-    u'\n': u'\n',               # kept Cc (13082)
-    u'l': u'l',
-    u'd': u'd',
-    u'u': u'u',
-    u'y': u'y',
-    u'm': u'm',
-    u'g': u'g',
-    u'w': u'w',
-    u',': u',',                 # kept Po (5250)
-    u"'": "'",                  # single quote
-    u'.': u'.',                 # kept Po (4826)
-    u'f': u'f',
-    u'c': u'c',
-    u'b': u'b',
-    u'p': u'p',
-    u'-': u'-',                 # kept Pd (3253)
-    u'k': u'k',
-    u'I': u'\xb9i',             # decomposed caps
-    u'v': u'v',
-}
-\end{python}
-
-\newpage
-\subsubsection{Zamiana tekstów na tensory}
-Aby zamienić teksty na tensory potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
-elementy są znakami. Tak wygląda fragment alfabetu z języka angielskiego:
-\begin{python}
-alphabet = [
-    ' ',
-    'e',
-    't',
-    'o',
-    'a',
-    'n',
-    'i',
-    's',
-    'h',
-    'r',  # 10
-    '\\n',
-    'l',
-    'd',
-    'u',
-    'y',
-    'm',
-    'g',
-    'w',
-    ',',
-    "'",  # 20
-    '.',
-    'f',
-    'c',
-    'b',
-]
-\end{python}
-
-Każdy znak zredukowanego pliku wejściowego zamieniany jest na wektor wykorzystując alfabet, 
-a wektory 'umieszczane' są w tensorze. Zamianę liter na wektory najłatwiej pokazać na przykładzie.
-
-Załóżmy że nasz alfabet wygląda następująco:
-
-\begin{python}
-alphabet = [
-    'a',  #0
-    'b',  #1
-    'c',  #2
-    'd',  #3
- ]
-\end{python} 
-Jeśli zamienimy literę 'a' na wektor otrzymamy: 
- 
-\vspace{2mm}
-$
-\begin{bmatrix} 
-1, & 0, & 0, & 0
-\end{bmatrix} 
-$
-\vspace{2mm}
-
-Ponieważ litera 'a' jest na pozycji 0 w alfabecie liczba 1 pojawiła się na pozycji 0 w wektorze.
-Długość wektora wynosi 4 ponieważ tyle znaków znajduje się w alfabecie. A więc dla litery 
-'c' wektor wyglądałby w następujący sposób:
-
-\vspace{2mm}
-$
-\begin{bmatrix} 
-0, & 0, & 1, & 0
-\end{bmatrix} 
-$
-\vspace{2mm}
-
-W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorach.
-
-TODO
-TU OPISAĆ BUDOWE TENSORÓW
-
-\newpage
-\subsubsection{Rozdzielenie tensorów na paczki}
-Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
-Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie. Po przygotowaniu tensora wypełnionego wektorami
-wysyłamy go do BatchProcessora, którzy dzieli nasze dane na paczki o określonym rozmiarze. 
-
-\vspace{2mm}
-Tak przygotowane zestawy danych możemy ładować do sieci.
-
-\subsection{Pliki wejściowe oraz wyjściowe}
-Aby korzystać z modułu preprocessingu należy zachować określoną konwencję danych wejściowych. 
-
-\subsubsection{Struktura wejścia}
-
-\begin{enumerate}
-	\item Wszystkie pliki tekstowe muszą być w formacie txt,
-	\item folder z danymi wejściwoymi musi mieć konkretną strukture. W folderze każdego autora
-		  powinny znajdować się jego teksty: 
-			\begin{itemize}
-				\item knownX.txt gdzie X jest numerem tekstu, tekstów known.txt może być wiele.
-				\item unknown.txt
-			\end{itemize}
-\end{enumerate}
-
-Przykład: 
-
-\myspace
-\dirtree{%
-.1 data.
-.2 authors.
-.3 EN001.
-.4 known01.txt.
-.4 unknown.txt.
-.3 EN002.
-.4 known01.txt.
-.4 known02.txt.
-.4 known03.txt.
-.4 unknown.txt.
-.3 EN003.
-.4 known01.txt.
-.4 unknown.txt.
-.3 EN004.
-.4 known01.txt.
-.4 known01.txt.
-.4 unknown.txt.
-.3 EN005.
-.4 known01.txt.
-.4 unknown.txt.
-}
-\myspace
-
-\newpage
-\subsubsection{Struktura wyjścia}
-
-Wszystkie pliki wejściowe są zamieniane na tensory i dzielone na batche. Wszystkie pliki knownX.txt 
-danego autora są wcześniej łączone w jeden plik, który póniej staje się tensorem. W ten sposób 
-otrzymujemy następująco wyglądający folder wyjściowy, gdzie każdy plik ENX.pt (gdzie X to numer)
- jest tensorem:
-
-\myspace
-\dirtree{%
-.1 tensors.
-.2 known.
-.3 EN001.
-.4 EN001.pt.
-.3 EN002.
-.4 EN002.pt.
-.3 EN003.
-.4 EN003.pt.
-.3 EN004.
-.4 EN004.pt.
-.3 EN005.
-.4 EN005.pt.
-.2 unknown.
-.3 EN001.
-.4 EN001.pt.
-.3 EN002.
-.4 EN002.pt.
-.3 EN003.
-.4 EN003.pt.
-.3 EN004.
-.4 EN004.pt.
-.3 EN005.
-.4 EN005.pt.
-}
-\myspace
-
-
-\newpage
-\subsection{Jak korzystać?}
+\subsection{Wykorzystanie modułu Preprocessingu}
 Moduł preprocessingu został stworzony z myślą o prostej i intuicyjnej obsłudze. Wykorzystane przy
-tym zostały Pythone'owe słowniki które pozwalają na uproszczenie sygnatury funkcji o parametry, które
-w danym momencie nie są wykorzystywane. Najprościej zasadę działania modułu preprocessingu można 
+tym zostały Pythone'owe słowniki które pozwalają na uproszczenie sygnatury konstruktora obiektu do preprocesingu
+ o parametry, które w danym momencie nie są wykorzystywane. Najprościej zasadę działania modułu preprocessingu można 
 pokazać na przykładach. Folder wejściowy z danymi musi być o identycznej strukturze jak ten na 
 konkursie PAN.
 Załóżmy że nasz katalog projektu wygląda w następujący sposób:
@@ -258,7 +39,7 @@ Załóżmy że nasz katalog projektu wygląda w następujący sposób:
 
 Kiedy posiadamy już odpowiednią strukture katalogów z plikami wejściowymi możemy stworzyć 
 odpowiedni obiekt i przystąpić do preprocessingu. Zakładamy że wszystkie linijki przedstawianego 
-tutaj kodu znajdują się w widocznym na diagramie struktury folderów pliku main.py.
+tutaj kodu znajdują się w widocznym na diagramie struktury folderów pliku \texttt{main.py}.
 
 \begin{python}
 from library.preprocessing.preprocessing import Preprocessing
@@ -268,7 +49,7 @@ Preprocessing()
 \end{python}
 
 Parametry konstruktora modułu preprocessingu będą określać w jaki sposób ma funkcjonować. 
-oto wszystkie możliwe parametry:
+Oto wszystkie możliwe parametry:
 \begin{itemize}
 	\item language
 	\item data\_path
@@ -287,7 +68,7 @@ Parametry możemy używać w dowolnej kombinacji, jednak nie wszystkie z nich b�
 parametry będą ignorowane.
 
 \subsubsection{language}
-Parametr language jest parametrem obowiązkowym i pozwala nam określić język tekstów wejściowych.
+Parametr \texttt{language} jest parametrem obowiązkowym i pozwala nam określić język tekstów wejściowych.
 \begin{python}
 from library.preprocessing.preprocessing import Preprocessing
 
@@ -306,7 +87,7 @@ Domyślnie dostępnymi językami w bibliotece są:
 \languages 
 
 \subsubsection{data\_path}
-Parametr data\_path pozwala nam zdefiniować ścieżkę do danych wejściowych. W naszym przypadku
+Parametr \texttt{data\_path} pozwala nam zdefiniować ścieżkę do danych wejściowych. W naszym przypadku
 będzie ona wyglądała w następujący sposób:
 \begin{python}
 from library.preprocessing.preprocessing import Preprocessing
@@ -322,8 +103,8 @@ Jeśli jej nie zdefiniujemy, powinniśmy otrzymać następujący błąd:
 You have to specify data source | EXAMPLE: (data_path=/some/path)
 \end{consolerror}
 
-Przy tak zdefiniowanych parametrach wszystkie operacje zostaną wykonane w ramie, a output w postaci
-tensorów zostanie zapisany w katalogu pliku, który wykonujemy. Katalog z tensorami nosi nazwę tensors.
+Przy tak zdefiniowanych parametrach wszystkie operacje zostaną wykonane w pamięcio RAM, a wyście w postaci
+tensorów zostanie zapisany w katalogu pliku, który wykonujemy. Katalog z tensorami nosi nazwę \texttt{tensors}.
 Struktura katalogów po wykonaniu będzie wyglądać następująco:
 
 \myspace
@@ -339,7 +120,7 @@ Struktura katalogów po wykonaniu będzie wyglądać następująco:
 \newpage
 \subsubsection{tensors\_path}
 Jeśli chcemy zdefiniować ścieżkę zapisu tensorów możemy tego dokonać używając parametru 
-tensors\_path. Dla przykładu zdefiniuję ją w następujący sposób. 
+\texttt{tensors\_path}. Dla przykładu zdefiniuję ją w następujący sposób. 
 \begin{python}
 from library.preprocessing.preprocessing import Preprocessing
 
@@ -349,7 +130,7 @@ Preprocessing(language="en",
                    
 \end{python}
 
-Po wykonaniu pliku main.py otrzymamy następującą strukture katalogów:
+Po wykonaniu pliku \texttt{main.py} otrzymamy następującą strukture katalogów:
 \myspace
 \dirtree{%
 .1 src.
@@ -365,7 +146,7 @@ Wszystkie operacje wykonywane są w tym przypadku przy użyciu pamięci ram.
 
 \subsubsection{mapped\_save\_path}
 Mamy równiez możliwość zapisania plików o zredukowanym alfabecie jeśli chcielibyśmy je przejrzeć lub
-wykorzystać w przyszłości ponownie. Do tego służy opisywany właśnie parametr mapped\_save\_path.
+wykorzystać w przyszłości ponownie. Do tego służy opisywany właśnie parametr \texttt{mapped\_save\_path}.
 UWAGA! Za każdym razem kiedy korzystamy z tego argumentu wszystkie pliki spod wskazanej ścieżki są 
 usuwane.
 
@@ -378,9 +159,9 @@ Preprocessing(language="en",
               mapped_save_path="../data/reduced_authors/")
                    
 \end{python}
-Stuktura zredukowanego katalogu z tekstami jest identyczna jak struktura katalogu wejściowego. 
+Struktura katalogu ze zredukowanymi tekstami jest identyczna jak struktura katalogu wejściowego. 
 
-Po wykonaniu pliku main.py otrzymamy następującą strukture katalogów:
+Po wykonaniu pliku \texttt{main.py} otrzymamy następującą strukture katalogów:
 
 \myspace
 \dirtree{%
@@ -393,12 +174,12 @@ Po wykonaniu pliku main.py otrzymamy następującą strukture katalogów:
 }
 \myspace
 
-Wszystkie operacje wykonywane są w tym przypadku przy użyciu pamięci ram.
+Wszystkie operacje wykonywane są w tym przypadku przy użyciu pamięci RAM.
 
 \newpage
 \subsubsection{mapped\_source\_path}
-Jeśli chcielibyśmy skorzystać ze zredukowanych wcześniej tekstów, które mamy zapisane na dysku 
-możemy w tym celu użyć parametru mapped\_source\_path.
+Jeśli chcielibyśmy skorzystać ze zredukowanych wcześniej tekstów, które mamy zapisane na dysku, 
+możemy w tym celu użyć parametru \texttt{mapped\_source\_path}.
 
 Załóżmy przy tym następujące drzewo katalogów:
 \myspace
@@ -419,7 +200,7 @@ Preprocessing(language="en",
                    
 \end{python}
 
-Po wykonaniu pliku main.py wyjściowe drzewo katalogów powinno wyglądać w następujący sposób:
+Po wykonaniu pliku \texttt{main.py} wyjściowe drzewo katalogów powinno wyglądać w następujący sposób:
 \myspace
 \dirtree{%
 .1 src.
@@ -430,12 +211,12 @@ Po wykonaniu pliku main.py wyjściowe drzewo katalogów powinno wyglądać w nas
 }
 \myspace
 
-Pliki zreduykowane zostały w tym przypadku odczytane z dysku, a nie z pamięci ram jak miało to miejsce
+Pliki zredukowane zostały w tym przypadku odczytane z dysku, a nie z pamięci RAM jak miało to miejsce
 we wcześniejszych przykładach. 
 \newline
 
-Możemy jednak jeszcze bardziej mieszać parametrami. Załóżmy że nie chcemy aby pliki redukowane były
-do pamięci ram, a następnie w ten sposób przekazywane do tworzenia tensorów. Chcemy aby pliki najpierw
+Możemy jednak tworzyć jeszcze bardziej złożone kombinacje perametrów. Załóżmy że nie chcemy aby pliki redukowane były
+do pamięci RAM, a następnie w ten sposób przekazywane do tworzenia tensorów. Chcemy aby pliki najpierw
 zredukowały się na dysk, a następnie z dysku zostały zamienione na tensory. 
 Załóżmy wejściowe drzewo katalogów:
 
@@ -460,9 +241,9 @@ Preprocessing(language="en",
 
 \end{python}
 
-Parametr data\_path ma wyższy priorytet niż parametr mapped\_source\_path, a więc biblioteka najpierw 
-pobierze niezredukowanych autorów z katalogu authors, następnie zredukuje ich do katalogu reduced\_authors,
-następnie wykorzystując katalog reduced\_authors stworzy tensory do katalogu tensors.
+Parametr \texttt{data\_path} ma wyższy priorytet niż parametr \texttt{mapped\_source\_path}, a więc biblioteka najpierw 
+pobierze niezredukowanych autorów z katalogu authors, następnie zredukuje ich do katalogu \texttt{reduced\_authors},
+następnie wykorzystując katalog \texttt{reduced\_authors} stworzy tensory do katalogu tensors.
 
 Wyjściowe drzewo katalogów będzie wyglądać następująco:
 
@@ -479,13 +260,13 @@ Wyjściowe drzewo katalogów będzie wyglądać następująco:
 \myspace
 
 \subsubsection{only\_reduce}
-Możemy także skorzystać tylko z redukcji, bez tworzenia tensorów. Służy do tego argument only\_reduce.
-Aby nastąpiła jedynie redukcja alfabetu należy ustawić go na True jak w kodzie poniżej:
+Możemy także skorzystać tylko z redukcji, bez tworzenia tensorów. Służy do tego argument \texttt{only\_reduce}.
+Aby nastąpiła jedynie redukcja alfabetu należy ustawić go na \texttt{True} jak w kodzie poniżej:
 
 \begin{python}
 from library.preprocessing.preprocessing import Preprocessing
 
-Preprocessing(language='en',
+Preprocessing(language="en",
               data_path="../data/authors/",
               mapped_save_path = "../data/reduced_authors/",
               reduce_only=True) 
@@ -494,17 +275,13 @@ Preprocessing(language='en',
 
 \subsubsection{batch\_size}
 Możemy również zdefiniować rozmiar paczek na jakie podzielony zostanie nasz tensor. Dokonać tego możemy poprzez
-parametr batch\_size. Domyślna wartość tego parametru to 20.
+parametr \texttt{batch\_size}. Domyślna wartość tego parametru to 20.
 
 \begin{python}
-language = 'en'
-data_path = "../data/authors/"
-tensors_path = "../data/tensors/"
-mapped_save_path = "../data/reduced_authors/"
-Preprocessing(language=language,
-              data_path=data_path,
-              tensors_path=tensors_path,
-              mapped_save_path=mapped_save_path,
+Preprocessing(language="en",
+              data_path="../data/authors/",
+              tensors_path="../data/tensors/",
+              mapped_save_path="../data/reduced_authors/",
               batch_size=30)
 
 \end{python}

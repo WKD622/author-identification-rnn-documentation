@@ -1,12 +1,12 @@
 \newpage
-\section{Preprocessing}
+\section{Preprocesing}
 
-Preprocessing to moduł naszej biblioteki odpowiedzialny za przetwarzanie tekstów na format
+\texttt{Preprocessing} to moduł naszej biblioteki odpowiedzialny za przetwarzanie tekstów na format
 nadający się do szkolenia sieci. 
 
 \subsection{Teoria}
 
-Proces preprocessingu dzieli się na dwa etapy.
+Proces preprocesingu dzieli się na dwa etapy.
 \begin{enumerate}
 	\item Redukcja alfabetu (mapowanie znaków)
 	\item Zamiana zredukowanych tekstów na tensory
@@ -17,8 +17,8 @@ Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
 
 
 \subsubsection{Redukcja alfabetu}
-Redukcja alfabetu to sprytny sposób zmniejszenia ilości znaków w alfabecie, tak by uczenie sieci było
-efektywniejsze. Możemy definiować nasze własne 'mappery'. Przykład pliku do redukcji alfabetu języka
+Redukcja alfabetu to sprytny sposób zmniejszenia liczby znaków w alfabecie, tak by uczenie sieci było
+efektywniejsze. Możemy definiować nasze własne 'mappery'. Przykładowy fragment pliku do redukcji alfabetu języka
 angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
 czytelność)
 
@@ -148,7 +148,7 @@ Aby korzystać z modułu preprocessingu należy zachować określoną konwencję
 	\item folder z danymi wejściwoymi musi mieć konkretną strukture. W folderze każdego autora
 		  powinny znajdować się jego teksty: 
 			\begin{itemize}
-				\item knownX.txt gdzie X jest numerem tekstu, tekstów known.txt może być wiele.
+				\item known$X$.txt gdzie $X$ jest numerem tekstu, tekstów known.txt może być wiele.
 				\item unknown.txt
 			\end{itemize}
 \end{enumerate}
@@ -184,8 +184,8 @@ Przykład:
 \subsubsection{Struktura wyjścia}
 
 Wszystkie pliki wejściowe są zamieniane na tensory i dzielone na batche. Wszystkie pliki knownX.txt 
-danego autora są wcześniej łączone w jeden plik, który póniej staje się tensorem. W ten sposób 
-otrzymujemy następująco wyglądający folder wyjściowy, gdzie każdy plik ENX.pt (gdzie X to numer)
+danego autora są wcześniej łączone w jeden plik, który później staje się tensorem. W ten sposób 
+otrzymujemy następująco wyglądający folder wyjściowy, gdzie każdy plik EN$X$.pt (gdzie $X$ to numer)
  jest tensorem:
 
 \myspace
