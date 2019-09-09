@@ -269,16 +269,32 @@ from library.preprocessing.preprocessing import Preprocessing
 Preprocessing(language='en',
               data_path="../data/authors/",
               mapped_save_path = "../data/reduced_authors/",
-              reduce_only=True)
+              reduce_only=True) 
 
 \end{python}
 
 \subsubsection{batch\_size}
-\TODO{opisac - parametr od ustalenia wielkości batcha} 
+Możemy również zdefiniować rozmiar paczek na jakie podzielony zostanie nasz tensor. Dokonać tego możemy poprzez
+parametr batch\_size. Domyślna wartość tego parametru to 20.
+
+\begin{python}
+language = 'en'
+data_path = "../data/authors/"
+tensors_path = "../data/tensors/"
+mapped_save_path = "../data/reduced_authors/"
+Preprocessing(language=language,
+              data_path=data_path,
+              tensors_path=tensors_path,
+              mapped_save_path=mapped_save_path,
+              batch_size=30)
+
+\end{python}
+
+W takim wypadku dane zostaną podzielone na paczki o rozmiarze 30.
 
 \subsubsection{log\_lvl}
 
-\TODO{opisac - możliwość logowania na jednym z 3 poziomów}
+\TODO{opisac - możliwość logowania na jednym z 3 poziomów} 
 
 \subsubsection{check\_files}
 

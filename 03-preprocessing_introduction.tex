@@ -128,6 +128,15 @@ W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umie
 
 \TODO{opisać budowę tensorów}
 
+\subsubsection{Rozdzielenie tensorów na paczki}
+Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
+Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie. Po przygotowaniu tensora wypełnionego wektorami
+wysyłamy go do BatchProcessora, którzy dzieli nasze dane na paczki o określonym rozmiarze. 
+
+\vspace{2mm}
+Tak przygotowane zestawy danych możemy ładować do sieci.
+
+
 \newpage
 \subsection{Pliki wejściowe oraz wyjściowe}
 Aby korzystać z modułu preprocessingu należy zachować określoną konwencję danych wejściowych. 
