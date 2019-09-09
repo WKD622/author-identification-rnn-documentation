@@ -1,4 +1,223 @@
 \newpage
+\section{Preprocessing}
+
+Preprocessing to moduł naszej biblioteki odpowiedzialny za przetwarzanie tekstów na format
+nadający się do szkolenia sieci. 
+
+\subsection{Teoria}
+
+Proces preprocessingu dzieli się na dwa etapy.
+\begin{enumerate}
+	\item Redukcja alfabetu (mapowanie znaków)
+	\item Zamiana zredukowanych tekstów na tensory
+\end{enumerate}
+
+Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
+\languages 
+
+
+\subsubsection{Redukcja alfabetu}
+Redukcja alfabetu to sprytny sposób zmniejszenia ilości znaków w alfabecie, tak by uczenie sieci było
+efektywniejsze. Możemy definiować nasze własne 'mappery'. Przykład pliku do redukcji alfabetu języka
+angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
+czytelność)
+
+\begin{python}
+charmap = {
+    u' ': u' ',                 # kept Zs (92447)
+    u'e': u'e',
+    u't': u't',
+    u'o': u'o',
+    u'a': u'a',
+    u'n': u'n',
+    u'i': u'i',
+    u's': u's',
+    u'h': u'h',
+    u'r': u'r',
+    u'\n': u'\n',               # kept Cc (13082)
+    u'l': u'l',
+    u'd': u'd',
+    u'u': u'u',
+    u'y': u'y',
+    u'm': u'm',
+    u'g': u'g',
+    u'w': u'w',
+    u',': u',',                 # kept Po (5250)
+    u"'": "'",                  # single quote
+    u'.': u'.',                 # kept Po (4826)
+    u'f': u'f',
+    u'c': u'c',
+    u'b': u'b',
+    u'p': u'p',
+    u'-': u'-',                 # kept Pd (3253)
+    u'k': u'k',
+    u'I': u'\xb9i',             # decomposed caps
+    u'v': u'v',
+}
+\end{python}
+
+\newpage
+\subsubsection{Zamiana tekstów na tensory}
+Aby zamienić teksty na tensory potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
+elementy są znakami. Tak wygląda fragment alfabetu z języka angielskiego:
+\begin{python}
+alphabet = [
+    ' ',
+    'e',
+    't',
+    'o',
+    'a',
+    'n',
+    'i',
+    's',
+    'h',
+    'r',  # 10
+    '\\n',
+    'l',
+    'd',
+    'u',
+    'y',
+    'm',
+    'g',
+    'w',
+    ',',
+    "'",  # 20
+    '.',
+    'f',
+    'c',
+    'b',
+]
+\end{python}
+
+Każdy znak zredukowanego pliku wejściowego zamieniany jest na wektor wykorzystując alfabet, 
+a wektory 'umieszczane' są w tensorze. Zamianę liter na wektory najłatwiej pokazać na przykładzie.
+
+Załóżmy że nasz alfabet wygląda następująco:
+
+\begin{python}
+alphabet = [
+    'a',  #0
+    'b',  #1
+    'c',  #2
+    'd',  #3
+ ]
+\end{python} 
+Jeśli zamienimy literę 'a' na wektor otrzymamy: 
+ 
+\vspace{2mm}
+$
+\begin{bmatrix} 
+1, & 0, & 0, & 0
+\end{bmatrix} 
+$
+\vspace{2mm}
+
+Ponieważ litera 'a' jest na pozycji 0 w alfabecie liczba 1 pojawiła się na pozycji 0 w wektorze.
+Długość wektora wynosi 4 ponieważ tyle znaków znajduje się w alfabecie. A więc dla litery 
+'c' wektor wyglądałby w następujący sposób:
+
+\vspace{2mm}
+$
+\begin{bmatrix} 
+0, & 0, & 1, & 0
+\end{bmatrix} 
+$
+\vspace{2mm}
+
+W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorach.
+
+TODO
+TU OPISAĆ BUDOWE TENSORÓW
+
+\newpage
+\subsubsection{Rozdzielenie tensorów na paczki}
+Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
+Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie. Po przygotowaniu tensora wypełnionego wektorami
+wysyłamy go do BatchProcessora, którzy dzieli nasze dane na paczki o określonym rozmiarze. 
+
+\vspace{2mm}
+Tak przygotowane zestawy danych możemy ładować do sieci.
+
+\subsection{Pliki wejściowe oraz wyjściowe}
+Aby korzystać z modułu preprocessingu należy zachować określoną konwencję danych wejściowych. 
+
+\subsubsection{Struktura wejścia}
+
+\begin{enumerate}
+	\item Wszystkie pliki tekstowe muszą być w formacie txt,
+	\item folder z danymi wejściwoymi musi mieć konkretną strukture. W folderze każdego autora
+		  powinny znajdować się jego teksty: 
+			\begin{itemize}
+				\item knownX.txt gdzie X jest numerem tekstu, tekstów known.txt może być wiele.
+				\item unknown.txt
+			\end{itemize}
+\end{enumerate}
+
+Przykład: 
+
+\myspace
+\dirtree{%
+.1 data.
+.2 authors.
+.3 EN001.
+.4 known01.txt.
+.4 unknown.txt.
+.3 EN002.
+.4 known01.txt.
+.4 known02.txt.
+.4 known03.txt.
+.4 unknown.txt.
+.3 EN003.
+.4 known01.txt.
+.4 unknown.txt.
+.3 EN004.
+.4 known01.txt.
+.4 known01.txt.
+.4 unknown.txt.
+.3 EN005.
+.4 known01.txt.
+.4 unknown.txt.
+}
+\myspace
+
+\newpage
+\subsubsection{Struktura wyjścia}
+
+Wszystkie pliki wejściowe są zamieniane na tensory i dzielone na batche. Wszystkie pliki knownX.txt 
+danego autora są wcześniej łączone w jeden plik, który póniej staje się tensorem. W ten sposób 
+otrzymujemy następująco wyglądający folder wyjściowy, gdzie każdy plik ENX.pt (gdzie X to numer)
+ jest tensorem:
+
+\myspace
+\dirtree{%
+.1 tensors.
+.2 known.
+.3 EN001.
+.4 EN001.pt.
+.3 EN002.
+.4 EN002.pt.
+.3 EN003.
+.4 EN003.pt.
+.3 EN004.
+.4 EN004.pt.
+.3 EN005.
+.4 EN005.pt.
+.2 unknown.
+.3 EN001.
+.4 EN001.pt.
+.3 EN002.
+.4 EN002.pt.
+.3 EN003.
+.4 EN003.pt.
+.3 EN004.
+.4 EN004.pt.
+.3 EN005.
+.4 EN005.pt.
+}
+\myspace
+
+
+\newpage
 \subsection{Jak korzystać?}
 Moduł preprocessingu został stworzony z myślą o prostej i intuicyjnej obsłudze. Wykorzystane przy
 tym zostały Pythone'owe słowniki które pozwalają na uproszczenie sygnatury funkcji o parametry, które
@@ -290,8 +509,8 @@ Preprocessing(language=language,
 
 \end{python}
 
-W takim wypadku dane zostaną podzielone na paczki o rozmiarze 30.
 
+W takim wypadku dane zostaną podzielone na paczki o rozmiarze 30.
 \subsubsection{log\_lvl}
 
 \TODO{opisac - możliwość logowania na jednym z 3 poziomów} 
