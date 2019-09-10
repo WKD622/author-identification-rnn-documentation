@@ -5,10 +5,11 @@ Preprocesing to proces przygotowywania danych wejściowych tak by nadawały się
 
 \subsection{Teoria}
 
-Proces preprocesingu dzieli się na dwa etapy.
+Proces preprocesingu dzieli się na trzy etapy.
 \begin{enumerate}
 	\item Redukcja alfabetu (mapowanie znaków)
 	\item Zamiana zredukowanych tekstów na tensory
+	\item Podział tensorów na batche
 \end{enumerate}
 
 Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
@@ -92,7 +93,8 @@ alphabet = [
 \end{python}
 
 Każdy znak zredukowanego pliku wejściowego zamieniany jest na wektor wykorzystując alfabet, 
-a wektory 'umieszczane' są w tensorze. Zamianę liter na wektory najłatwiej pokazać na przykładzie.
+a wektory 'umieszczane' są w tensorze. Wykorzystywane przy tym jest \texttt{one hot encoding}.
+Zamianę liter na wektory najłatwiej pokazać na przykładzie.
 
 Załóżmy że nasz alfabet wygląda następująco:
 
@@ -127,6 +129,8 @@ $
 \vspace{2mm}
 
 W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorze.
+Tensor jest tablicą jednowymiarową, której elementami są wyżej wspomniane wektory,
+umieszczane tam zgodnie z kolejnością występowania liter w tekście. Następnie następuje podział na batche.
 
 \subsubsection{Rozdzielenie tensorów na paczki}
 Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).

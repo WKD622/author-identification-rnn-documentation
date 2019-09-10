@@ -1,64 +1,6 @@
-\section{Wstęp}
- 
-\subsection{Autorzy}
-\begin{itemize}
-\item Jan Liberacki
-\item Jakub Ziarko
-\end{itemize}
+\maketitle
+
+\section{Wstęp}  
 
 \subsection{Wprowadzenie}
 \TODO{uzupełnić}
-
-\newpage
-\subsection{Jak czytać dokumentację?}
-
-
-\begin{itemize}
-\item Każdy kod w Pythonie formatowany jest w następujący sposób:
-
-\begin{python}
-# Get three test score
-round1 = int(raw_input("Enter score for round 1: "))
-
-round2 = int(raw_input("Enter score for round 2: "))
-
-round3 = int(raw_input("Enter score for round 3: "))
-   
-# Calculate the average
-average = (round1 + round2 + round3) / 3
-
-# Print out the test score
-print "the average score is: ", average 
-
-\end{python}
-
-\item Tak oznaczane są samotnie funkcjonujące importy lub ścieżki do plików:
-\begin{import}
-from library.preprocessing.preprocessing import Preprocessing
-\end{import}
-
-\item Kod w bashu lub wyjście z terminala formatowany jest w następujący sposób:
-
-\begin{bash}
-#!/bin/bash
-echo "Hello World"
-\end{bash}
-
-\item Natomiast tak formatowany jest błąd pokazujący się w terminalu:
-\begin{consolerror}
-You have to specify language | EXAMPLE: (language="en")
-\end{consolerror}
-
-
-
-\item W ten sposób przedstawiana jest struktura katalogów:
-\myspace
-\dirtree{%
-.1 src.
-.2 main.py.
-.1 data.
-.2 file1.txt.
-.2 file2.txt.
-}
-
-\end{itemize}
