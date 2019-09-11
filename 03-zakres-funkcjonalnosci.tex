@@ -1,0 +1,49 @@
+%##noBuild
+\newpage
+\section{Zakres funkcjonalności}
+
+\subsection{Charakterystyka użytkowników systemu}
+Użytkownik biblioteki wykorzystuje dostarczone narzędzia do tworzenia i trenowania sieci 
+dla zadania weryfikacji autorstwa tekstu. W celu dokładniejszego dopasowania do potrzeb, 
+użytkownik dobiera optymalne dla siebie parametry dostarczone przez bibliotekę.
+
+ 
+\subsection{Wymagania funkcjonalne}
+Finalna wersja biblioteki powinna spełniać poniższe wymagania funkcjonalne:
+\begin{itemize}
+ 	\item Dla modułu preprocessingu:
+	    \begin{itemize}
+		    \item Dostarczenie mechanizmu redukcji alfabetu.
+		    \item Przygotowanie danych poprzez zamianę tekstów na tensory oraz możliwość 
+				zapisania tak przygotowanych danych w celu ponownego użycia bez potrzeby
+				powtórzonego preprocessingu. 
+	    \end{itemize}
+ 	\item Dla modułu trenowania sieci:
+		\begin{itemize}
+			\item Możliwość doboru parametrów modelu sieci takich jak:
+				\begin{itemize}
+			    	\item Rozmiar warstwy ukrytej,
+			    	\item Głębokość sieci,
+			    	\item Maksymalna liczba różnych autorów tekstów w modelu,
+		    	\end{itemize}
+			\item Parametryzowania trenowania sieci dobierając:
+				\begin{itemize}
+			    	\item Rozmiar mini-batchów danych,
+			    	\item Współczynnik uczenia,
+			    	\item Tempo zmniejszania się współczynnika uczenia po przetworzeniu pojedynczej epoki,
+			    	\item Maksymalną liczbę epok,
+			    	\item Długość sekwencji znaków, na której uczony będzie model,
+		    	\end{itemize}
+		  \end{itemize}
+\end{itemize}
+Dodatkowo biblioteka dostarczać będzie moduł logujący aktualny progres uczenia 
+oraz finalne wyniki a także ich dokładność.	
+
+\newpage
+\subsection{Wymagania niefunkcjonalne}
+\begin{itemize}
+ 	\item Korzystanie z jezyka Python wraz z biblioteka PyTorch.
+ 	\item Wykorzystanie systemu kontroli wersji Git do przechowywania kodu oraz dokumentacji.
+ 	\item Użycie Korpusu tekstów opublikowanego na potrzeby PAN 2015 do trenowania i ewaluacji sieci.
+ 	\item Trenowanie sieci wykorzystując grant na zasoby obliczeniowe ACK Cyfronet AGH.
+\end{itemize}
