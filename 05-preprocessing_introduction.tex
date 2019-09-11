@@ -136,8 +136,59 @@ umieszczane tam zgodnie z kolejnością występowania liter w tekście. Następn
 Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
 Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie.
 
-\TODO{opisać budowę tensorów po podziale na batche}
+Załóżmy że mamy następujące wejście: ''abcdbdcaaadcb''
+Zamieniamy litery na wektory wedle wcześniejszego opisu, gdzie:
+\vspace{3mm}
+\newline 
+a =
+$
+\begin{bmatrix} 
+1, & 0, & 0, & 0
+\end{bmatrix} 
+$
+\vspace{3mm}
+\newline
+b = 
+$
+\begin{bmatrix} 
+0, & 1, & 0, & 0
+\end{bmatrix} 
+$
+\vspace{3mm}
+\newline 
+c =
+$
+\begin{bmatrix} 
+0, & 0, & 1, & 0
+\end{bmatrix} 
+$
+\vspace{3mm}
+\newline 
+d =
+$
+\begin{bmatrix} 
+0, & 0, & 0, & 1
+\end{bmatrix} 
+$
+\vspace{3mm}
+\newline 
 
+Wektory umieszczamy w tensorze. Tensor dzielimy na batche wielkości 3. Tensor po podziale na batche 
+wyglądałby następująco:
+\vspace{3mm}
+\newline
+$
+\begin{bmatrix}
+a & b & c\\
+d & b & d\\
+c & a & a\\
+a & d & c
+\end{bmatrix}
+$
+\vspace{3mm}
+\newline 
+
+Ostatnie b zostaje odrzucone, ponieważ nie tworzy pełnego wiersza.
 Tak przygotowane zestawy danych możemy wykorzystać do szkolenia sieci.
 
 
