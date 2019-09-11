@@ -404,7 +404,25 @@ from library.preprocessing.chars_mapping.mappers.nl_mapper import charmap
 \item {BatchProcessor [ klasa ] }
 \begin{import}
 from library.preprocessing.batch_processing.batch import BatchProcessor
+
+batch_processor = BatchProcessor(20)
 \end{import}
+
+Wywołanie konstruktora umożliwia ustawienie innego rozmiaru batchów niż domyślny.
+Następnie na tak stworzony procesor umożliwia nam wykonanie dwóch metod:
+
+\begin{enumerate}
+	\item {set\_tensor [ tensor ]} - 
+	Wywołanie tej metody umożliwia nam ustawienie tensora, który ma zostać podzielony na batche.
+	Następnie korzystając z metody process przygotowuje paczki danych.
+	
+	\item { get\_batches } - 
+	Powyższa metoda zwraca gotowe paczki danych, wcześniej pamiętać należy o załadowaniu odpowiedniego 
+	tensora poprzez metodę set\_tensor.
+\end{enumerate}
+
+
+
 
 \TODO {uzupełnić}
 
