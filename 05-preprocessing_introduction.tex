@@ -129,68 +129,117 @@ $
 \vspace{2mm}
 
 W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorze.
-Tensor jest tablicą jednowymiarową, której elementami są wyżej wspomniane wektory,
-umieszczane tam zgodnie z kolejnością występowania liter w tekście. Następnie następuje podział na batche.
+Tensor na tym etapie jest tablicą jednowymiarową, w którym znajdują się teksty tylko jednego autora, 
+a elementami są wyżej wspomniane wektory umieszczane tam zgodnie z kolejnością ich występowania w tekście. 
+Następnie następuje podział na batche.
 
 \subsubsection{Rozdzielenie tensorów na paczki}
 Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
-Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie.
+Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie. Poniżej przedstawiamy batchowanie
+na przykładzie, dla którego przyjmiemy następujące założenia: 
+\begin{itemize}
+	\item rozmiar batcha równy 3
+	\item liczba timestepów równa 3
+	\item liczba autorów równa 4
+	\item alfabet $\{a,b,c,d\}$
+\end{itemize}
 
-Załóżmy że mamy następujące wejście: ''abcdbdcaaadcb''
+Każdy z autorów ma przyporządkowane nastpujące teksty:
+\begin{itemize}
+	\item autor 1: ``abacd''
+	\item autor 2: ``dbaa''
+	\item autor 3: ``cadb''
+	\item autor 4: ``cbbcc''
+\end{itemize}
+
 Zamieniamy litery na wektory wedle wcześniejszego opisu, gdzie:
 \vspace{3mm}
 \newline 
-a =
 $
+a =
 \begin{bmatrix} 
 1, & 0, & 0, & 0
 \end{bmatrix} 
 $
 \vspace{3mm}
 \newline
-b = 
 $
+b = 
 \begin{bmatrix} 
 0, & 1, & 0, & 0
 \end{bmatrix} 
 $
 \vspace{3mm}
 \newline 
-c =
 $
+c =
 \begin{bmatrix} 
 0, & 0, & 1, & 0
 \end{bmatrix} 
 $
 \vspace{3mm}
 \newline 
-d =
 $
+d =
 \begin{bmatrix} 
 0, & 0, & 0, & 1
 \end{bmatrix} 
 $
-\vspace{3mm}
+\vspace{1mm}
 \newline 
 
-Wektory umieszczamy w tensorze. Tensor dzielimy na batche wielkości 3. Tensor po podziale na batche 
-wyglądałby następująco:
+Wektory umieszczamy w tensorach. Dla każdego autora przewidziany jest osobny tensor. 
+Przykładowo dla autora 3 wyglądałby on następująco:
 \vspace{3mm}
+
+$
+\begin{bmatrix} \begin{bmatrix} 0, & 0, & 1, & 0\end{bmatrix},  & \begin{bmatrix} 1, & 0, & 0, & 0\end{bmatrix}, & \begin{bmatrix} 0, & 0, & 0, & 1\end{bmatrix}, & \begin{bmatrix} 0, & 1, & 0, & 0\end{bmatrix} \end{bmatrix}
+$
+
+Następnie wszystkie te tensory dzielimy na batche.
+Dla tego przykładu każdy z batchy będzie tensorem o wymiarach 3 x 4 x 3 (rozmiar batcha $x$ rozmiar 
+alfabetu $x$ ilość timestepów).
+Do każdej takiej paczki będziemy losować autorów oraz ich kolejność. Załóżmy, że do pierwszego batcha
+wylosowaliśmy autora 4, 1 oraz 3. Oznacza to, że w pierwszym timestepie w tensorze zawarta będzie 
+patrząc od góry: pierwsza litera autora 4, pierwsza litera autora 1 oraz pierwsza litera autora 3.
+To ustawienie autorów w tensorach będzie już zawsze zachowane dla wszystkich timestepów w tym batchu. 
+A więc dla drugiego timestepu będzie to: druga litera autora 4, druga litera autora 1 oraz druga 
+litera autora 3. Dla trzeciego timestepu analogicznie. 
 \newline
-$
-\begin{bmatrix}
-a & b & c\\
-d & b & d\\
-c & a & a\\
-a & d & c
-\end{bmatrix}
-$
 \vspace{3mm}
-\newline 
+\begin{tikzpicture}[every node/.style={anchor=north east,fill=white,minimum width=1.4cm,minimum height=7mm}]
+\matrix (mA) [draw,matrix of math nodes]
+	{
+	\begin{bmatrix} 0 & 1 & 0 & 0 \end{bmatrix} \\
+	\begin{bmatrix} 1 & 0 & 0 & 0 \end{bmatrix} \\
+	\begin{bmatrix} 0 & 0 & 0 & 1 \end{bmatrix} \\
+	};
 
-Ostatnie b zostaje odrzucone, ponieważ nie tworzy pełnego wiersza.
-Tak przygotowane zestawy danych możemy wykorzystać do szkolenia sieci.
+\matrix (mB) [draw,matrix of math nodes] at ($(mA.south west)+(1.5,0.7)$)
+	{
+	\begin{bmatrix} 0 & 1 & 0 & 0 \end{bmatrix} \\
+	\begin{bmatrix} 0 & 1 & 0 & 0 \end{bmatrix} \\
+	\begin{bmatrix} 1 & 0 & 0 & 0 \end{bmatrix} \\
+	};
 
+\matrix (mC) [draw,matrix of math nodes] at ($(mB.south west)+(1.5,0.7)$)
+	{
+	\begin{bmatrix} 0 & 0 & 1 & 0 \end{bmatrix} \\
+	\begin{bmatrix} 1 & 0 & 0 & 0 \end{bmatrix} \\
+	\begin{bmatrix} 0 & 0 & 1 & 0 \end{bmatrix} \\
+	};
+
+\draw[dashed](mA.north east)--(mC.north east);
+\draw[dashed](mA.north west)--(mC.north west);
+\draw[dashed](mA.south east)--(mC.south east);
+\end{tikzpicture}
+
+Może się zdarzyć sytuacja, że do batcha wylosowano dwa razy tego samego autora. Na przykład wylosowano
+autorów 1 oraz 3, w kolejności: autor pierwszy, następnie znowu autor pierwszy, na końcu autor trzeci.
+Dla identycznych założeń jak we wcześniejszym przykładzie w pierwszym timestepie wyglądałoby to
+ następująco: pierwsza litera autora 1, następnie znowu pierwsza litera autora 1,
+na końcu pierwsza litera autora 3. W drugim timestepie byłoby to:
+druga litera autora 1, druga litera autora 1 oraz druga litera autora 3, itd.
 
 \newpage
 \subsection{Pliki wejściowe oraz wyjściowe}
