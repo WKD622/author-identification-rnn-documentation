@@ -196,50 +196,34 @@ $
 \begin{bmatrix} \begin{bmatrix} 0, & 0, & 1, & 0\end{bmatrix},  & \begin{bmatrix} 1, & 0, & 0, & 0\end{bmatrix}, & \begin{bmatrix} 0, & 0, & 0, & 1\end{bmatrix}, & \begin{bmatrix} 0, & 1, & 0, & 0\end{bmatrix} \end{bmatrix}
 $
 
-Następnie wszystkie te tensory dzielimy na batche.
+
+
+\begin{wrapfigure}{r}{0.6\textwidth}
+\vspace{-4mm}
+\includegraphics[width=\linewidth]{./images/batch.png}
+\caption{Wizualizacja pierwszego batcha}
+\label{fig:test2}
+\vspace{-4mm}
+\end{wrapfigure}
+ 
+Następnie ze wszystkich tych tensorów tworzymy batche.
 Dla tego przykładu każdy z batchy będzie tensorem o wymiarach 3 x 4 x 3 (rozmiar batcha $x$ rozmiar 
 alfabetu $x$ ilość timestepów).
 Do każdej takiej paczki będziemy losować autorów oraz ich kolejność. Załóżmy, że do pierwszego batcha
 wylosowaliśmy autora 4, 1 oraz 3. Oznacza to, że w pierwszym timestepie w tensorze zawarta będzie 
-patrząc od góry: pierwsza litera autora 4, pierwsza litera autora 1 oraz pierwsza litera autora 3.
+patrząc ``od góry'': pierwsza litera autora 4, pierwsza litera autora 1 oraz pierwsza litera autora 3.
 To ustawienie autorów w tensorach będzie już zawsze zachowane dla wszystkich timestepów w tym batchu. 
 A więc dla drugiego timestepu będzie to: druga litera autora 4, druga litera autora 1 oraz druga 
 litera autora 3. Dla trzeciego timestepu analogicznie. 
-\newline
-\vspace{3mm}
-\begin{tikzpicture}[every node/.style={anchor=north east,fill=white,minimum width=1.4cm,minimum height=7mm}]
-\matrix (mA) [draw,matrix of math nodes]
-	{
-	\begin{bmatrix} 0 & 1 & 0 & 0 \end{bmatrix} \\
-	\begin{bmatrix} 1 & 0 & 0 & 0 \end{bmatrix} \\
-	\begin{bmatrix} 0 & 0 & 0 & 1 \end{bmatrix} \\
-	};
-
-\matrix (mB) [draw,matrix of math nodes] at ($(mA.south west)+(1.5,0.7)$)
-	{
-	\begin{bmatrix} 0 & 1 & 0 & 0 \end{bmatrix} \\
-	\begin{bmatrix} 0 & 1 & 0 & 0 \end{bmatrix} \\
-	\begin{bmatrix} 1 & 0 & 0 & 0 \end{bmatrix} \\
-	};
-
-\matrix (mC) [draw,matrix of math nodes] at ($(mB.south west)+(1.5,0.7)$)
-	{
-	\begin{bmatrix} 0 & 0 & 1 & 0 \end{bmatrix} \\
-	\begin{bmatrix} 1 & 0 & 0 & 0 \end{bmatrix} \\
-	\begin{bmatrix} 0 & 0 & 1 & 0 \end{bmatrix} \\
-	};
-
-\draw[dashed](mA.north east)--(mC.north east);
-\draw[dashed](mA.north west)--(mC.north west);
-\draw[dashed](mA.south east)--(mC.south east);
-\end{tikzpicture}
 
 Może się zdarzyć sytuacja, że do batcha wylosowano dwa razy tego samego autora. Na przykład wylosowano
 autorów 1 oraz 3, w kolejności: autor pierwszy, następnie znowu autor pierwszy, na końcu autor trzeci.
-Dla identycznych założeń jak we wcześniejszym przykładzie w pierwszym timestepie wyglądałoby to
- następująco: pierwsza litera autora 1, następnie znowu pierwsza litera autora 1,
+Dla identycznych założeń jak we wcześniejszym przykładzie w pierwszym batchu w pierwszym timestepie wyglądałoby to
+ następująco: pierwsza litera autora 1, następnie pierwsza litera autora 1,
 na końcu pierwsza litera autora 3. W drugim timestepie byłoby to:
 druga litera autora 1, druga litera autora 1 oraz druga litera autora 3, itd.
+
+Ilość batchy jest zależna od długości tekstów. 
 
 \newpage
 \subsection{Pliki wejściowe oraz wyjściowe}
