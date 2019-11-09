@@ -1,5 +1,84 @@
 \newpage
 \subsection{Wykorzystanie modułu Preprocessingu}
+
+Aby korzystać z modułu preprocessingu należy zachować określoną konwencję danych wejściowych. 
+
+\subsubsection{Struktura wejścia}
+
+\begin{enumerate}
+	\item Wszystkie pliki tekstowe muszą być w formacie txt,
+	\item folder z danymi wejściwoymi musi mieć konkretną strukture. W folderze każdego autora
+		  powinny znajdować się jego teksty: 
+			\begin{itemize}
+				\item known$X$.txt gdzie $X$ jest numerem tekstu, tekstów known.txt może być wiele.
+				\item unknown.txt
+			\end{itemize}
+\end{enumerate}
+
+Przykład: 
+
+\myspace
+\dirtree{%
+.1 data.
+.2 authors.
+.3 EN001.
+.4 known01.txt.
+.4 unknown.txt.
+.3 EN002.
+.4 known01.txt.
+.4 known02.txt.
+.4 known03.txt.
+.4 unknown.txt.
+.3 EN003.
+.4 known01.txt.
+.4 unknown.txt.
+.3 EN004.
+.4 known01.txt.
+.4 known01.txt.
+.4 unknown.txt.
+.3 EN005.
+.4 known01.txt.
+.4 unknown.txt.
+}
+\myspace
+
+\newpage
+\subsubsection{Struktura wyjścia}
+
+Wszystkie pliki wejściowe są zamieniane na tensory i dzielone na batche. Wszystkie pliki knownX.txt 
+danego autora są wcześniej łączone w jeden plik, który później staje się tensorem. W ten sposób 
+otrzymujemy następująco wyglądający folder wyjściowy, gdzie każdy plik EN$X$.pt (gdzie $X$ to numer)
+ jest tensorem:
+
+\myspace
+\dirtree{%
+.1 tensors.
+.2 known.
+.3 EN001.
+.4 EN001.pt.
+.3 EN002.
+.4 EN002.pt.
+.3 EN003.
+.4 EN003.pt.
+.3 EN004.
+.4 EN004.pt.
+.3 EN005.
+.4 EN005.pt.
+.2 unknown.
+.3 EN001.
+.4 EN001.pt.
+.3 EN002.
+.4 EN002.pt.
+.3 EN003.
+.4 EN003.pt.
+.3 EN004.
+.4 EN004.pt.
+.3 EN005.
+.4 EN005.pt.
+}
+\myspace
+
+
 Moduł preprocessingu został stworzony z myślą o prostej i intuicyjnej obsłudze. Wykorzystane przy
 tym zostały Pythone'owe słowniki które pozwalają na uproszczenie sygnatury konstruktora obiektu do preprocesingu
  o parametry, które w danym momencie nie są wykorzystywane. Najprościej zasadę działania modułu preprocessingu można 
@@ -101,8 +180,8 @@ Jeśli jej nie zdefiniujemy, powinniśmy otrzymać następujący błąd:
 You have to specify data source | EXAMPLE: (data_path=/some/path)
 \end{consolerror}
 
-Przy tak zdefiniowanych parametrach wszystkie operacje zostaną wykonane w pamięcio RAM, a wyście w postaci
-tensorów zostanie zapisany w katalogu pliku, który wykonujemy. Katalog z tensorami nosi nazwę \texttt{tensors}.
+Przy tak zdefiniowanych parametrach wszystkie operacje zostaną wykonane w pamięci RAM, a wyście w postaci
+tensorów zostanie zapisane w katalogu pliku, który wykonujemy. Katalog z tensorami nosi nazwę \texttt{tensors}.
 Struktura katalogów po wykonaniu będzie wyglądać następująco:
 
 \myspace

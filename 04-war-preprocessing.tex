@@ -1,0 +1,131 @@
+\newpage
+\section{Wybrane aspekty realizacji}
+
+\subsection{Preprocessing}
+Preprocesing to proces przygotowywania danych wejściowych tak by nadawały się do szkolenia sieci.
+
+Proces preprocesingu dzieli się na trzy etapy.
+\begin{enumerate}
+	\item Redukcja alfabetu (mapowanie znaków)
+	\item Zamiana zredukowanych tekstów na tensory
+\end{enumerate}
+
+Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
+\languages 
+
+
+\subsubsection{Redukcja alfabetu}
+Redukcja alfabetu to sprytny sposób zmniejszenia liczby znaków w alfabecie, tak by uczenie sieci było
+efektywniejsze. Przykładowy fragment pliku do redukcji alfabetu języka
+angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
+czytelność)
+
+\begin{python}
+charmap = {
+    u' ': u' ',                 # kept Zs (92447)
+    u'e': u'e',
+    u't': u't',
+    u'o': u'o',
+    u'a': u'a',
+    u'n': u'n',
+    u'i': u'i',
+    u's': u's',
+    u'h': u'h',
+    u'r': u'r',
+    u'\n': u'\n',               # kept Cc (13082)
+    u'l': u'l',
+    u'd': u'd',
+    u'u': u'u',
+    u'y': u'y',
+    u'm': u'm',
+    u'g': u'g',
+    u'w': u'w',
+    u',': u',',                 # kept Po (5250)
+    u"'": "'",                  # single quote
+    u'.': u'.',                 # kept Po (4826)
+    u'f': u'f',
+    u'c': u'c',
+    u'b': u'b',
+    u'p': u'p',
+    u'-': u'-',                 # kept Pd (3253)
+    u'k': u'k',
+    u'I': u'\xb9i',             # decomposed caps
+    u'v': u'v',
+}
+\end{python}
+
+Tak przygotowany 'mapper' pozwala na zamiane wybranych znaków, które nie są kluczowe w procesie 
+szkolenia sieci na wybrane, inne znaki. Jeśli znak nie jest ujęty w maperze, nie jest zamieniany. 
+
+\subsubsection{Zamiana tekstów na tensory}
+Aby zamienić teksty na tensory potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
+elementy są znakami. Tak wygląda fragment alfabetu z języka angielskiego:
+\begin{python}
+alphabet = [
+    ' ',
+    'e',
+    't',
+    'o',
+    'a',
+    'n',
+    'i',
+    's',
+    'h',
+    'r',  # 10
+    '\\n',
+    'l',
+    'd',
+    'u',
+    'y',
+    'm',
+    'g',
+    'w',
+    ',',
+    "'",  # 20
+    '.',
+    'f',
+    'c',
+    'b',
+]
+\end{python}
+
+Każdy znak zredukowanego pliku wejściowego zamieniany jest na wektor wykorzystując alfabet, 
+a wektory 'umieszczane' są w tensorze. Wykorzystywane przy tym jest \texttt{one hot encoding}.
+Zamianę liter na wektory najłatwiej pokazać na przykładzie.
+
+Załóżmy że nasz alfabet wygląda następująco:
+
+\begin{python}
+alphabet = [
+    'a',  #0
+    'b',  #1
+    'c',  #2
+    'd',  #3
+ ]
+\end{python} 
+Jeśli zamienimy literę 'a' na wektor otrzymamy: 
+ 
+\vspace{2mm}
+$
+\begin{bmatrix} 
+1, & 0, & 0, & 0
+\end{bmatrix} 
+$
+\vspace{2mm}
+
+Ponieważ litera 'a' jest na pozycji 0 w alfabecie liczba 1 pojawiła się na pozycji 0 w wektorze.
+Długość wektora wynosi 4 ponieważ tyle znaków znajduje się w alfabecie. A więc dla litery 
+'c' wektor wyglądałby w następujący sposób:
+
+\vspace{2mm}
+$
+\begin{bmatrix} 
+0, & 0, & 1, & 0
+\end{bmatrix} 
+$
+\vspace{2mm}
+
+W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorze.
+Tensor na tym etapie jest tablicą jednowymiarową, w którym znajdują się teksty tylko jednego autora, 
+a elementami są wyżej wspomniane wektory umieszczane tam zgodnie z kolejnością ich występowania w tekście. 
+Następnie następuje podział na batche.

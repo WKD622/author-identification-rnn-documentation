@@ -1,0 +1,64 @@
+\subsection{Wielogłowicowa głęboka rekurencyjna sieć neuronowa}
+Ideą rekurencyjnych sieci neuronowych (w skrócie RNN) jest wykorzystanie dancyh w postaci sekwencji. 
+Standardowa sieć neuronowa przyjmuje za każdym razem stałą ilość danych wejściowych i na ich podstawie generuje wynik. 
+Rekurencyjna sieć neuronowa natomiast, nie konsumuje wszystkich danych wejściwych na raz. Zamiast tego,
+dane pobierane są w krokach - timestepach. W każdym kroku RNN wykonuje obliczenia i zwraca wyjście. 
+To wyjście jest w następnym kroku łączone z jego wejściem by zwrócić kolejne dane wyjściowe. 
+Ten proces jest powtarzany dopóki model nie jest wyuczony. Możliwość korzystania z 
+informacji kontekstowych z poprzednich danych wejściowych jest szczególną cechą sieci typu RNN. Dlatego
+są one używane do problemów gdzie kluczem do rozwiązania jest sekwencyjność danych, na przykład
+przy analizie tekstów ale także sygnałów audio czy ruchów obiektów.
+
+\begin{figure}[!ht]
+\includegraphics[width=\linewidth]{./images/rnn.png}
+\caption{schemat sieci typu RNN}
+\label{fig:test3}
+\end{figure}
+Jak widać na załączonej grafice, obliczenia dla każdego timestepu są wykonywne z nowymi danymi wejściowymi
+ale biorac pod uwagę kontekst z poprzedniego timestepu. 
+\begin{wrapfigure}{r}{0.17\textwidth}
+\vspace{-4mm}
+\includegraphics[width=\linewidth]{./images/many-to-many.png}
+\caption{sieć typu many to many}
+\label{fig:test3}
+\vspace{-4mm}
+\end{wrapfigure}
+Rnn cell jest dokładnie tą samą przez cały proces
+uczenia się. Neurony z połączeniami rekurencyjnymi działają jak pamięć - potencjalnie są w stanie modelować relacje
+występujące z dowolnie długim odstępem czasowym. 
+Rozwinięta w czasie sieć tworzy głęboką sieć neuronową 
+ze wszystkimi tego konsekwencjami jak zanikający lub znacznie rzadziej wybuchający gradient. 
+Ważną cechą tych sieci jest również fakt, że obliczenia dla długich sekwencji są bardzo kosztowne.
+Sieci typu RNN generują bardzo dużo danych wyjściowych w procesie uczenia i to od nas zależy jak je 
+wykorzystamy. Dla naszego problemu korzystamy z sieci typu ``many to many'' co oznacza, że korzystamy
+ze danych wyjściowych z każdego timestepu.
+
+\newpage
+Rekurencyjną sieć neurnonową formalnie opisuje się następująco:
+\begin{align*}
+  &h^{(t)} = f_h(W_hx^{(t)} + U_hh^{(t−1)} + b_h), \\
+  &y^{(t)} = f_y(W_yh^{(t)} + b_y),
+\end{align*}
+gdzie:
+
+$S_y$ - rozmiar alfabetu wejściowego (wyjściowego), \newline
+$S_h$ - liczba neuronów w warstwie ukrytej, \newline
+$f_h$ - funkcja aktywacji $tanh$, \newline
+$f_y$ - funkcja aktywacji $logSoftMax$, \newline
+$h^{(t)}$ - wektor wynikowy warstwy ukrytej w czasie $t - h \in R^{S_h}$ , \newline
+$y^{(t)}$ - wektor wynikowy sieci w czasie $t - y \in R^{S_y}$ , \newline
+$x^{(t)}$ - wektor wejś́ciowy w czasie $t - x \in R^{S_y}$ ,\newline
+$W_h$ - macierz wag warstwy wejściowej na ukrytą - $W_h \in R^{{S_h}\times{S_y}}$ , \newline
+$W_y$ - macierz wag warstwy ukrytej na wyjściową – $W_y \in R^{{S_y} \times S^h}$ , \newline
+$U_h$ - macierz wag warstwy ukrytej na ukrytą  – $U_h \in R^{{S_h} \times S_h}$ ,\newline
+$b_h$ - bias warstwy ukrytej – $b_h \in R^{S_h}$ , \newline
+$b_y$ - bias warstwy wyjściowej – $b_y \in R^{S_y}$ \newline
+
+
+\subsection{LSTM} 
+LSTM jest używany aby zniewelować wpływ zaniku gradientu, dzięki temu pozwala mapować odległe w czasie relacje.
+
+%\begin{gather*}
+%\mathrlap{h^{(t)} = f_h(W_hx^{(t)} + U_hh^{(t−1)} + b_h),} 
+%\phantom{y^{(t)} = f_y(W_yh^{(t)} + b_y),}
+%\end{gather*}
