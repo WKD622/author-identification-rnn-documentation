@@ -13,7 +13,7 @@ Większość iteracji opierała się na następującym schemacie:
   \item stworzenie dokumentacji na temat tej funkcjonalności.
 \end{enumerate}
 Każda iteracja, ze względu na odmienny charakter trwała inną ilość czasu. Najdłuższa okazała się
-pierwsza i ostatnia iteracja. W skład pierwszej wchodziło zapoznanie się z tematyką sieci typu RNN oraz
+trzecia i ostatnia iteracja. W skład trzeciej wchodziło zapoznanie się z tematyką sieci typu RNN oraz
 jej implemetacja, w skład ostatniej uczenie sieci oraz szukanie najlepszych parametrów sieci do problemu 
 identyfikacji autorstwa tekstu.
 
@@ -87,22 +87,30 @@ tworzenie kodu o dobrej jakości:
 \end{itemize}
 
 \subsection{Postępy}
-\TODO{uzupełnić} 
+W ramach tworzenia pracy inżynierskiej wyodrębniliśmy następujące iteracje:
+\begin{enumerate}
+  \item Zaimplementowanie modułu preprocessingu.
+  \item Zaimplementowanie modułu batchowania.
+  \item Zaimplementowanie modułu sieci.
+  \item Zaimplementowanie modułu treningu sieci.
+  \item Stworzenie skryptów ułatwiających szkolenie sieci na Prometheusu oraz analizę wyników.
+  \item Zbieranie wyników, ich analiza oraz poprawianie parametrów sieci.
+\end{enumerate}
 
 \subsection{Wykonane prace}
-W trakcie realizacji pracy inzżynierskiej wykonaliśmy następujące prace:
+W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
 \begin{itemize}
   \item stworzenie modułu preprocessingu - moduł który w wygodny sposób pozwala nam na przygotowanie tekstów 
   do uczenia maszynowego. 
   \item stworzenie modułu batchowania - moduł, który bazując na danych przygotowanych przez moduł 
   preprocessingu dzieli je na batche i dostarcza sieci. Jest on sparametryzowany dzięki czemu mogliśmy
-  w łatwy sposób wpływać na parametry batchy i efektywnie szukać tych najlepszych. 
+  w łatwy sposób wpływać na parametry batchy i efektywnie szukać tych najlepszych dla wyników sieci. 
   \item moduł sieci - moduł, a właściwie skrypt który pozwala na zdefiniowanie rekurencyjnej sieci neuronowej
   do problemu idetyfikacji autorstwa tekstu. Współpracuje bezpośrednio z modułem batchowania.
-  \item moduł do przetwarzania wyjścia z sieci - odpowiedzialny za zbieranie informacji podczas procesu uczenia,
+  \item stworzenie modułu do przetwarzania wyjścia z sieci - odpowiedzialny za zbieranie informacji podczas procesu uczenia,
   następnie wybieranie częsci z nich i umieszczanie ich w uporządkowanej formie w pliku csv oraz 
   jako standardowe wyjście. Był on równiez odpowiedzialny za zapisywanie kolejnych wytrenowanych modeli. 
-  \item skrypty do pracy na Prometheushu:
+  \item stworzenie skryptów do pracy na Prometheushu:
   \begin{itemize}
     \item skrypt do wysyłania przetworzonych tekstów na Prometheusha 
     \item skrypt do kopiowania danych po procesie uczenia maszynowego z Prometheusha na komputer osobisty
@@ -118,4 +126,29 @@ W trakcie realizacji pracy inzżynierskiej wykonaliśmy następujące prace:
 
 
 \subsection{Problemy napotkane w trakcie realizacji projektu}
-\TODO{uzupełnić} 
+Podczas tworzenia biblioteki napotkaliśmy na wiele problemów. Zdecydowaliśmy się je opisać z podziałem na 
+najbardziej problematyczne iteracje:
+
+\begin{enumerate}
+  \item Dużym wyzwaniem podczas pierwszej iteracji okazało
+  się zaprojektowanie modułu preprocessingu. Moduł ten okazał się być bardzo obszerny w porównaniu do
+  pozostałych części biblioteki. W związku z tym należało przedsiewziąć odpowiednie decyzje projektowe 
+  już na samym początku, a kod dokładnie zaplanować.
+  
+  \item Druga iteracja, podczas której tworzony był moduł preprocessingu okazała się trwać przez praktycznie
+  cały okres pisania biblioteki. Ten moduł bowiem, biorąc za wejście przetworzone teksty w postaci tensorów,
+  przetwarza ich ``formę'' na taką, która nadaje się do efektywnego szkolenia sieci. Podczas pisania pracy 
+  nasze koncepcje na temat tego procesu wielokrotnie się zmieniały w związku z tym zmieniał się również
+  kod modułu batchowania. Początkowe, błędne decyzje projektowe sprawiły, że wielkorotnie musiał być 
+  napisany od początku. Te doświadczenia były dla nas bardzo cenne i nauczyły nas, żeby poświęcać
+  więcej czasu na planować kodu przed właściwym jego pisaniem i stosować się do wzorców projektowych.
+
+  \item Trzecia iteracja, a więc zaimplementowanie modułu sieci okazało się wysoce problematyczne ze względu na obszerność 
+  wiedzy potrzebnej do tego aby poruszać się w tematyce rekurencyjnych sieci neuronowych, ale także
+  na późniejszy problem przełożenia tej wiedzy na kod w bibliotece PyTorch.
+  
+  \item Piąta iteracja wymagała od nas dużej ilości eksperymentów w postaci szkolenia sieci z wykorzystaniem wybranych
+  parametrów, a następnie na podstawie otrzymanych rezultatów ponowne dobieranie parametrów aby rezultaty poprawić.
+  Najbardziej problematyczny okazał się czas uczenia, pomimo wykorzystania grantu wyszkolenie sieci trwało
+  wiele godzin.
+\end{enumerate}

@@ -47,18 +47,9 @@ $f_h$ - funkcja aktywacji $tanh$, \newline
 $f_y$ - funkcja aktywacji $logSoftMax$, \newline
 $h^{(t)}$ - wektor wynikowy warstwy ukrytej w czasie $t - h \in R^{S_h}$ , \newline
 $y^{(t)}$ - wektor wynikowy sieci w czasie $t - y \in R^{S_y}$ , \newline
-$x^{(t)}$ - wektor wejś́ciowy w czasie $t - x \in R^{S_y}$ ,\newline
+$x^{(t)}$ - wektor wejściowy w czasie $t - x \in R^{S_y}$ ,\newline
 $W_h$ - macierz wag warstwy wejściowej na ukrytą - $W_h \in R^{{S_h}\times{S_y}}$ , \newline
 $W_y$ - macierz wag warstwy ukrytej na wyjściową – $W_y \in R^{{S_y} \times S^h}$ , \newline
 $U_h$ - macierz wag warstwy ukrytej na ukrytą  – $U_h \in R^{{S_h} \times S_h}$ ,\newline
 $b_h$ - bias warstwy ukrytej – $b_h \in R^{S_h}$ , \newline
 $b_y$ - bias warstwy wyjściowej – $b_y \in R^{S_y}$ \newline
-
-
-\subsection{LSTM} 
-LSTM jest używany aby zniewelować wpływ zaniku gradientu, dzięki temu pozwala mapować odległe w czasie relacje.
-
-%\begin{gather*}
-%\mathrlap{h^{(t)} = f_h(W_hx^{(t)} + U_hh^{(t−1)} + b_h),} 
-%\phantom{y^{(t)} = f_y(W_yh^{(t)} + b_y),}
-%\end{gather*}
