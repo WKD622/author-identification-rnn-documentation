@@ -61,8 +61,6 @@ chcielibyśmy wyróżnić te najważniejsze:
   \item Git - rozporoszony system kontroli wersji. Zdecydowaliśmy się na niego ponieważ ze względu na 
   dwuosobowy zespół zależało nam na możliwości współbieżnej pracy nad kodem i dokumentacją.
   \item GitHub - służył jako repozytorium do przechowywania dokumentacji oraz kodu.
-  \item Python - język programowania. Wybrany ze względu na wysokopoziomowość oraz dostępność biblioteki Pytorch.
-  \item PyTorch - otwartoźródłowa biblioteka programistyczna języka Python do uczenia maszynowego.
   \item Facebook - główne narzędzie komunikacji pomiędzy członkami zespołu.
   \item Latex - oprogramowanie do zautomatyzowanego składu tekstu, a także związany z nim język 
   znaczników, służący do formatowania dokumentów tekstowych i tekstowo-graficznych. 
@@ -106,11 +104,13 @@ W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
   \item stworzenie modułu batchowania - moduł, który bazując na danych przygotowanych przez moduł 
   preprocessingu dzieli je na batche i dostarcza sieci. Jest on sparametryzowany dzięki czemu mogliśmy
   w łatwy sposób wpływać na parametry batchy i efektywnie szukać tych najlepszych dla wyników sieci. 
-  \item moduł sieci - moduł, a właściwie skrypt który pozwala na zdefiniowanie rekurencyjnej sieci neuronowej
-  do problemu idetyfikacji autorstwa tekstu. Współpracuje bezpośrednio z modułem batchowania.
+  \item stworzenie modułu sieci - moduł, który tworzy rekurencyjną sieć neuronową za pomocą
+  biblioteki PyTorch.
+  \item stworzenie modułu treningu - moduł, który pozwala na wytrenowanie rekurencyjnej sieci neuronowej. 
+  Współpracuje bezpośrednio z modułem batchowania.
   \item stworzenie modułu do przetwarzania wyjścia z sieci - odpowiedzialny za zbieranie informacji podczas procesu uczenia,
-  następnie wybieranie częsci z nich i umieszczanie ich w uporządkowanej formie w pliku csv oraz 
-  jako standardowe wyjście. Był on równiez odpowiedzialny za zapisywanie kolejnych wytrenowanych modeli. 
+  następnie wybierania część z nich i umieszcza je w uporządkowanej formie w pliku csv oraz 
+  jako standardowe wyjście. Jest on również odpowiedzialny za zapisywanie kolejnych wytrenowanych modeli. 
   \item stworzenie skryptów do pracy na Prometheushu:
   \begin{itemize}
     \item skrypt do wysyłania przetworzonych tekstów na Prometheusha 
@@ -123,6 +123,8 @@ W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
    	jako kolejne zadania.
   \end{itemize}
   \item wykonanie niniejszej dokumentacji
+  \item zrozumienie działania rekurencyjnych sieci neuronowych oraz dobranie właściwych parametrów sieci 
+  w celu uzyskania lepszych wyników w zakresie indentyfikacji autorstwa tekstu w języku angielskim.
 \end{itemize}
 
 

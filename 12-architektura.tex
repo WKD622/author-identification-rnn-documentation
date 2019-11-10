@@ -1,8 +1,43 @@
 \newpage
 \section{Architektura}
-
+Nasza biblioteka składa się z wielu współpracujących ze sobą modułów:
 \begin{figure}[!ht]
 \includegraphics[width=\linewidth]{./images/modules.png}
 \caption{schemat modułów biblioteki}
 \label{fig:test3}
 \end{figure}
+
+\subsection{Moduł preprocessingu}
+Największy i całkowicie niezależny od pozostałych części biblioteki moduł, którego zadaniem jest 
+przetworzenie tekstów z formy tekstowej na formę binarną (tensory), która jest następnie wykorzystywana
+do szkolenia sieci. Na tym etapie następuje również redukcja znaków w tekście, tak by wyeliminować
+informacje, które nie są potrzebne z perspektywy szkolenia sieci. Teksty po przetworzeniu są 
+zapisywane na dysku i mogą być wykorzystywane wielokrotnie. 
+Wadą tego modułu jest długość przetwarzania tekstów, która trwa zwykle kilkanaście sekund oraz spora ilość
+przestrzeni dyskowej i RAMu które są wykorzystywana w wyniku tego procesu.
+
+\subsection{Moduł batchowania}
+Moduł, który korzystając z dostarczonych danych binarnych dzieli je na batche i dostarcza modułowi treningowemu.
+Pozwala na specyfikowanie parametrów tych danych, jak na przykład rozmiar batcha.
+Decyduje również o tym kiedy kończy się proces uczenia oraz o losowości ustawienia autorów w batchu. 
+Jego kod jest ściśle powiązany z kodem modułu treningu sieci ale z racji na obszerność zdecydowaliśmy 
+się go wyodrębnić jako osobny moduł. 
+Jest on niezależny od modułu preprocessingu, jednak format danych wyjściowych z modułu preprocessingu 
+jest zbieżny z formatem danych wejściwych wymaganym przez modułu batchowania. 
+
+\subsection{Moduł sieci} 
+Moduł sieci jest małym modułem odpowiedzialnym za deklarację sieci neuronowej w PyTorchu.
+ 
+\subsection{Moduł treningu sieci}
+Ten moduł spina moduł sieci, oraz moduł batchowania przprowadzając za ich pomocą proces treningu sieci.
+To w kodzie tego modułu następuje interacja przez epoki, przekazywanie danych z modułu batchowania 
+do sieci, wykorzystanie funkcji kosztu, propagacja wsteczna i wszystkie inne składniki potrzebne do 
+szkolenia sieci. 
+
+\subsection{OutputManager}
+Ten moduł odpowiedzialny jest za odbieranie danych z modułu treningu sieci, a następnie tworzenie z nich
+wygodnego do analizy wyjścia. Wyjście to jest realizowane w formie danych ze szkolenia wyświetlanych 
+w konsoli oraz zapisywanych do pliku csv, w formie parametrów sieci, które są zapisywane
+w pliku txt oraz w formie kolejnych modeli sieci, które są zapisywane na dysku. 
+Logi w konsoli pozowiły nam na wygodne kontrolowanie procesu szkolenia, dane w plikach csv potrzebne 
+nam były do rysowania wykresów.
