@@ -144,7 +144,7 @@ Oto wszystkie możliwe parametry:
 Parametry możemy używać w dowolnej kombinacji, jednak nie wszystkie z nich będą miały sens. Zbędne
 parametry będą ignorowane.
 
-\subsubsection{language}
+\subsubsection{parametr language}
 Parametr \texttt{language} jest parametrem obowiązkowym i pozwala nam określić język tekstów wejściowych.
 \begin{python}
 from library.preprocessing.preprocessing import Preprocessing
@@ -163,7 +163,7 @@ Domyślnie dostępnymi językami w bibliotece są:
 
 \languages 
 
-\subsubsection{data\_path}
+\subsubsection{parametr data\_path}
 Parametr \texttt{data\_path} pozwala nam zdefiniować ścieżkę do danych wejściowych. W naszym przypadku
 będzie ona wyglądała w następujący sposób:
 \begin{python}
@@ -195,7 +195,7 @@ Struktura katalogów po wykonaniu będzie wyglądać następująco:
 \myspace
 
 \newpage
-\subsubsection{tensors\_path}
+\subsubsection{parametr tensors\_path}
 Jeśli chcemy zdefiniować ścieżkę zapisu tensorów możemy tego dokonać używając parametru 
 \texttt{tensors\_path}. Dla przykładu zdefiniuję ją w następujący sposób. 
 \begin{python}
@@ -221,7 +221,7 @@ Po wykonaniu pliku \texttt{main.py} otrzymamy następującą strukture katalogó
 Wszystkie operacje wykonywane są w tym przypadku przy użyciu pamięci ram.
 
 
-\subsubsection{mapped\_save\_path}
+\subsubsection{parametr mapped\_save\_path}
 Mamy równiez możliwość zapisania plików o zredukowanym alfabecie jeśli chcielibyśmy je przejrzeć lub
 wykorzystać w przyszłości ponownie. Do tego służy opisywany właśnie parametr \texttt{mapped\_save\_path}.
 UWAGA! Za każdym razem kiedy korzystamy z tego argumentu wszystkie pliki spod wskazanej ścieżki są 
@@ -254,7 +254,7 @@ Po wykonaniu pliku \texttt{main.py} otrzymamy następującą strukture katalogó
 Wszystkie operacje wykonywane są w tym przypadku przy użyciu pamięci RAM.
 
 \newpage
-\subsubsection{mapped\_source\_path}
+\subsubsection{parametr mapped\_source\_path}
 Jeśli chcielibyśmy skorzystać ze zredukowanych wcześniej tekstów, które mamy zapisane na dysku, 
 możemy w tym celu użyć parametru \texttt{mapped\_source\_path}.
 
@@ -336,7 +336,7 @@ Wyjściowe drzewo katalogów będzie wyglądać następująco:
 
 \myspace
 
-\subsubsection{only\_reduce}
+\subsubsection{parametr only\_reduce}
 Możemy także skorzystać tylko z redukcji, bez tworzenia tensorów. Służy do tego argument \texttt{only\_reduce}.
 Aby nastąpiła jedynie redukcja alfabetu należy ustawić go na \texttt{True} jak w kodzie poniżej:
 
@@ -350,7 +350,7 @@ Preprocessing(language="en",
 
 \end{python}
 
-\subsubsection{batch\_size}
+\subsubsection{parametr batch\_size}
 Możemy również zdefiniować rozmiar paczek na jakie podzielony zostanie nasz tensor. Dokonać tego możemy poprzez
 parametr \texttt{batch\_size}. Domyślna wartość tego parametru to 20.
 
@@ -365,21 +365,21 @@ Preprocessing(language="en",
 
 
 W takim wypadku dane zostaną podzielone na paczki o rozmiarze 30.
-\subsubsection{log\_lvl}
+\subsubsection{parametr log\_lvl}
 
 \TODO{opisac - możliwość logowania na jednym z 3 poziomów} 
 
-\subsubsection{check\_files}
+\subsubsection{parametr check\_files}
 
 \TODO{opisac - przechodzenie po katalogach i sprawdzanie nazw plików (czy np. użytkownik nie zapomniał
 zmienić nazwy jakiegoś pliku)}
 
-\subsubsection{mapper}
+\subsubsection{parametr mapper}
 
 \TODO{opisac - własny mapper do redukcji alfabetu}
 
 
-\subsubsection{alphabet}
+\subsubsection{parametr alphabet} 
 
 \TODO{opisac - własny alfabet}
 
