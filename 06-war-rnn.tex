@@ -34,24 +34,21 @@ wykorzystamy. Dla naszego problemu korzystamy z sieci typu ``many to many'' co o
 ze danych wyjściowych z każdego timestepu.
 
 \newpage
-Rekurencyjną sieć neurnonową formalnie opisuje się następująco:
-\begin{align*}
-  &h^{(t)} = f_h(W_hx^{(t)} + U_hh^{(t−1)} + b_h), \\
-  &y^{(t)} = f_y(W_yh^{(t)} + b_y),
-\end{align*}
-gdzie:
+Rekurencyjną sieć neuronową definiujemy jako:
 
-$S_y$ - rozmiar alfabetu wejściowego (wyjściowego), \newline
-$S_h$ - liczba neuronów w warstwie ukrytej, \newline
+\begin{align}
+  &h_t = f_h(x_t, h_{t-1}) = \o_h(W^Th_{t-1} + U^Tx_t) \\ 
+  &y_t = f_o(h_t) = \o_o(V^Th_t)
+\end{align}
+
+gdzie: \newline
 $f_h$ - funkcja aktywacji $tanh$, \newline
-$f_y$ - funkcja aktywacji $logSoftMax$, \newline
-$h^{(t)}$ - wektor wynikowy warstwy ukrytej w czasie $t - h \in R^{S_h}$ , \newline
-$y^{(t)}$ - wektor wynikowy sieci w czasie $t - y \in R^{S_y}$ , \newline
-$x^{(t)}$ - wektor wejściowy w czasie $t - x \in R^{S_y}$ ,\newline
-$W_h$ - macierz wag warstwy wejściowej na ukrytą - $W_h \in R^{{S_h}\times{S_y}}$ , \newline
-$W_y$ - macierz wag warstwy ukrytej na wyjściową – $W_y \in R^{{S_y} \times S^h}$ , \newline
-$U_h$ - macierz wag warstwy ukrytej na ukrytą  – $U_h \in R^{{S_h} \times S_h}$ ,\newline
-$b_h$ - bias warstwy ukrytej – $b_h \in R^{S_h}$ , \newline
-$b_y$ - bias warstwy wyjściowej – $b_y \in R^{S_y}$ \newline
+$f_o$ - funkcja aktywacji $logSoftMax$, \newline
+$h_t$ - warstwa ukryta w czasie $t$, \newline
+$y_t$ - wektor wynikowy w czasie $t$ , \newline
+$x_t$ - wektor wejściowy w czasie $t$, \newline
+$W, U, V$ - macierze wag, \newline
+$\o_o, \o_h$ - elementarne funkcje nieliniowe \newline
+
 
 \TODO{uzupełnić}
