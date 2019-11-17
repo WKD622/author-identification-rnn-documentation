@@ -1,4 +1,59 @@
 \newpage
 \subsection{Wykorzystanie modułu do trenowania sieci}
 
-\TODO{uzupełnić}
+\myspace
+\dirtree{%
+.1 network.
+.2 train <----.
+}
+\myspace
+
+\begin{itemize}
+
+\item {Train [ klasa ] }
+\begin{import}
+from library.network.train import Train
+
+rnn = Train(hidden_size=100,
+            num_layers=1,
+            num_epochs=1,
+            batch_size=40,
+            timesteps=50,
+            learning_rate=0.004,
+            authors_size=100,
+            vocab_size=48,
+            save_path='results',
+            tensors_path='data/tensors',
+            language='DU',
+            truth_file_path='data/dutch/truth.txt')
+\end{import}
+
+Przyjmuje następujące argumenty:
+\begin{itemize}
+	\item hidden\_size: int
+		\newline Wartość oznaczająca rozmiar warstwy ukrytej.
+	\item num\_layers: int
+		\newline Ilość warstw ukrytych.
+	\item num\_epochs: int
+		\newline Ilość epok.
+	\item batch\_size: int
+		\newline Wielkość paczek danych wprowadzanych do sieci.
+	\item timesteps: int
+		\newline Parametr określający liczbę timesteps.
+	\item learning\_rate: float
+		\newline Współczynnik uczenia.
+	\item authors\_size: int
+		\newline Liczba różnych autorów.
+	\item vocab\_size: int
+		\newline Wielkość alfabetu.
+	\item save\_path: str
+		\newline Ścieżka zapisu modeli.
+	\item tensors\_path: str
+		\newline Ścieżka do tensorów autorów po preprocessingu.
+	\item language: str
+		\newline Język w jakim są teksty.
+		
+\end{itemize}
+
+Po przekazaniu odpowiednich parametrów wystarczy jedynie wywołać metodę train() na obiekcie rnn, 
+która rozpocznie proces trenowania.

@@ -1,2 +1,18 @@
 \subsection{Algorytm identyfikacji autorstwa tekstu}
-\TODO{uzupełnić}
+
+Do wielogłowicowej sieci wprowadzamy w jednym momencie wielu autorów, pochodzących ze zbioru 
+testowego w postaci paczek danych (batche). Oprócz danych moduł batchowania dostarcza również 
+oczekiwanie wyjście, któreposłuży do obliczania wartości funkcji kosztu oraz ewaluacji skuteczności. 
+Sieć składa się z określonej przez parametr liczby warstw ukrytych oraz warstwy wyjściowej, 
+liniowej, w pełni połączonej, która mapuje wektor stanu na wyjście. Następnie na podstawie 
+Krosentropii wyliczany jest loss, który odzwierciedla jak bardzo otrzymane wyjście różni się od oczekiwanych 
+wyników. Na podstawie wartości loss dla każdego autora dokonoywana jest propagacja wsteczna. 
+Z wykorzystaniem algorytmu optymalizacji uaktualniane są wagi. 
+\newline
+\newline
+Do badania skuteczności sieci wykorzystywany jest zbiór walidacyjny. Do modelu wprowadzane są dane, 
+następnie otrzymane wyniki są sprowadzane do wartości z przedziału [0,1], 
+gdzie wynik bliski 0 oznacza najmniej pasującego autora, a bliski 1 najbardziej dopasowanego.
+Dzięki temu możemy stwierdzić, którego autora przeiwduje sieć i zestawić to z prawdziwym wynikiem.
+Skuteczność opisana jest jako stosunek poprawnych odpowiedzi do wszystkich. Niska skuteczność może 
+świadczyć o źle dobranych parametrach sieci bądź niepoprawnie przeprowadzonym procesie uczenia.
