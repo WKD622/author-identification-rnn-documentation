@@ -8,8 +8,6 @@
 }
 \myspace
 
-\begin{itemize}
-
 \item {Train [ klasa ] }
 \begin{import}
 from library.network.train import Train
@@ -26,10 +24,12 @@ rnn = Train(hidden_size=100,
             tensors_path='data/tensors',
             language='DU',
             truth_file_path='data/dutch/truth.txt')
+            
+rnn.train()
 \end{import}
 
 Przyjmuje następujące argumenty:
-\begin{itemize}
+\begin{enumerate}
 	\item hidden\_size: int
 		\newline Wartość oznaczająca rozmiar warstwy ukrytej.
 	\item num\_layers: int
@@ -53,7 +53,19 @@ Przyjmuje następujące argumenty:
 	\item language: str
 		\newline Język w jakim są teksty.
 		
-\end{itemize}
+\end{enumerate}
 
-Po przekazaniu odpowiednich parametrów wystarczy jedynie wywołać metodę train() na obiekcie rnn, 
-która rozpocznie proces trenowania.
+\begin{itemize}
+
+  \item{train}
+  \newline Najważniejsza metoda tej klasy. Odpowiada za cały proces trenowania oraz ewaluacji sieci. Po 
+  odpowiednim zainicjalizowaniu obiektu rnn wystarczy jedyne wywołać tę metodę.
+  \item{get\_accuracy}
+  \newline Metoda odpowiedzialna za proces ewaluacji, a dokładniej badania skuteczności sieci. Korzysta z 
+  oddzielnego batch-proccesora, stworzonego na podstawie zbioru walidacyjnego. Zwraca wyniki w zakresie
+  [0,1], gdzie 1 oznacza stu procentową skuteczność a 0 brak poprawnych przyporządkowań.
+  \item{OutputManager [klasa]}
+  \newline Wykorzystywana do sprawnego i przejrzystego logowania aktualnych wyników. Informuje nas o aktualnej
+  skuteczności, wartości loss czy też czasie uczenia. Tak spreparowane wyniki zapisuje również do pliku.
+
+\end{itemize}
