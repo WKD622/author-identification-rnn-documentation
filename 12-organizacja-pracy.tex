@@ -27,7 +27,7 @@ Bazując na zadaniach wykonywanych podczas pracy nad biblioteką, można wyróż
 \end{itemize}
 Projekt wykonywany był przez dwie osoby:
 \begin{itemize}
-  \item Jakub Ziarko - implementacja modułu preprocessingu, implementacja modułu sieci RNN, 
+  \item Jakub Ziarko - implementacja modułu preprocesingu, implementacja modułu sieci RNN, 
   trenowanie sieci, pisanie dokumentacji, stworzenie skrytpów ułatwiających prace na Prometheusie.
   \item Jan Liberacki - implementacja modułu odpowiedzialnego za podział danych na batche, 
   implementacja modułu sieci RNN, trenowanie sieci, pisanie dokumentacji, testowanie kodu.
@@ -89,7 +89,7 @@ tworzenie kodu o dobrej jakości:
 \subsection{Postępy}
 W ramach tworzenia pracy inżynierskiej wyodrębniliśmy następujące iteracje:
 \begin{enumerate}
-  \item Zaimplementowanie modułu preprocessingu.
+  \item Zaimplementowanie modułu preprocesingu.
   \item Zaimplementowanie modułu batchowania.
   \item Zaimplementowanie modułu sieci.
   \item Zaimplementowanie modułu treningu sieci.
@@ -100,7 +100,7 @@ W ramach tworzenia pracy inżynierskiej wyodrębniliśmy następujące iteracje
 \subsection{Wykonane prace}
 W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
 \begin{itemize}
-  \item stworzenie modułu preprocessingu - moduł który w wygodny sposób pozwala nam na przygotowanie tekstów 
+  \item stworzenie modułu preprocesingu - moduł który w wygodny sposób pozwala nam na przygotowanie tekstów 
   do uczenia maszynowego. 
   \item stworzenie modułu batchowania - moduł, który bazując na danych przygotowanych przez moduł 
   preprocesingu dzieli je na mini batche i dostarcza sieci. Jest on sparametryzowany dzięki czemu mogliśmy
@@ -135,11 +135,11 @@ najbardziej problematyczne iteracje:
 
 \begin{enumerate}
   \item Dużym wyzwaniem podczas pierwszej iteracji okazało
-  się zaprojektowanie modułu preprocessingu. Moduł ten okazał się być bardzo obszerny w porównaniu do
+  się zaprojektowanie modułu preprocesingu. Moduł ten okazał się być bardzo obszerny w porównaniu do
   pozostałych części biblioteki. W związku z tym należało przedsiewziąć odpowiednie decyzje projektowe 
   już na samym początku, a kod dokładnie zaplanować.
   
-  \item Druga iteracja, podczas której tworzony był moduł preprocessingu okazała się trwać przez praktycznie
+  \item Druga iteracja, podczas której tworzony był moduł preprocesingu okazała się trwać przez praktycznie
   cały okres pisania biblioteki. Ten moduł bowiem, biorąc za wejście przetworzone teksty w postaci tensorów,
   przetwarza ich ``formę'' na taką, która nadaje się do efektywnego szkolenia sieci. Podczas pisania pracy 
   nasze koncepcje na temat tego procesu wielokrotnie się zmieniały w związku z tym zmieniał się również

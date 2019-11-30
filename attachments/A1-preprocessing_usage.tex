@@ -1,8 +1,8 @@
 \newpage
 \section{Podręcznik użytkownika}
-\subsection{Wykorzystanie modułu preprocessingu}
+\subsection{Wykorzystanie modułu preprocesingu}
 
-Aby korzystać z modułu preprocessingu należy zachować określoną konwencję danych wejściowych. 
+Aby korzystać z modułu preprocesingu należy zachować określoną konwencję danych wejściowych. 
 
 \subsubsection{Struktura wejścia}
 
@@ -80,9 +80,9 @@ otrzymujemy następująco wyglądający folder wyjściowy, gdzie każdy plik EN$
 \myspace
 
 
-Moduł preprocessingu został stworzony z myślą o prostej i intuicyjnej obsłudze. Wykorzystane przy
+Moduł preprocesingu został stworzony z myślą o prostej i intuicyjnej obsłudze. Wykorzystane przy
 tym zostały Pythone'owe słowniki które pozwalają na uproszczenie sygnatury konstruktora obiektu do preprocesingu
-o parametry, które w danym momencie nie są wykorzystywane. Najprościej zasadę działania modułu preprocessingu można 
+o parametry, które w danym momencie nie są wykorzystywane. Najprościej zasadę działania modułu preprocesingu można 
 pokazać na przykładach. Folder wejściowy z danymi musi być o identycznej strukturze jak ten na 
 konkursie PAN.
 Załóżmy że nasz katalog projektu wygląda w następujący sposób:
@@ -116,17 +116,17 @@ Załóżmy że nasz katalog projektu wygląda w następujący sposób:
 \myspace
 
 Kiedy posiadamy już odpowiednią strukture katalogów z plikami wejściowymi możemy stworzyć 
-odpowiedni obiekt i przystąpić do preprocessingu. Zakładamy że wszystkie linijki przedstawianego 
+odpowiedni obiekt i przystąpić do preprocesingu. Zakładamy że wszystkie linijki przedstawianego 
 tutaj kodu znajdują się w widocznym na diagramie struktury folderów pliku \texttt{main.py}.
 
 \begin{python}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 
-Preprocessing()
+preprocesing()
 
 \end{python}
 
-Parametry konstruktora modułu preprocessingu będą określać w jaki sposób ma funkcjonować. 
+Parametry konstruktora modułu preprocesingu będą określać w jaki sposób ma funkcjonować. 
 Oto wszystkie możliwe parametry:
 \begin{itemize}
 	\item language
@@ -148,9 +148,9 @@ parametry będą ignorowane.
 \subsubsection{parametr language}
 Parametr \texttt{language} jest parametrem obowiązkowym i pozwala nam określić język tekstów wejściowych.
 \begin{python}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 
-Preprocessing(language="en")
+preprocesing(language="en")
 
 \end{python}
 
@@ -168,9 +168,9 @@ Domyślnie dostępnymi językami w bibliotece są:
 Parametr \texttt{data\_path} pozwala nam zdefiniować ścieżkę do danych wejściowych. W naszym przypadku
 będzie ona wyglądała w następujący sposób:
 \begin{python}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 
-Preprocessing(language="en",
+preprocesing(language="en",
               data_path="../data/authors/")
                    
 \end{python}
@@ -200,9 +200,9 @@ Struktura katalogów po wykonaniu będzie wyglądać następująco:
 Jeśli chcemy zdefiniować ścieżkę zapisu tensorów możemy tego dokonać używając parametru 
 \texttt{tensors\_path}. Dla przykładu zdefiniuję ją w następujący sposób. 
 \begin{python}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 
-Preprocessing(language="en",
+preprocesing(language="en",
               data_path="../data/authors/",
               tensors_path="../data/tensors/")
                    
@@ -229,9 +229,9 @@ UWAGA! Za każdym razem kiedy korzystamy z tego argumentu wszystkie pliki spod w
 usuwane.
 
 \begin{python}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 
-Preprocessing(language="en",
+preprocesing(language="en",
               data_path="../data/authors/",
               tensors_path="../data/tensors/"
               mapped_save_path="../data/reduced_authors/")
@@ -270,9 +270,9 @@ Załóżmy przy tym następujące drzewo katalogów:
 \myspace
 
 \begin{python}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 
-Preprocessing(language="en",
+preprocesing(language="en",
               tensors_path="../data/tensors/",
               mapped_source_path="../data/reduced_authors/")
                    
@@ -309,9 +309,9 @@ Załóżmy wejściowe drzewo katalogów:
 
 Kod wyglądałby następująco:
 \begin{python}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 
-Preprocessing(language="en",
+preprocesing(language="en",
               data_path="../data/authors/",
               tensors_path="../data/tensors/",
               mapped_save_path="../data/reduced_authors/",
@@ -342,9 +342,9 @@ Możemy także skorzystać tylko z redukcji, bez tworzenia tensorów. Służy do
 Aby nastąpiła jedynie redukcja alfabetu należy ustawić go na \texttt{True} jak w kodzie poniżej:
 
 \begin{python}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 
-Preprocessing(language="en",
+preprocesing(language="en",
               data_path="../data/authors/",
               mapped_save_path = "../data/reduced_authors/",
               reduce_only=True) 
@@ -356,7 +356,7 @@ Możemy również zdefiniować rozmiar paczek na jakie podzielony zostanie nasz 
 parametr \texttt{batch\_size}. Domyślna wartość tego parametru to 20.
 
 \begin{python}
-Preprocessing(language="en",
+preprocesing(language="en",
               data_path="../data/authors/",
               tensors_path="../data/tensors/",
               mapped_save_path="../data/reduced_authors/",

@@ -1,15 +1,15 @@
 \newpage
-\subsection{Budowa modułu preprocessingu}
-W tej części opisana zostanie budowa modułu Preprocessingu - z jakich fragmentów się składa
+\subsection{Budowa modułu preprocesingu}
+W tej części opisana zostanie budowa modułu preprocesingu - z jakich fragmentów się składa
 oraz za co one odpowiadają. Opisane zostaną tylko ważniejsze fragmenty kodu z racji na jego 
 obszerność.
 
-Budowa modułu preprocessingu:
+Budowa modułu preprocesingu:
 
 
 \myspace
 \dirtree{%
-.1 preprocessing.
+.1 preprocesing.
 .2 batch\_processing \DTcomment{metody niskopoziome odpowiedzialne za podział na batche}.
 .2 chars\_mapping \DTcomment{metody niskopoziome odpowiedzialne za redukcje alfabetów}.
 .2 data\_structs	\DTcomment{klasy do trzymania tekstów w formie obiektów}.
@@ -17,15 +17,15 @@ Budowa modułu preprocessingu:
 .2 to\_tensor \DTcomment{metody niskopoziome odpowiedzialne za zamianę tekstu na tensory}.
 .2 constants.py	\DTcomment{wszystkie stałe}.
 .2 exceptions.py \DTcomment{wszystkie wyjątki}.
-.2 preprocessing.py \DTcomment{główny plik modułu}.
+.2 preprocesing.py \DTcomment{główny plik modułu}.
 }
 \myspace
 
-\subsubsection{preprocessing.py}
+\subsubsection{preprocesing.py}
 
 \myspace
 \dirtree{%
-.1 preprocessing.
+.1 preprocesing.
 .2 batch\_processing.
 .2 chars\_mapping.
 .2 data\_structs.
@@ -33,24 +33,24 @@ Budowa modułu preprocessingu:
 .2 to\_tensor.
 .2 constants.py.
 .2 exceptions.py.
-.2 preprocessing.py <----.
+.2 preprocesing.py <----.
 }
 \myspace
 
 \begin{itemize}
 	
-\item  {Preprocessing [ klasa ] }
+\item  {preprocesing [ klasa ] }
 \begin{import}
-from library.preprocessing.preprocessing import Preprocessing
+from library.preprocesing.preprocesing import preprocesing
 \end{import}
 
 Ta klasa, a raczej jej użycie zostało opisane w punkcie wyżej. Wszystkie elementy biblioteki opisane
-poniżej są wykorzystywane przez tą klasę. Jest to klasa modułu preprocessingu przeznaczona
+poniżej są wykorzystywane przez tą klasę. Jest to klasa modułu preprocesingu przeznaczona
 do domyślnego użycia.
 
 \item  {CharactersMapper [ klasa ] }
 \begin{import}
-from library.preprocessing.preprocessing import CharactersMapper
+from library.preprocesing.preprocesing import CharactersMapper
 \end{import}
 Ta klasa, jest odpowiedzialna za redukcję alfabetu tekstów wejściowych. 
 
@@ -63,12 +63,12 @@ Przyjmuje takie argumenty jak:
 	\item log\_lvl
 \end{itemize}
 
-Wszystkie te argumenty funkcojonują tak samo jak w klasie Preprocessing.
+Wszystkie te argumenty funkcojonują tak samo jak w klasie preprocesing.
 
 
 \item  {ToTensor [ klasa ] }
 \begin{import}
-from library.preprocessing.preprocessing import ToTensor
+from library.preprocesing.preprocesing import ToTensor
 \end{import}
 Ta klasa jest odpowiedzialna za zamianę tekstów na tensory.
 
@@ -83,7 +83,7 @@ Przyjmuje takie argumenty jak:
 	\item reduced\_authors
 \end{itemize}
 
-Wszystkie te argumenty z jednym wyjątkiem funkcjonują tak samo jak w klasie Preprocessing. 
+Wszystkie te argumenty z jednym wyjątkiem funkcjonują tak samo jak w klasie preprocesing. 
 Tym wyjątkiem jest argument \texttt{reduced\_authors}, które pozwala na bezpośrednie przekazanie obiektu z danymi 
 zredukowanych tekstów do obiektu ToTensor. W ten sposób oszczędzany jest czas ładowania tekstów z 
 dysku. Jeśli jest on podany, to argument \texttt{mapped\_source\_path} jest ignorowany.
@@ -94,7 +94,7 @@ dysku. Jeśli jest on podany, to argument \texttt{mapped\_source\_path} jest ign
 
 \myspace
 \dirtree{%
-.1 preprocessing.
+.1 preprocesing.
 .2 batch\_processing.
 .2 chars\_mapping.
 .2 data\_structs.
@@ -102,14 +102,14 @@ dysku. Jeśli jest on podany, to argument \texttt{mapped\_source\_path} jest ign
 .2 to\_tensor.
 .2 constants.py.
 .2 exceptions.py <----.
-.2 preprocessing.py.
+.2 preprocesing.py.
 }
 \myspace
 \begin{import}
-from library.preprocessing import exceptions
+from library.preprocesing import exceptions
 \end{import}
 
-W tym pliku znajdują się deklaracje wszystkich wyjątków używanych w module preprocessing
+W tym pliku znajdują się deklaracje wszystkich wyjątków używanych w module preprocesing
 
 Są to:
 \begin{itemize}
@@ -124,7 +124,7 @@ Są to:
 
 \myspace
 \dirtree{%
-.1 preprocessing.
+.1 preprocesing.
 .2 batch\_processing.
 .2 chars\_mapping.
 .2 data\_structs.
@@ -138,7 +138,7 @@ Są to:
 .3 convert.py.
 .2 constants.py.
 .2 exceptions.py.
-.2 preprocessing.py.
+.2 preprocesing.py.
 }
 \myspace
 
@@ -147,7 +147,7 @@ Są to:
 \item{text\_to\_tensor [ metoda ] }
 
 \begin{import}
-from library.preprocessing.to_tensor.convert import text_to_tensor
+from library.preprocesing.to_tensor.convert import text_to_tensor
 \end{import}
 	
 Ta metoda jest odpowiedzialna za zamianę tekstów na tensory.
@@ -163,7 +163,7 @@ Szczegóły w dokumentacji w kodzie.
 
 \item{char\_to\_tensor [ metoda ] }
 \begin{import}
-from library.preprocessing.to_tensor.convert import char_to_tensor
+from library.preprocesing.to_tensor.convert import char_to_tensor
 \end{import}
 Ta metoda jest odpowiedzialna za zamianę znaków na wektory.
 
@@ -183,25 +183,25 @@ Szczegóły w dokumentacji w kodzie.
 
 \item angielski
 \begin{import}
-from library.preprocessing.to_tensor.alphabets.en_alphabet import alphabet
+from library.preprocesing.to_tensor.alphabets.en_alphabet import alphabet
 \end{import}
 
 
 \item hiszpański
 \begin{import}
-from library.preprocessing.to_tensor.alphabets.es_alphabet import alphabet
+from library.preprocesing.to_tensor.alphabets.es_alphabet import alphabet
 \end{import}
 
 
 \item grecki
 \begin{import}
-from library.preprocessing.to_tensor.alphabets.gr_alphabet import alphabet
+from library.preprocesing.to_tensor.alphabets.gr_alphabet import alphabet
 \end{import}
 
 
 \item holenderski
 \begin{import}
-from library.preprocessing.to_tensor.alphabets.nl_alphabet import alphabet
+from library.preprocesing.to_tensor.alphabets.nl_alphabet import alphabet
 \end{import}
 	
 \end{itemize}
@@ -213,7 +213,7 @@ from library.preprocessing.to_tensor.alphabets.nl_alphabet import alphabet
 
 \myspace
 \dirtree{%
-.1 preprocessing.
+.1 preprocesing.
 .2 batch\_processing.
 .2 chars\_mapping.
 .2 data\_structs.
@@ -224,7 +224,7 @@ from library.preprocessing.to_tensor.alphabets.nl_alphabet import alphabet
 .2 to\_tensor.
 .2 constants.py.
 .2 exceptions.py.
-.2 preprocessing.py.
+.2 preprocesing.py.
 }
 \myspace
 
@@ -233,7 +233,7 @@ from library.preprocessing.to_tensor.alphabets.nl_alphabet import alphabet
 \item{TextFileLoader [ klasa ] }
 
 \begin{python}
-from library.preprocessing.files.files_operations import TextFileLoader
+from library.preprocesing.files.files_operations import TextFileLoader
 
 tfl = TextFileLoader(path="path/to/file")
 tfl.lines  # text as lines
@@ -246,7 +246,7 @@ linią będącą stringiem)
 
 \item{save\_to\_file [ metoda ] }
 \begin{import}
-from library.preprocessing.files.files_operations import save_to_file
+from library.preprocesing.files.files_operations import save_to_file
 \end{import}
 
 Przyjmuje następujące argumenty:
@@ -258,7 +258,7 @@ Przyjmuje następujące argumenty:
 
 \item{check\_if\_directory [ metoda ] }
 \begin{import}
-from library.preprocessing.files.files_operations import check_if_directory
+from library.preprocesing.files.files_operations import check_if_directory
 \end{import}
 Zwraca wartość \texttt{True} jeśli element spod podanej ścieżki jest katalogiem, \texttt{False} w przeciwnym wypadku.
 Przyjmuje następujące argumenty:
@@ -268,7 +268,7 @@ Przyjmuje następujące argumenty:
 
 \item{check\_if\_file [ metoda ] }
 \begin{import}
-from library.preprocessing.files.files_operations import check_if_file
+from library.preprocesing.files.files_operations import check_if_file
 \end{import}
 Zwraca wartość \texttt{True} jeśli element spod podanej ścieżki jest plikiem, \texttt{False} w przeciwnym wypadku.
 Przyjmuje następujące argumenty:
@@ -278,7 +278,7 @@ Przyjmuje następujące argumenty:
 
 \item{check\_if\_directory\_exists [ metoda ] }
 \begin{import}
-from library.preprocessing.files.files_operations import check_if_directory_exists
+from library.preprocesing.files.files_operations import check_if_directory_exists
 \end{import}
 Jeśli katalog spod podanej ścieżki nie istnieje zgłasza wyjątek \texttt{FileNotFound}.
 Przyjmuje następujące argumenty:
@@ -288,7 +288,7 @@ Przyjmuje następujące argumenty:
 
 \item{create\_file [ metoda ] }
 \begin{import}
-from library.preprocessing.files.files_operations import create_file
+from library.preprocesing.files.files_operations import create_file
 \end{import}
 Tworzy plik pod podaną ścieżką. 
 
@@ -300,7 +300,7 @@ Przyjmuje następujące argumenty:
 
 \item{remove\_directory [ metoda ] }
 \begin{import}
-from library.preprocessing.files.files_operations import remove_directory
+from library.preprocesing.files.files_operations import remove_directory
 \end{import}
 
 Usuwa katalog spod podanej ścieżki.
@@ -317,7 +317,7 @@ Przyjmuje następujące argumenty:
 
 \myspace
 \dirtree{%
-.1 preprocessing.
+.1 preprocesing.
 .2 batch\_processing.
 .2 chars\_mapping <----.
 .3 mappers.
@@ -331,7 +331,7 @@ Przyjmuje następujące argumenty:
 .2 to\_tensor.
 .2 constants.py.
 .2 exceptions.py.
-.2 preprocessing.py.
+.2 preprocesing.py.
 }
 \myspace
 
@@ -339,7 +339,7 @@ Przyjmuje następujące argumenty:
 
 \item{map\_characters [ metoda ] }
 \begin{import}
-from library.preprocessing.chars_mapping.map import map_characters
+from library.preprocesing.chars_mapping.map import map_characters
 \end{import}
 
 Redukuje znaki w podanym stringu na podstawie słownika. 
@@ -356,25 +356,25 @@ Przyjmuje następujące argumenty:
 
 \item angielski
 \begin{import}
-from library.preprocessing.chars_mapping.mappers.en_mapper import charmap
+from library.preprocesing.chars_mapping.mappers.en_mapper import charmap
 \end{import}
 
 
 \item hiszpański
 \begin{import}
-from library.preprocessing.chars_mapping.mappers.es_mapper import charmap
+from library.preprocesing.chars_mapping.mappers.es_mapper import charmap
 \end{import}
 
 
 \item grecki
 \begin{import}
-from library.preprocessing.chars_mapping.mappers.gr_mapper import charmap
+from library.preprocesing.chars_mapping.mappers.gr_mapper import charmap
 \end{import}
 
 
 \item holenderski
 \begin{import}
-from library.preprocessing.chars_mapping.mappers.nl_mapper import charmap
+from library.preprocesing.chars_mapping.mappers.nl_mapper import charmap
 \end{import}
 
 \end{itemize}

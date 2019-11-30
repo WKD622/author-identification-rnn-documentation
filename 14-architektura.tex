@@ -7,7 +7,7 @@ Nasza biblioteka składa się z wielu współpracujących ze sobą modułów:
 \label{fig:test3}
 \end{figure}
 
-\subsection{Moduł preprocessingu}
+\subsection{Moduł preprocesingu}
 Największy i całkowicie niezależny od pozostałych części biblioteki moduł, którego zadaniem jest 
 przetworzenie tekstów z formy tekstowej na formę binarną (tensory), która jest następnie wykorzystywana
 do szkolenia sieci. Na tym etapie następuje również redukcja znaków w tekście, tak by wyeliminować
@@ -22,7 +22,7 @@ Pozwala na specyfikowanie parametrów tych danych, jak na przykład rozmiar batc
 Decyduje również o tym kiedy kończy się proces uczenia oraz o losowości ustawienia autorów w batchu. 
 Jego kod jest ściśle powiązany z kodem modułu treningu sieci ale z racji na obszerność zdecydowaliśmy 
 się go wyodrębnić jako osobny moduł. 
-Jest on niezależny od modułu preprocessingu, jednak format danych wyjściowych z modułu preprocessingu 
+Jest on niezależny od modułu preprocesingu, jednak format danych wyjściowych z modułu preprocesingu 
 jest zbieżny z formatem danych wejściwych wymaganym przez modułu batchowania. 
 
 \subsection{Moduł sieci} 
