@@ -1,11 +1,11 @@
-\subsection{Rozdzielenie tensorów na paczki}
+\subsection{Rozdzielenie wektorów na paczki}
 Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
 Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie. W naszej bibliotece 
-wymiarami batcha zawsze będzie: (rozmiar batcha) $x$ (rozmiar alfabetu) $x$ (ilość timestepów). 
+wymiarami batcha zawsze będzie: $(rozmiar batcha) \times (rozmiar alfabetu) \times (ilość kroków czasowych)$. 
 Poniżej przedstawiamy batchowanie na przykładzie, dla którego przyjmiemy następujące założenia: 
 \begin{itemize}
 	\item rozmiar batcha równy 3
-	\item liczba timestepów równa 3
+	\item liczba kroków czasowych równa 3
 	\item liczba autorów równa 4
 	\item alfabet $\{a,b,c,d\}$
 \end{itemize}
@@ -54,7 +54,7 @@ $
 \vspace{1mm}
 \newline 
 
-Wektory umieszczamy w tensorach. Dla każdego autora przewidziany jest osobny tensor. 
+Wektory umieszczamy w wektorach. Dla każdego autora przewidziany jest osobny wektor. 
 Przykładowo dla autora 3 wyglądałby on następująco:
 \vspace{3mm}
 
@@ -73,22 +73,22 @@ $
 \end{wrapfigure}
 \vspace{4mm}
 Następnie ze wszystkich tych tensorów tworzymy batche.
-Dla tego przykładu każdy z batchy będzie tensorem o wymiarach 3 x 4 x 3 ((rozmiar batcha) $x$ 
-(rozmiar alfabetu) $x$ (ilość timestepów)).
+Dla tego przykładu każdy z batchy będzie tensorem o wymiarach $3 \times 4 \times 3$ $((rozmiar batcha) \times 
+(rozmiar alfabetu) \times (ilość kroków czasowych))$.
 Do każdej takiej paczki będziemy losować autorów oraz ich kolejność. Załóżmy, że do pierwszego batcha
-wylosowaliśmy autora 4, 1 oraz 3. Oznacza to, że w pierwszym timestepie w tensorze zawarta będzie 
+wylosowaliśmy autora 4, 1 oraz 3. Oznacza to, że w pierwszym kroku czasowych w wektorze zawarta będzie 
 patrząc ``od góry'': pierwsza litera autora 4, pierwsza litera autora 1 oraz pierwsza litera autora 3.
-To ustawienie autorów w tensorach będzie już zawsze zachowane dla wszystkich timestepów w tym batchu. 
-A więc dla drugiego timestepu będzie to: druga litera autora 4, druga litera autora 1 oraz druga 
-litera autora 3. Dla trzeciego timestepu analogicznie. 
+To ustawienie autorów w wektorach będzie już zawsze zachowane dla wszystkich kroków czasowych w tym batchu. 
+A więc dla drugiego kroku czasowego będzie to: druga litera autora 4, druga litera autora 1 oraz druga 
+litera autora 3. Dla trzeciego kroku czasowego analogicznie. 
 
 Może się zdarzyć sytuacja, że do batcha wylosowano kilkukrotnie tego samego autora. Na przykład wylosowano
 autorów 1 oraz 3, w kolejności: autor pierwszy, następnie znowu autor pierwszy, na końcu autor trzeci.
-Dla identycznych założeń jak we wcześniejszym przykładzie w pierwszym batchu w pierwszym timestepie wyglądałoby to
+Dla identycznych założeń jak we wcześniejszym przykładzie w pierwszym batchu w pierwszym kroku czasowym wyglądałoby to
  następująco: pierwsza litera autora 1, następnie pierwsza litera autora 1,
-na końcu pierwsza litera autora 3. W drugim timestepie byłoby to:
+na końcu pierwsza litera autora 3. W drugim kroku czasowym byłoby to:
 druga litera autora 1, druga litera autora 1 oraz druga litera autora 3, itd.
 
-Ilość batchy jest zależna od długości tekstów. Są tworzone dopóki nie skończą się znaki w tensorze
+Ilość batchy jest zależna od długości tekstów. Są tworzone dopóki nie skończą się znaki w wektorze
 któregoś z autorów, dlatego teksty powinny być mniej więcej tej samej długości. Sieć można
 wyszkolić dobrze tylko zachowując maksymalnie dużą losowość wystąpień autorów w każdym batchu.

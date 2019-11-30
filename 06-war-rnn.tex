@@ -1,8 +1,8 @@
 \subsection{Wielogłowicowa głęboka rekurencyjna sieć neuronowa}
 Ideą rekurencyjnych sieci neuronowych (w skrócie RNN) jest wykorzystanie dancyh w postaci sekwencji. 
-Standardowa sieć neuronowa przyjmuje za każdym razem stałą ilość danych wejściowych i na ich podstawie generuje wynik. 
+Sieć neuronowa typu feed forward przyjmuje za każdym razem stałą ilość danych wejściowych i na ich podstawie generuje wynik. 
 Rekurencyjna sieć neuronowa natomiast, nie konsumuje wszystkich danych wejściwych na raz. Zamiast tego,
-dane pobierane są w krokach - timestepach. W każdym kroku RNN wykonuje obliczenia i zwraca wyjście. 
+dane pobierane są w krokach czasowych. W każdym kroku RNN wykonuje obliczenia i zwraca wyjście. 
 To wyjście jest w następnym kroku łączone z jego wejściem by zwrócić kolejne dane wyjściowe. 
 Ten proces jest powtarzany dopóki model nie jest wyuczony. Możliwość korzystania z 
 informacji kontekstowych z poprzednich danych wejściowych jest szczególną cechą sieci typu RNN. Dlatego
@@ -14,8 +14,8 @@ przy analizie tekstów ale także sygnałów audio czy ruchów obiektów.
 \caption{schemat sieci typu RNN}
 \label{fig:test3}
 \end{figure}
-Jak widać na załączonej grafice, obliczenia dla każdego timestepu są wykonywne z nowymi danymi wejściowymi
-ale biorac pod uwagę kontekst z poprzedniego timestepu. 
+Jak widać na załączonej grafice, obliczenia dla każdego kroku czasowego są wykonywne z nowymi danymi wejściowymi
+ale biorac pod uwagę kontekst z poprzedniego kroku czasowego. 
 \begin{wrapfigure}{r}{0.17\textwidth}
 \vspace{-4mm}
 \includegraphics[width=\linewidth]{./images/many-to-many.png}
@@ -31,14 +31,14 @@ ze wszystkimi tego konsekwencjami jak zanikający lub znacznie rzadziej wybuchaj
 Ważną cechą tych sieci jest również fakt, że obliczenia dla długich sekwencji są bardzo kosztowne.
 Sieci typu RNN generują bardzo dużo danych wyjściowych w procesie uczenia i to od nas zależy jak je 
 wykorzystamy. Dla naszego problemu korzystamy z sieci typu ``many to many'' co oznacza, że korzystamy
-ze danych wyjściowych z każdego timestepu.
+ze danych wyjściowych z każdego kroku czasowego.
 
 \newpage
 Rekurencyjną sieć neuronową definiujemy jako:
 
 \begin{align}
-  &h_t = f_h(x_t, h_{t-1}) = \o_h(W^Th_{t-1} + U^Tx_t) \\ 
-  &y_t = f_o(h_t) = \o_o(V^Th_t)
+  &h_t = f_h(x_t, h_{t-1}) = \theta_o_h(W^Th_{t-1} + U^Tx_t) \\ 
+  &y_t = f_o(h_t) = \theta_o(V^Th_t)
 \end{align}
 
 gdzie: \newline
@@ -48,7 +48,7 @@ $h_t$ - warstwa ukryta w czasie $t$, \newline
 $y_t$ - wektor wynikowy w czasie $t$ , \newline
 $x_t$ - wektor wejściowy w czasie $t$, \newline
 $W, U, V$ - macierze wag, \newline
-$\o_o, \o_h$ - elementarne funkcje nieliniowe \newline
+$\theta_o, \theta_h$ - elementarne funkcje nieliniowe \newline
 
 
 \TODO{uzupełnić}

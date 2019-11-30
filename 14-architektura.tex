@@ -41,3 +41,72 @@ w konsoli oraz zapisywanych do pliku csv, w formie parametrów sieci, które są
 w pliku txt oraz w formie kolejnych modeli sieci, które są zapisywane na dysku. 
 Logi w konsoli pozowiły nam na wygodne kontrolowanie procesu szkolenia, dane w plikach csv potrzebne 
 nam były do rysowania wykresów.
+
+\newpage
+\subsection{Skrypty - Prometheus}
+\begin{enumerate}
+	\item {create\_scripts } - 
+	tworzy skrypty rozpoczynające uczenie sieci. Korzysta z pliku konfiguracyjnego to\_run.
+	Zawartość pliku to run wraz z przykładowymi parametrami:
+	
+	\begin{import}
+		[
+		  {
+		    "beginning": "#!/bin/sh",
+		    "name": "#SBATCH -J test",
+		    "node_numbers": "#SBATCH -N 1",
+		    "tasks_per_node": "#SBATCH --ntasks-per-node=1",
+		    "mem_per_cpu": "#SBATCH --mem-per-cpu=5GB",
+		    "time": "#SBATCH --time=00:20:00",
+		    "grant_name": "#SBATCH -A ap2018",
+		    "partition": "#SBATCH -p plgrid",
+		    "output": "#SBATCH --output=",
+		    "errors": "#SBATCH --error=",
+		    "hidden_size": "100",
+		    "num_layers": "2",
+		    "num_epochs": "5",
+		    "batch_size": "40",
+		    "timesteps": "50",
+		    "learning_rate": "0.04",
+		    "authors_size": "100",
+		    "vocab_size": "48",
+		    "save_path": "../results/",
+		    "learning_tensors_path": "../data/dutch/tensors/known/",
+		    "testing_tensors_path": "../data/dutch/tensors/known/",
+		    "language": "DU"
+		  }
+		]
+	\end{import}
+	
+	Poza standardowymi parametrami sieci opisanymi w podręczniku użytkowania występują również parametry
+	związane z samym Prometheusem:
+	\begin{itemize}
+	  \item name - Nazwa zlecenia
+	  \item node\_numbers - Liczba alokowanych węzłów
+	  \item task\_per\_node - Liczba zadań per węzeł
+	  \item mem\_per\_cpu - Ilość pamięci przypadającej na jeden rdzeń obliczeniowy
+	  \item time - Maksymalny czas trwania zlecenia
+	  \item grant\_name - Nazwa grantu do rozliczenia zużycia zasobów
+	  \item partition - Specyfikacja partycji
+	  \item output - Plik ze standardowym wyjściem
+	  \item errors - Plik ze standardowym wyjściem błędów
+	\end{itemize}
+	
+	\item {run} - 
+	Uruchamia skrypty utworzone poprzez create\_scripts.
+	
+	\item {copy\_data\_to\_prometheus} - 
+	Pozwala na przesłanie korpusu tekstów.
+	
+	\item {draw\_plots} -
+	Przedstawia wyniki w formie wykresów.
+	
+	\item {clean} -
+	Czyści dotychczasowe wyniki.
+	
+	
+	
+\end{enumerate}
+
+
+
