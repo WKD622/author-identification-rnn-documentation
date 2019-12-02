@@ -18,8 +18,8 @@ Jak widać na załączonej grafice, obliczenia dla każdego kroku czasowego są 
 ale biorac pod uwagę kontekst z poprzedniego kroku czasowego. 
 \begin{wrapfigure}{r}{0.17\textwidth}
 \vspace{-4mm}
-\includegraphics[width=\linewidth]{./images/many-to-many.png}
-\caption{sieć typu many to many}
+\includegraphics[width=\linewidth]{./images/many-to-one.png}
+\caption{sieć typu many to one}
 \label{fig:test3}
 \vspace{-4mm}
 \end{wrapfigure}
@@ -30,10 +30,9 @@ Rozwinięta w czasie sieć tworzy głęboką sieć neuronową 
 ze wszystkimi tego konsekwencjami jak zanikający lub znacznie rzadziej wybuchający gradient. 
 Ważną cechą tych sieci jest również fakt, że obliczenia dla długich sekwencji są bardzo kosztowne.
 Sieci typu RNN generują bardzo dużo danych wyjściowych w procesie uczenia i to od nas zależy jak je 
-wykorzystamy. Dla naszego problemu korzystamy z sieci typu ``many to many'' co oznacza, że korzystamy
-ze danych wyjściowych z każdego kroku czasowego.
+wykorzystamy. Dla naszego problemu korzystamy z sieci typu ``many to ones'' co oznacza, że korzystamy
+ze danych wyjściowych z ostatniego kroku czasowego.
 
-\newpage
 Rekurencyjną sieć neuronową definiujemy jako:
 
 \begin{align}
@@ -51,4 +50,16 @@ $W, U, V$ - macierze wag, \newline
 $\theta_o, \theta_h$ - elementarne funkcje nieliniowe \newline
 
 
-\TODO{uzupełnić}
+\begin{figure}[H]
+\centering
+\includegraphics[height=7cm]{./images/multiheaded-rnn.png}
+\caption{schemat wielogłowicowej sieci typu RNN}
+\label{fig:test5}
+\end{figure}
+
+Termin ``wielogłowicowa'' odnosi się do wielu warstw liniowych które na podstawie danych wyjściowych z 
+sieci rekurencyjnej predykują rozkład prawdopodobieństwa następnego znaku. Każdy autor ma swoją głowice, która 
+szkolona jest tylko na jego tekstach.
+
+
+

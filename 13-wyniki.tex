@@ -1,13 +1,45 @@
 \newpage
 \section{Wyniki}
-\TODO{uzupełnić}
-\subsection{Osiągnięcia}
-\TODO{uzupełnić}
+
+Parametry modelu:
+\begin{itemize}
+	  \item liczba neuronów warstw ukrytych - $100$
+	  \item liczba warstw - $2$
+	  \item liczba głowic - $100$
+	  \item rozmiar batcha - $40$
+	  \item czas uczenia - $40h$
+	  \item Liczba epok - $6$
+	  \item współczynnik uczenia - $0.004$
+	  \item liczba kroków czasowych - $50$
+	  \item skuteczność - $15\%$
+	\end{itemize}
+	
+Nie udało nam się otrzymać wyników zbliżonych do tych osiągniętych podczas konkursu PAN. Sprawdziła się,
+część elementów z analizy ryzyka, które przewidywaliśmy.
+
 \subsection{Problemy}
-\TODO{uzupełnić}
-\subsubsection{Problem zanikającego gradientu}
-\TODO{uzupełnić}
-\subsubsection{Problem przeuczenia}
-\TODO{uzupełnić}
+\subsubsection{Małe doświadczenie w dziedzinie konstruowania sieci neuronowych}
+Było to dla nas pierwsze doświadczenie z sieciami neuronowymi, dlatego znaczną ilość czasu poświęciliśmy na 
+zrozumienie tego zagadnienia. Aby zrozumieć samą ideę zaczęliśmy od prostych modeli sieci typu \ttext{feed forward},
+następnie przeszliśmy do sieci rekurencyjnych. W całym procesie nauki musieliśmy zrozumieć,
+wszystkie zagadnienia z nimi związane, jak etropia krzyżowa, softmax, propagacja w przód, propagacja wsteczna, 
+minimalizacja gradientu itp.
+
+\subsubsection{Długi czas uczenia}
+Jedna epoka trwała od kilku do kilkunastu godzin w zależności od ilości danych, co znacząco spowalniało 
+prace nad usprawnieniem modelu. 
+
+\subsubsection{Znajomość biblioteki}
+Zdobytą wiedzę i pomysł należało przełożyć na kod w Pythonie przy wykorzystaniu biblioteki Pytorch. 
+Problem, który rozwiązywaliśmy był w jakimś stopniu niestandardowy, dlatego należało modyfikować 
+gotowe narzędzia i odpowiednio komponować z nich kod, często popełniane przy tym błędy prowadziły 
+do bardzo stopniowych zmian w kodzie, które oddzielone były długim czasem uczenia na sprawdzenie poprawek.
+
+
+\subsubsection{Przeuczenie}
+Ze względu na specyfikę problemu, którego cechą są bardzo krótkie teksty wejściowe (to znaczy, bardzo 
+mała ilość informacji na temat każdego autora) bardzo poważnym problemem jest przeuczenie sieci, która
+bardzo szybko uczy się tekstów treningowych na pamięć. 
+
 \subsection{Wyniki eksperymentów}
 \TODO{uzupełnić}
