@@ -4,7 +4,7 @@
 \subsection{preprocesing}
 Preprocesing to proces przygotowywania danych wejściowych tak by nadawały się do szkolenia sieci.
 
-Proces preprocesingu dzieli się na dwa etapy.
+Preprocesing dzieli się na dwa etapy.
 \begin{enumerate}
 	\item Redukcja alfabetu (mapowanie znaków)
 	\item Zamiana zredukowanych tekstów na one hot encoding
@@ -15,8 +15,18 @@ Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
 
 
 \subsubsection{Redukcja alfabetu}
-Redukcja alfabetu to sprytny sposób zmniejszenia liczby znaków w alfabecie, tak by uczenie sieci było
-efektywniejsze. Przykładowy fragment pliku do redukcji alfabetu języka
+Redukcja alfabetu pozwala na zredukowanie złożności obliczeniowej oraz zmniejsza wpływ bardzo rzadko
+występujących znaków na model języka. Pierwszym krok to normalizacja znaków (NKFD). Przykładowo dla
+języka polskiego litera ó została by zdekomponowana do litery o oraz znaku oznaczającego kreskę.
+Następnie wykonywany jest szereg zdefiniowanych mapowań takich jak:
+\begin{enumerate}
+  \item Zamiana każdej cyfry na cyfrę 7
+  \item Znaki nie występujące w danym alfabecie są usuwane
+  \item Wielkie litery zastępowane są ich mała literą oraz odpowiednim prefiksem
+  \item Znaki interpunkcyjne sprowadzane do kanoniczej formy
+  \item Jeżeli jakiś znak występuje wielokrotnie pod rząd, liczba tych znaków redukowana jest do 5
+\end{enumerate}
+Przykładowy fragment pliku do redukcji alfabetu języka
 angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
 czytelność)
 
@@ -57,7 +67,7 @@ charmap = {
 Tak przygotowany 'mapper' pozwala na zamiane wybranych znaków, które nie są kluczowe w procesie 
 szkolenia sieci na wybrane, inne znaki. Jeśli znak nie jest ujęty w maperze, nie jest zamieniany. 
 
-\subsubsection{Zamiana tekstów na tensory}
+\subsubsection{Zamiana tekstów na one-hot-encoding}
 Aby zamienić teksty na tensory potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
 elementy są znakami. Tak wygląda fragment alfabetu z języka angielskiego:
 \begin{python}

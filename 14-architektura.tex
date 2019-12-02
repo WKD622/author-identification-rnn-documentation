@@ -45,8 +45,8 @@ nam były do rysowania wykresów.
 \newpage
 \subsection{Skrypty - Prometheus}
 \begin{enumerate}
-	\item {create\_scripts } - 
-	tworzy skrypty rozpoczynające uczenie sieci. Korzysta z pliku konfiguracyjnego to\_run.
+	\item {\texttt{create\_scripts.py} } - 
+	tworzy skrypty rozpoczynające uczenie sieci. Korzysta z pliku konfiguracyjnego \texttt{to\_run.json}.
 	Zawartość pliku to run wraz z przykładowymi parametrami:
 	
 	\begin{import}
@@ -92,16 +92,23 @@ nam były do rysowania wykresów.
 	  \item errors - Plik ze standardowym wyjściem błędów
 	\end{itemize}
 	
-	\item {run} - 
-	Uruchamia skrypty utworzone poprzez create\_scripts.
+	Po wykonaniu komendy \texttt{python3 create\_scripts.py} w katalogu \texttt{scripts} zostaną 
+	wygenerowane skrypty pozwalające na uczenie sieci z podanymi parametrami oraz tworzy foldery 
+	wynikowe dla danej nazwy zlecenia.
 	
-	\item {copy\_data\_to\_prometheus} - 
-	Pozwala na przesłanie korpusu tekstów.
 	
-	\item {draw\_plots} -
+	
+	\item {\texttt{run.sh} } - 
+	Uruchamia skrypty utworzone poprzez \texttt{create\_scripts.py} odpowiednio je kolejkując. Należy
+	pamiętać o wcześniejszej inicjalizacji skryptów z parametrami opisanymi powyżej.
+	
+	\item {\texttt{copy\_data\_to\_prometheus.sh} } - 
+	Pozwala na przesłanie plików. Wykorzystywany do przesyłania korpusu tekstów.
+	
+	\item {\texttt{draw\_plots.py} } -
 	Przedstawia wyniki w formie wykresów.
 	
-	\item {clean} -
+	\item {\texttt{clean.sh} } -
 	Czyści dotychczasowe wyniki.
 	
 	
