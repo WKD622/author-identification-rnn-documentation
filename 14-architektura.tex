@@ -46,7 +46,8 @@ nam były do rysowania wykresów.
 \subsection{Skrypty - Prometheus}
 \begin{enumerate}
 	\item {\texttt{create\_scripts.py} } - 
-	tworzy skrypty rozpoczynające uczenie sieci. Korzysta z pliku konfiguracyjnego \texttt{to\_run.json}.
+	tworzy skrypty, które służą do kolejkowania zadań na Prometheusie. Korzysta z pliku konfiguracyjnego \texttt{to\_run.json},
+	w którym możemy definiować zarówno parametry sieci, jak i parametry związane ze zlecaniem zadań na Prometheusie.
 	Zawartość pliku to run wraz z przykładowymi parametrami:
 	
 	\begin{import}
@@ -78,18 +79,17 @@ nam były do rysowania wykresów.
 		]
 	\end{import}
 	
-	Poza standardowymi parametrami sieci opisanymi w podręczniku użytkowania występują również parametry
-	związane z samym Prometheusem:
+	Parametry dotyczące zlecania zadań:
 	\begin{itemize}
-	  \item name - Nazwa zlecenia
-	  \item node\_numbers - Liczba alokowanych węzłów
-	  \item task\_per\_node - Liczba zadań per węzeł
-	  \item mem\_per\_cpu - Ilość pamięci przypadającej na jeden rdzeń obliczeniowy
-	  \item time - Maksymalny czas trwania zlecenia
-	  \item grant\_name - Nazwa grantu do rozliczenia zużycia zasobów
-	  \item partition - Specyfikacja partycji
-	  \item output - Plik ze standardowym wyjściem
-	  \item errors - Plik ze standardowym wyjściem błędów
+	  \item name - nazwa zlecenia
+	  \item node\_numbers - liczba alokowanych węzłów
+	  \item task\_per\_node - liczba zadań per węzeł
+	  \item mem\_per\_cpu - ilość pamięci przypadającej na jeden rdzeń obliczeniowy
+	  \item time - maksymalny czas trwania zlecenia
+	  \item grant\_name - nazwa grantu do rozliczenia zużycia zasobów
+	  \item partition - specyfikacja partycji
+	  \item output - plik ze standardowym wyjściem
+	  \item errors - plik ze standardowym wyjściem błędów
 	\end{itemize}
 	
 	Po wykonaniu komendy \texttt{python3 create\_scripts.py} w katalogu \texttt{scripts} zostaną 
@@ -102,14 +102,22 @@ nam były do rysowania wykresów.
 	Uruchamia skrypty utworzone poprzez \texttt{create\_scripts.py} odpowiednio je kolejkując. Należy
 	pamiętać o wcześniejszej inicjalizacji skryptów z parametrami opisanymi powyżej.
 	
-	\item {\texttt{copy\_data\_to\_prometheus.sh} } - 
-	Pozwala na przesłanie plików. Wykorzystywany do przesyłania korpusu tekstów.
+	\item {\texttt{copy\_data\_to\_prometheus.sh} } - używany przez nas do przesyłania tekstów po preprocesingu
+	bezpośrednio na Prometheusza. 
 	
-	\item {\texttt{draw\_plots.py} } -
-	Przedstawia wyniki w formie wykresów.
+	\item {\texttt{copy\_results\_LOCAL.sh} } - skrypt służący do kopiowania rezultatów uczenia z Prometheusza na 
+	na komputer osobisty. Wykonujemy go lokalnie z naszego komputera. 
+
+	\item {\texttt{draw\_plots.py} } - czyta dane otrzymane z procesu uczenia i przedstawia je w formie wykresów.
 	
-	\item {\texttt{clean.sh} } -
-	Czyści dotychczasowe wyniki.
+	\item {\texttt{clean.sh} } - czyści dotychczasowe wyniki, pliki tymczasowe itp.
+	
+	\item {\texttt{uncode\_tensor.py} } - skrypt służący do odkowawania tekstu w postaci tablicy wektorów one hot powtórnie do 
+ 	formy tekstowej. Służył do debugowania sieci, w szczególności sprawdzania czy dane wejściowe oraz 
+ 	oczekiwane znaki wyjściowe są poprawne.
+ 	
+ 	\item {\texttt{list\_lengths.py} } - skrypt służący do listowania łączenej długości tekstów dla każdego z autorów
+ 	w podanym folderze. Służył do analizy zbioru danych wejściowych.
 	
 	
 	

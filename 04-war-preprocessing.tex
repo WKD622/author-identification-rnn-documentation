@@ -12,7 +12,7 @@ Preprocesing dzieli się na dwa etapy.
 
 Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
 \languages 
-
+ 
 
 \subsubsection{Redukcja alfabetu}
 Redukcja alfabetu pozwala na zredukowanie złożności obliczeniowej oraz zmniejsza wpływ bardzo rzadko
@@ -24,43 +24,26 @@ Następnie wykonywany jest szereg zdefiniowanych mapowań takich jak:
   \item Znaki nie występujące w danym alfabecie są usuwane
   \item Wielkie litery zastępowane są ich mała literą oraz odpowiednim prefiksem
   \item Znaki interpunkcyjne sprowadzane do kanoniczej formy
-  \item Jeżeli jakiś znak występuje wielokrotnie pod rząd, liczba tych znaków redukowana jest do 5
 \end{enumerate}
+\newpage
 Przykładowy fragment pliku do redukcji alfabetu języka
 angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
 czytelność)
 
 \begin{python}
 charmap = {
-    u' ': u' ',                 # kept Zs (92447)
-    u'e': u'e',
-    u't': u't',
-    u'o': u'o',
-    u'a': u'a',
-    u'n': u'n',
-    u'i': u'i',
-    u's': u's',
-    u'h': u'h',
-    u'r': u'r',
-    u'\n': u'\n',               # kept Cc (13082)
-    u'l': u'l',
-    u'd': u'd',
-    u'u': u'u',
-    u'y': u'y',
-    u'm': u'm',
-    u'g': u'g',
-    u'w': u'w',
-    u',': u',',                 # kept Po (5250)
-    u"'": "'",                  # single quote
-    u'.': u'.',                 # kept Po (4826)
-    u'f': u'f',
-    u'c': u'c',
-    u'b': u'b',
-    u'p': u'p',
-    u'-': u'-',                 # kept Pd (3253)
-    u'k': u'k',
-    u'I': u'\xb9i',             # decomposed caps
-    u'v': u'v',
+    u'V': u'\xb9v',     
+    u'K': u'\xb9k',         
+    u'Q': u'\xb9q',        
+    u'U': u'\xb9u',   
+    u'_': '',             
+    u':': u':',             
+    u'[': u'(',           
+    u'(': u'(',               
+    u')': u')',              
+    u']': u')',              
+    u'}': u')',              
+    u'{': u'(',                 
 }
 \end{python}
 
@@ -68,7 +51,8 @@ Tak przygotowany 'mapper' pozwala na zamiane wybranych znaków, które nie są k
 szkolenia sieci na wybrane, inne znaki. Jeśli znak nie jest ujęty w maperze, nie jest zamieniany. 
 
 \subsubsection{Zamiana tekstów na one-hot-encoding}
-Aby zamienić teksty na tensory potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
+Teksty zamieniamy na tablice składająca się z wektorów stworzonych poprzez one hot encoding. 
+Aby tego dokonc potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
 elementy są znakami. Tak wygląda fragment alfabetu z języka angielskiego:
 \begin{python}
 alphabet = [
@@ -88,20 +72,11 @@ alphabet = [
     'u',
     'y',
     'm',
-    'g',
-    'w',
-    ',',
-    "'",  # 20
-    '.',
-    'f',
-    'c',
-    'b',
 ]
 \end{python}
 
 Każdy znak zredukowanego pliku wejściowego zamieniany jest na wektor wykorzystując alfabet, 
-a wektory 'umieszczane' są w tensorze. Wykorzystywane przy tym jest \texttt{one hot encoding}.
-Zamianę liter na wektory najłatwiej pokazać na przykładzie.
+a wektory 'umieszczane' są w tablicy i zapisywane do pliku. Przykład:
 
 Załóżmy że nasz alfabet wygląda następująco:
 
@@ -124,18 +99,9 @@ $
 \vspace{2mm}
 
 Ponieważ litera 'a' jest na pozycji 0 w alfabecie liczba 1 pojawiła się na pozycji 0 w wektorze.
-Długość wektora wynosi 4 ponieważ tyle znaków znajduje się w alfabecie. A więc dla litery 
-'c' wektor wyglądałby w następujący sposób:
+Długość wektora wynosi 4 ponieważ tyle znaków znajduje się w alfabecie.
 
-\vspace{2mm}
-$
-\begin{bmatrix} 
-0, & 0, & 1, & 0
-\end{bmatrix} 
-$
-\vspace{2mm}
-
-W ten sposób konwertowane są wszystkie znaki w plikach, które następnie umieszczane są w tensorze.
-Tensor na tym etapie jest tablicą jednowymiarową, w którym znajdują się teksty tylko jednego autora, 
-a elementami są wyżej wspomniane wektory umieszczane tam zgodnie z kolejnością ich występowania w tekście. 
-Następnie następuje podział na batche.
+W ten sposób konwertowane są wszystkie znaki.
+Każdy autor ma odrębną tablice, której elementami są wyżej wspomniane wektory umieszczane tam zgodnie 
+z kolejnością ich występowania w tekście. 
+Następnie następuje zapis do pliku, a później w procesie uczenia podział na batche.

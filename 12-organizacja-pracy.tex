@@ -105,7 +105,7 @@ W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
   do uczenia maszynowego. 
   \item stworzenie modułu batchowania - moduł, który bazując na danych przygotowanych przez moduł 
   preprocesingu dzieli je na mini batche i dostarcza sieci. Jest on sparametryzowany dzięki czemu mogliśmy
-  w łatwy sposób wpływać na parametry batchy i efektywnie szukać tych najlepszych dla wyników sieci. 
+  w łatwy sposób wpływać na parametry mini batchy i efektywnie szukać tych najlepszych dla wyników sieci. 
   \item stworzenie modułu sieci - moduł, który tworzy rekurencyjną sieć neuronową za pomocą
   biblioteki PyTorch.
   \item stworzenie modułu treningu - moduł, który pozwala na wytrenowanie rekurencyjnej sieci neuronowej. 
@@ -137,7 +137,7 @@ najbardziej problematyczne iteracje:
 \begin{enumerate}
   \item Dużym wyzwaniem podczas pierwszej iteracji okazało
   się zaprojektowanie modułu preprocesingu. Moduł ten okazał się być bardzo obszerny w porównaniu do
-  pozostałych części biblioteki. W związku z tym należało przedsiewziąć odpowiednie decyzje projektowe 
+  pozostałych części biblioteki. W związku z tym należało przedsięwziąć odpowiednie decyzje projektowe 
   już na samym początku, a kod dokładnie zaplanować.
   
   \item Druga iteracja, podczas której tworzony był moduł preprocesingu okazała się trwać przez praktycznie

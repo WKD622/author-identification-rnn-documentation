@@ -1,7 +1,7 @@
 \subsection{Rozdzielenie wektorów na paczki}
 Jednym ze sposobów przyspieszenia czasu uczenia jest podzielenie danych na paczki (ang. batche).
 Pozwala nam to na wykonywanie obliczeń na wielu danych jednocześnie. W naszej bibliotece 
-wymiarami batcha zawsze będzie: $(rozmiar batcha) \times (rozmiar alfabetu) \times (ilość kroków czasowych)$. 
+wymiarami batcha zawsze będzie: (rozmiar batcha) $\times$ (rozmiar alfabetu) $\times$ (liczba kroków czasowych). 
 Poniżej przedstawiamy batchowanie na przykładzie, dla którego przyjmiemy następujące założenia: 
 \begin{itemize}
 	\item rozmiar batcha równy 3
@@ -73,8 +73,7 @@ $
 \end{wrapfigure}
 \vspace{4mm}
 Następnie ze wszystkich tych wektorów tworzymy batche.
-Dla tego przykładu każdy z batchy będzie wektorem o wymiarach $3 \times 4 \times 3$ $((rozmiar batcha) \times 
-(rozmiar alfabetu) \times (ilość kroków czasowych))$.
+Dla tego przykładu każdy z batchy będzie wektorem o wymiarach $3 \times 4 \times 3$.
 Do każdej takiej paczki będziemy losować autorów oraz ich kolejność. Załóżmy, że do pierwszego batcha
 wylosowaliśmy autora 4, 1 oraz 3. Oznacza to, że w pierwszym kroku czasowych w wektorze zawarta będzie 
 patrząc ``od góry'': pierwsza litera autora 4, pierwsza litera autora 1 oraz pierwsza litera autora 3.
@@ -90,5 +89,6 @@ na końcu pierwsza litera autora 3. W drugim kroku czasowym byłoby to:
 druga litera autora 1, druga litera autora 1 oraz druga litera autora 3, itd.
 
 Ilość batchy jest zależna od długości tekstów. Są tworzone dopóki nie skończą się znaki w wektorze
-któregoś z autorów, dlatego teksty powinny być mniej więcej tej samej długości. Sieć można
+najdłuższego z autorów, dlatego teksty powinny być mniej więcej tej samej długości. Dopóki nie skończy się 
+najdłuższy tekst teksty krótsze są zapętlane i ponownie podawane do sieci.  Sieć można
 wyszkolić dobrze tylko zachowując maksymalnie dużą losowość wystąpień autorów w każdym batchu.
