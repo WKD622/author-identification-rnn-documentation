@@ -68,7 +68,7 @@ nam były do rysowania wykresów.
 		    "num_epochs": "5",
 		    "batch_size": "40",
 		    "timesteps": "50",
-		    "learning_rate": "0.04",
+		    "learning_rate": "0.004",
 		    "authors_size": "100",
 		    "vocab_size": "48",
 		    "save_path": "../results/",
@@ -93,9 +93,43 @@ nam były do rysowania wykresów.
 	\end{itemize}
 	
 	Po wykonaniu komendy \texttt{python3 create\_scripts.py} w katalogu \texttt{scripts} zostaną 
-	wygenerowane skrypty pozwalające na uczenie sieci z podanymi parametrami oraz tworzy foldery 
-	wynikowe dla danej nazwy zlecenia.
+	wygenerowane skrypty pozwalające na uczenie sieci z podanymi parametrami oraz foldery 
+	wynikowe dla danej nazwy zlecenia w folderze results. Nazwa zlecenia to ostatni wyraz dla składnika name,
+	dla przykładu wyżej byłaby to nazwa \texttt{test}:
 	
+	\begin{import}
+	"name": "#SBATCH -J test",
+	\end{import}
+	
+	W folderze każdego zlecenia inicjalizowanych jest 5 plików: 
+	
+	\begin{itemize}
+	  \item network\_info.txt - plik z danymi na temat sieci i parametrami uczenia. Przykładowa zawartość pliku: 
+	\begin{import}	
+	num_layers: 2
+	hidden_size: 100
+	batch_size: 1
+	timesteps: 40
+	learning_rate: 0.004
+	num_epochs: 1
+	vocab_size: 40
+	authors_size: 10
+	\end{import}
+	  \item output-<nazwa\_zlecenia>.out - plik ze standardowym wyjściem z wywołania programu.
+	  \item errors-<nazwa\_zlecenia>.out -  plik gdzie zapisywane są logi z błędami.
+	  \item results.csv - plik z danymi z uczenia jak skuteczność, wartość funkcji kosztu, czas uczenia, 
+	  numer epoki. Wypełniany jest podczas procesu uczenia sieci. Służy do rysowania wykresów. 
+	  Przykładowa zawartość pliku:
+	  	  \begin{import}	
+model,epoch,loss,accuracy,time
+1,1,3.5167935148152436,0.012658227848101266,0:27:30.020267
+2,2,1.6148932912132955,0.127848101235212313,0:57:28.588744
+3,3,0.8160962337213797,0.312658256743278567,1:27:04.476756
+4,4,0.7149949056285243,0.382658226754242341,1:58:06.904183
+	  \end{import}
+	  
+	\end{itemize}
+	 
 	
 	
 	\item {\texttt{run.sh} } - 
@@ -108,7 +142,19 @@ nam były do rysowania wykresów.
 	\item {\texttt{copy\_results\_LOCAL.sh} } - skrypt służący do kopiowania rezultatów uczenia z Prometheusza na 
 	na komputer osobisty. Wykonujemy go lokalnie z naszego komputera. 
 
-	\item {\texttt{draw\_plots.py} } - czyta dane otrzymane z procesu uczenia i przedstawia je w formie wykresów.
+	\item {\texttt{draw\_plots.py} } - Analizuje dane otrzymane z procesu uczenia i przedstawia je w formie wykresów.
+	Uruchumiony szuka folderu results w folderze w którym się aktualnie znajduje. Następnie iteruje po folderach
+	wykonanych zadań z folderu results, z każdego z nich czyta plik results.csv i rysuje dla niego wykres kosztu od epoki
+ 	oraz skuteczności od epoki. Wykresy zapisuje w folderze \texttt{plots}, gdzie każde zlecenie ma osobny folder
+ 	o swojej nazwie.
+ 	
+ 	\begin{figure}[H]
+	\centering
+	\includegraphics[height=7cm]{./images/plot.png}
+	\caption{przykładowy wykres}
+	\label{fig:test5}
+	\end{figure}
+ 	
 	
 	\item {\texttt{clean.sh} } - czyści dotychczasowe wyniki, pliki tymczasowe itp.
 	
