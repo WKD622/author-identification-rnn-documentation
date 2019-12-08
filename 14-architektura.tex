@@ -94,14 +94,14 @@ nam były do rysowania wykresów.
 	
 	Po wykonaniu komendy \texttt{python3 create\_scripts.py} w katalogu \texttt{scripts} zostaną 
 	wygenerowane skrypty pozwalające na uczenie sieci z podanymi parametrami oraz foldery 
-	wynikowe dla danej nazwy zlecenia w folderze results. Nazwa zlecenia to ostatni wyraz dla składnika name,
+	wynikowe dla danej nazwy zlecenia w folderze \texttt{results}. Nazwa zlecenia to ostatni wyraz dla składnika name,
 	dla przykładu wyżej byłaby to nazwa \texttt{test}:
 	
 	\begin{import}
 	"name": "#SBATCH -J test",
 	\end{import}
 	
-	W folderze każdego zlecenia inicjalizowanych jest 5 plików: 
+	W folderze każdego zlecenia inicjalizowane są 4 pliki: 
 	
 	\begin{itemize}
 	  \item network\_info.txt - plik z danymi na temat sieci i parametrami uczenia. Przykładowa zawartość pliku: 
@@ -130,7 +130,7 @@ model,epoch,loss,accuracy,time
 	  
 	\end{itemize}
 	 
-	
+	oraz folder \texttt{models} gdzie zapisywane są pliki z zawartością modelu z poszczególnych epok.
 	
 	\item {\texttt{run.sh} } - 
 	Uruchamia skrypty utworzone poprzez \texttt{create\_scripts.py} odpowiednio je kolejkując. Należy
@@ -143,10 +143,10 @@ model,epoch,loss,accuracy,time
 	na komputer osobisty. Wykonujemy go lokalnie z naszego komputera. 
 
 	\item {\texttt{draw\_plots.py} } - Analizuje dane otrzymane z procesu uczenia i przedstawia je w formie wykresów.
-	Uruchumiony szuka folderu results w folderze w którym się aktualnie znajduje. Następnie iteruje po folderach
-	wykonanych zadań z folderu results, z każdego z nich czyta plik results.csv i rysuje dla niego wykres kosztu od epoki
- 	oraz skuteczności od epoki. Wykresy zapisuje w folderze \texttt{plots}, gdzie każde zlecenie ma osobny folder
- 	o swojej nazwie.
+	Uruchumiony szuka folderu \texttt{results }w folderze w którym się aktualnie znajduje. Następnie iteruje po folderach
+	wykonanych zadań z folderu \texttt{results}, z każdego z nich czyta plik \texttt{results.csv} i rysuje dla niego wykres epoki od kosztu
+ 	oraz epoki od skuteczności. Wykresy zapisuje w folderze \texttt{plots}, gdzie plik każdego wykresu ma nazwę 
+ 	zlecenia, którego dane przedstawia.
  	
  	\begin{figure}[H]
 	\centering

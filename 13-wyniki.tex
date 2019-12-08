@@ -39,5 +39,25 @@ Ze względu na specyfikę problemu, którego cechą są bardzo krótkie teksty w
 problemem jest przeuczenie sieci, która
 bardzo szybko uczy się tekstów treningowych na pamięć. 
 
+\subsection{Różnice w długości tekstów}
+Teksty są bardzo krótkie, dodatkowo różnią się długością. Teksty mają od 1500 do 2600 znaków. 1100 znaków 
+różnicy w tym przypadku to aż $43\%$ różnicy w długości. Teoretycznie głowica powinna uczyć się przewidywać znaki dla 
+swojego autora i na tekstach treningowych robić to najlepiej w porównaniu do pozostałych głowic dla tekstu 
+jej autora ze zbioru testowego. Problemem jest jednak sytuacja wyżej opisana. Kiedy znaków jest tak mało 
+możliwa jest sytuacja w której głowica, której teksty są tymi najdłuższymi lepiej uczy się modelu języka od
+pozostałych głowic więc skuteczniej przewiduje kolejne znaki dla wszystkich nieznanych teksów.
+
+Popularne modele, które potrafią przewidywać kolejne słowa bądź litery szkolone są przykładowo na danych w postaci licznych 
+artykułów z \texttt{Wikipedii}, gdzie liczba danych do wyczuenia jest znacznie większa.
+
+\subsection{Błędy implementacyjne}
+Błędy w implementacji sieci, które prowadziły do skrajnie złych wyników i znacznie opóźniały tempo pracy.
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=7cm]{./images/result1.png}
+	\caption{przykładowe dane z uczenia sieci błędnie zaimplementowanej}
+	\label{fig:test5}
+	\end{figure}
+
 \subsection{Wyniki eksperymentów}
 \TODO{uzupełnić}
