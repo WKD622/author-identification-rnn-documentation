@@ -7,8 +7,7 @@ Parametry modelu:
 	  \item liczba warstw - $2$
 	  \item liczba głowic - $100$
 	  \item rozmiar batcha - $40$
-	  \item czas uczenia - $40h$
-	  \item Liczba epok - $6$
+	  \item czas uczenia - $40$h
 	  \item współczynnik uczenia - $0.004$
 	  \item liczba kroków czasowych - $50$
 	  \item skuteczność - $5\%$
@@ -22,35 +21,47 @@ część elementów z analizy ryzyka, które przewidywaliśmy.
 Było to dla nas pierwsze doświadczenie z sieciami neuronowymi, dlatego znaczną ilość czasu poświęciliśmy na 
 zrozumienie tego zagadnienia. Aby zrozumieć samą ideę zaczęliśmy od prostych modeli sieci typu feed forward,
 następnie przeszliśmy do sieci rekurencyjnych. W całym procesie nauki musieliśmy zrozumieć,
-wszystkie zagadnienia z nimi związane, jak etropia krzyżowa, softmax, propagacja w przód, propagacja wsteczna, 
-minimalizacja gradientu itp.
+wszystkie zagadnienia z nimi związane, jak entropia krzyżowa, softmax, propagacja w przód, propagacja wsteczna, 
+minimalizacja gradientu, itp.
  
 \subsubsection{Długi czas uczenia}
 Jedna epoka trwała od kilku do kilkunastu godzin w zależności od ilości danych, co znacząco spowalniało 
 prace nad usprawnieniem modelu. 
  
+\TODO{opisać korpus}
 \subsubsection{Znajomość biblioteki}
 Zdobytą wiedzę i pomysł należało przełożyć na kod w Pythonie przy wykorzystaniu biblioteki Pytorch. 
-Problem, który rozwiązywaliśmy był w jakimś stopniu niestandardowy, dlatego należało modyfikować 
+Problem który rozwiązywaliśmy był w jakimś stopniu niestandardowy, dlatego należało modyfikować 
 gotowe narzędzia i odpowiednio komponować z nich kod, często popełniane przy tym błędy prowadziły 
-do bardzo stopniowych zmian w kodzie, które oddzielone były długim czasem uczenia na sprawdzenie poprawek.
+stopniowych zmian w kodzie, które oddzielone były długim czasem uczenia na sprawdzenie poprawek.
 
 \subsubsection{Przeuczenie}
 Ze względu na specyfikę problemu, którego cechą są bardzo krótkie teksty wejściowe bardzo poważnym 
 problemem jest przeuczenie sieci, która
 bardzo szybko uczy się tekstów treningowych na pamięć. 
 
+\subsubsection{Eksplodujący gradient}
+Ze względu na zbyt wysoki współczynnik uczenia, bądź na zbyt mało danych występował problem eksplodującego
+gradientu:
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=7cm]{./images/exploading_gradient.png}
+	\caption{eksplodujący gradient}
+	\label{fig:test5}
+	\end{figure}
+
 \subsubsection{Różnice w długości tekstów}
 Teksty są bardzo krótkie, dodatkowo różnią się długością. Teksty mają od 1500 do 2600 znaków. 1100 znaków 
 różnicy w tym przypadku to aż $43\%$ różnicy w długości. Teoretycznie głowica powinna uczyć się przewidywać znaki dla 
-swojego autora i na tekstach treningowych robić to najlepiej w porównaniu do pozostałych głowic dla tekstu 
-jej autora ze zbioru testowego. Problemem jest jednak sytuacja wyżej opisana. Kiedy znaków jest tak mało 
+swojego autora i podczas ewaluacji jego tekstów robić to lepiej od pozostałych głowic. Problemem jest
+ jednak sytuacja wyżej opisana. Kiedy znaków jest tak mało 
 możliwa jest sytuacja w której głowica, której teksty są tymi najdłuższymi lepiej uczy się modelu języka od
 pozostałych głowic więc skuteczniej przewiduje kolejne znaki dla wszystkich nieznanych teksów.
 
 Popularne modele, które potrafią przewidywać kolejne słowa bądź litery szkolone są przykładowo na danych w postaci licznych 
 artykułów z \texttt{Wikipedii}, gdzie liczba danych do wyczuenia jest znacznie większa.
 
+\newpage
 \subsubsection{Błędy implementacyjne}
 Błędy w implementacji sieci, które prowadziły do skrajnie złych wyników i znacznie opóźniały tempo pracy.
 \begin{figure}[H]
@@ -62,8 +73,9 @@ Błędy w implementacji sieci, które prowadziły do skrajnie złych wyników i 
 
 \subsection{Wyniki eksperymentów i debugowanie sieci}
 Niestety nie udało nam się otrzymać pozytywnych wyników. Został popełniony błąd w implementacji sieci,
-którego nie udało nam się wykryć i rozwiązać. Efektem tego było to, że sieć się nie uczyła, a potem kiedy zaczęła się 
-uczyć nadal miała bardzo niską skuteczność na danych testowych. Głównym problemem był tu czas ewaluacji. 
+którego bardzo długo nie udało nam się wykryć i rozwiązać, co bardzo opóźniło prace i nie pozwoliło na znalezienie
+optymalnych parametrów uczenia. Efektem błędu było to, że sieć się nie uczyła, następnie kiedy zaczęła się 
+uczyć miała bardzo niską skuteczność na danych testowych. Głównym problemem był tu czas ewaluacji. 
 Debugowanie prowadziliśmy etapami, sprawdzając kolejne elementy sieci. Wyróżniliśmy następujące:
 
 \subsubsection{Sprawdzenie modułu preprocesingu}
@@ -136,8 +148,7 @@ AUTHOR 0) SEQUENCE: |s forgetting all abo|     TARGET: |u|
 	  i potem już praktycznie dla każdej litery wszystkie elementy wektora wyjściowego oscylują blisko odpowiadającej wartości z  wektora,
 	  do którego zbiegały}
 	\end{itemize}
-	
-\newpage
+
 \subsubsection{Liczenie kosztu i propagacja wsteczna}
 Liczenie kosztu jest u nas zaimplemnetowane nietypowo i polega na maskowaniu kosztów, które pochodzą od autorów
 nienależących do danej głowicy. 
@@ -184,16 +195,19 @@ self.linears = nn.ModuleList([nn.Linear(hidden_size, vocab_size) for i in range(
 Lista warstw liniowych nie była widoczna dla modułu PyTorchowego (module.nn), ponieważ warstwy były przechowywane
 w zwykłej liście pythonowej, przez co gradienty warstw liniowych nie były zerowane pomiędzy iteracjami.
 
-Po poprawce sieć zaczęła się uczyć i na danych treningowych zaczął spadać koszt, efektem było to, że 
-jeśli używaliśmy tekstów treningowych do testowania skuteczności, każda głowica faktycznie najlepiej przewidywała
-znaki dla tekstu na którym się uczyła i szybko wynosiła ona blisko $100\%$, jednak na danych testowych 
-skuteczność pozosotała wciąż bardzo niska, między $0\%$ a $5\%$.
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=7cm]{./images/loss_decrease.png}
 	\caption{Spadek kosztu na głowicy numer 1 na danych treningowych}
 	\label{fig:test5}
-	\end{figure}
+\end{figure}
 
-Pozostałym elementom kodu nie udało nam się nic zarzucić. Na dalsze szukanie błędów brakło nam czasu.
+Po poprawce sieć zaczęła się uczyć i na danych treningowych zaczął spadać koszt, efektem było to, że 
+jeśli używaliśmy tekstów treningowych do testowania skuteczności, każda głowica faktycznie najlepiej przewidywała
+znaki dla tekstu na którym się uczyła i szybko wynosiła ona blisko $100\%$, jednak na danych testowych 
+skuteczność pozosotała wciąż bardzo niska, między $0\%$ a $5\%$. Nie mieliśmy czasu aby dalej dobierać parametry uczenia,
+niska skuteczność spowodowana była eksplozją gradientu. 
+
+Pozostałym elementom kodu nie udało nam się nic zarzucić. Na dalsze szukanie błędów brakło nam czasu. 
+Jednak wszystko wskazuje na to, że sieć uczy się poprawnie, dalszy czas należałoby poświęcić na dobranie odpowiednich
+parametrów.

@@ -13,14 +13,14 @@ przetworzenie tekstów z formy tekstowej na formę binarną (tensory), która je
 do szkolenia sieci. Na tym etapie następuje również redukcja znaków w tekście, tak by wyeliminować
 informacje, które nie są potrzebne z perspektywy szkolenia sieci. Teksty po przetworzeniu są 
 zapisywane na dysku i mogą być wykorzystywane wielokrotnie. 
-Wadą tego modułu jest długość przetwarzania tekstów, która trwa zwykle kilkanaście sekund oraz spora ilość
-przestrzeni dyskowej i RAMu które są wykorzystywana w wyniku tego procesu.
+Wadą tego modułu jest długi czas przetwarzania tekstów, która trwa zwykle kilkanaście sekund oraz spora ilość
+przestrzeni dyskowej i RAMu które są wykorzystywane w wyniku tego procesu.
 
 \subsection{Moduł batchowania}
 Moduł, który korzystając z dostarczonych danych binarnych dzieli je na batche i dostarcza modułowi treningowemu.
 Pozwala na specyfikowanie parametrów tych danych, jak na przykład rozmiar batcha.
-Decyduje również o tym kiedy kończy się proces uczenia oraz o losowości ustawienia autorów w batchu. 
-Jego kod jest ściśle powiązany z kodem modułu treningu sieci ale z racji na obszerność zdecydowaliśmy 
+Decyduje również o tym, kiedy kończy się proces uczenia oraz o losowości ustawienia autorów w batchu. 
+Jego kod jest ściśle powiązany z kodem modułu treningu sieci ale z racji na jego obszerność zdecydowaliśmy 
 się go wyodrębnić jako osobny moduł. 
 Jest on niezależny od modułu preprocesingu, jednak format danych wyjściowych z modułu preprocesingu 
 jest zbieżny z formatem danych wejściwych wymaganym przez modułu batchowania. 
@@ -29,7 +29,7 @@ jest zbieżny z formatem danych wejściwych wymaganym przez modułu batchowania.
 Moduł sieci jest małym modułem odpowiedzialnym za deklarację sieci neuronowej w PyTorchu.
  
 \subsection{Moduł treningu sieci}
-Ten moduł spina moduł sieci, oraz moduł batchowania przprowadzając za ich pomocą proces treningu sieci.
+Ten moduł spina moduł sieci oraz moduł batchowania przprowadzając za ich pomocą proces treningu sieci.
 To w kodzie tego modułu następuje interacja przez epoki, przekazywanie danych z modułu batchowania 
 do sieci, wykorzystanie funkcji kosztu, propagacja wsteczna i wszystkie inne składniki potrzebne do 
 szkolenia sieci. 
@@ -38,17 +38,18 @@ szkolenia sieci.
 Ten moduł odpowiedzialny jest za odbieranie danych z modułu treningu sieci, a następnie tworzenie z nich
 wygodnego do analizy wyjścia. Wyjście to jest realizowane w formie danych ze szkolenia wyświetlanych 
 w konsoli oraz zapisywanych do pliku csv, w formie parametrów sieci, które są zapisywane
-w pliku txt oraz w formie kolejnych modeli sieci, które są zapisywane na dysku. 
-Logi w konsoli pozowiły nam na wygodne kontrolowanie procesu szkolenia, dane w plikach csv potrzebne 
+w pliku txt oraz w formie kolejnych modeli sieci, które są zapisywane na dysku w formacie\ldots. \TODO{jaki format plikow} 
+Logi w konsoli pozowiły nam na wygodne kontrolowanie procesu szkolenia, a dane w plikach csv potrzebne 
 nam były do rysowania wykresów.
 
 \newpage
-\subsection{Skrypty - Prometheus}
+\subsection{Skrypty}
+\TODO{zdanie wprowadzające}
 \begin{enumerate}
 	\item {\texttt{create\_scripts.py} } - 
 	tworzy skrypty, które służą do kolejkowania zadań na Prometheusie. Korzysta z pliku konfiguracyjnego \texttt{to\_run.json},
 	w którym możemy definiować zarówno parametry sieci, jak i parametry związane ze zlecaniem zadań na Prometheusie.
-	Zawartość pliku to run wraz z przykładowymi parametrami:
+	Zawartość pliku \texttt{to\_run.json} wraz z przykładowymi parametrami:
 	
 	\begin{import}
 		[
@@ -83,7 +84,7 @@ nam były do rysowania wykresów.
 	\begin{itemize}
 	  \item name - nazwa zlecenia
 	  \item node\_numbers - liczba alokowanych węzłów
-	  \item task\_per\_node - liczba zadań per węzeł
+	  \item task\_per\_node - liczba zadań przypadających na węzeł
 	  \item mem\_per\_cpu - ilość pamięci przypadającej na jeden rdzeń obliczeniowy
 	  \item time - maksymalny czas trwania zlecenia
 	  \item grant\_name - nazwa grantu do rozliczenia zużycia zasobów
@@ -121,7 +122,7 @@ nam były do rysowania wykresów.
 	  numer epoki. Wypełniany jest podczas procesu uczenia sieci. Służy do rysowania wykresów. 
 	  Przykładowa zawartość pliku:
 	  	  \begin{import}	
-model,epoch,loss,accuracy,time
+id,epoch,loss,accuracy,time
 1,1,3.5167935148152436,0.012658227848101266,0:27:30.020267
 2,2,1.6148932912132955,0.127848101235212313,0:57:28.588744
 3,3,0.8160962337213797,0.312658256743278567,1:27:04.476756
@@ -137,9 +138,9 @@ model,epoch,loss,accuracy,time
 	pamiętać o wcześniejszej inicjalizacji skryptów z parametrami opisanymi powyżej.
 	
 	\item {\texttt{copy\_data\_to\_prometheus.sh} } - używany przez nas do przesyłania tekstów po preprocesingu
-	bezpośrednio na Prometheusza. 
+	bezpośrednio na Prometheusie. 
 	
-	\item {\texttt{copy\_results\_LOCAL.sh} } - skrypt służący do kopiowania rezultatów uczenia z Prometheusza na 
+	\item {\texttt{copy\_results\_LOCAL.sh} } - skrypt służący do kopiowania rezultatów uczenia z Prometheusa na 
 	na komputer osobisty. Wykonujemy go lokalnie z naszego komputera. 
 
 	\item {\texttt{draw\_plots.py} } - Analizuje dane otrzymane z procesu uczenia i przedstawia je w formie wykresów.
@@ -151,18 +152,18 @@ model,epoch,loss,accuracy,time
  	\begin{figure}[H]
 	\centering
 	\includegraphics[height=7cm]{./images/plot.png}
-	\caption{przykładowy wykres}
+	\caption{Przykładowy wykres kosztu od skuteczności}
 	\label{fig:test5}
 	\end{figure}
  	
 	
-	\item {\texttt{clean.sh} } - czyści dotychczasowe wyniki, pliki tymczasowe itp.
+	\item {\texttt{clean.sh} } - usuwa dotychczasowe wyniki, pliki tymczasowe itp.
 	
 	\item {\texttt{uncode\_tensor.py} } - skrypt służący do odkowawania tekstu w postaci tablicy wektorów one hot powtórnie do 
  	formy tekstowej. Służył do debugowania sieci, w szczególności sprawdzania czy dane wejściowe oraz 
  	oczekiwane znaki wyjściowe są poprawne.
  	
- 	\item {\texttt{list\_lengths.py} } - skrypt służący do listowania łączenej długości tekstów dla każdego z autorów
+ 	\item {\texttt{list\_lengths.py} } - skrypt służący do listowania łącznej długości tekstów dla każdego z autorów
  	w podanym folderze. Służył do analizy zbioru danych wejściowych.
 	
 	

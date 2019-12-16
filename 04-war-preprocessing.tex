@@ -1,31 +1,34 @@
 \newpage
 \section{Wybrane aspekty realizacji}
 
-\subsection{preprocesing}
+\subsection{Preprocesing}
 Preprocesing to proces przygotowywania danych wejściowych tak by nadawały się do szkolenia sieci.
 
-Preprocesing dzieli się na dwa etapy.
+W naszej pracy preprocesing dzieli się na dwa etapy:
 \begin{enumerate}
 	\item Redukcja alfabetu (mapowanie znaków)
 	\item Zamiana zredukowanych tekstów na one hot encoding
 \end{enumerate}
 
-Należy przy tym dodać że domyślnie dostępnymi językami w bibliotece są:
+Domyślnie dostępnymi językami w bibliotece są:
 \languages 
  
 
 \subsubsection{Redukcja alfabetu}
+\TODO{Dodac definicje alfabetu}
 Redukcja alfabetu pozwala na zredukowanie złożności obliczeniowej oraz zmniejsza wpływ bardzo rzadko
-występujących znaków na model języka. Pierwszym krok to normalizacja znaków (NKFD). Przykładowo dla
-języka polskiego litera ó została by zdekomponowana do litery o oraz znaku oznaczającego kreskę.
+występujących znaków na model języka. Pierwszym krok to normalizacja znaków (NKFD). 
+\TODO{NKFD - wyjasnic} 
+Przykładowo dla języka polskiego litera \texttt{ó}| została by zdekomponowana do litery o oraz znaku oznaczającego kreskę.
 Następnie wykonywany jest szereg zdefiniowanych mapowań takich jak:
 \begin{enumerate}
   \item Zamiana każdej cyfry na cyfrę 7
   \item Znaki nie występujące w danym alfabecie są usuwane
-  \item Wielkie litery zastępowane są ich mała literą oraz odpowiednim prefiksem
+  \item Wielkie litery zastępowane są odpowiadającym im małym literom oraz prefiksem
   \item Znaki interpunkcyjne sprowadzane do kanoniczej formy
 \end{enumerate}
 \newpage
+\TODO{jakiego pliku, co to za plik}
 Przykładowy fragment pliku do redukcji alfabetu języka
 angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
 czytelność)
@@ -47,12 +50,12 @@ charmap = {
 }
 \end{python}
 
-Tak przygotowany 'mapper' pozwala na zamiane wybranych znaków, które nie są kluczowe w procesie 
-szkolenia sieci na wybrane, inne znaki. Jeśli znak nie jest ujęty w maperze, nie jest zamieniany. 
+Tak przygotowany maper pozwala na zamianę wybranych znaków, które nie są kluczowe w procesie 
+szkolenia sieci na wybrane inne znaki. Jeśli znak nie jest ujęty w maperze, nie jest zamieniany. 
 
-\subsubsection{Zamiana tekstów na one-hot-encoding}
-Teksty zamieniamy na tablice składająca się z wektorów stworzonych poprzez one hot encoding. 
-Aby tego dokonc potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
+\subsubsection{Zamiana tekstów na kodowanie one-hot encoding}
+Teksty zamieniamy na tablice składająca się z wektorów w kodowaniu one-hot encoding. 
+Aby tego dokonać potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
 elementy są znakami. Tak wygląda fragment alfabetu z języka angielskiego:
 \begin{python}
 alphabet = [

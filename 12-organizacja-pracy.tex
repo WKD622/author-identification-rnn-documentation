@@ -18,7 +18,7 @@ Bazując na zadaniach wykonywanych podczas pracy nad biblioteką, można wyróż
 \begin{itemize}
   \item Programista - implementacja kodu
   \item Analityk -  bezpośredni kontakt z klientem i określanie wymagań odnośnie tworzonej biblioteki
-  \item Tester - testowanie kodu napisanego przez programiste
+  \item Tester - testowanie kodu napisanego przez programistę
   \item Osoba odpowiedzialna za tworzenie dokumentacji
 \end{itemize}
 Projekt wykonywany był przez dwie osoby:
@@ -42,10 +42,10 @@ Opiekunowie pracy:
 \subsection{Komunikacja z opiekunem pracy}
 W trakcie pracy nad biblioteką odbywały się regularne spotkania Pracowni Projektowej, w ramach której 
 przedstawiane były kolejne postępy pracy nad biblioteką. W ramach tego przedmioru byliśmy również
-zobligowani do dostarczania kolejnych części dokumentacji na określone terminy. Tempo pisania kolejnych modułów
+zobligowani do dostarczania kolejnych części dokumentacji w określonych terminach. Tempo pisania kolejnych modułów
 samo wyznaczało kolejne spotkania z głównym opiekunem pracy. Często w ramach przejścia do kolejnej iteracji
-pojawiały się nowe problemy, które wymagały pomocy lub dyskusji. Większość pytań kierowanych do 
-głównego opiekuna była realizowana drogą mailową. 
+pojawiały się nowe problemy, które wymagały pomocy lub dyskusji. Większość pytań kierowanych do opiekuna
+ była realizowana drogą mailową.
 
 \subsection{Narzędzia}
 Sprawna realizacja projektu wymagała użycia odpowiednich narzędzi. Wśród wielu z nich
@@ -73,10 +73,10 @@ chcielibyśmy wyróżnić te najważniejsze:
 Realizacji biblioteki towarzyszyło zastosowanie kilku technik i praktyk mających na celu efektywne 
 tworzenie kodu o dobrej jakości:
 \begin{itemize}
-  \item refactoring kodu - nie wszystkie moduły biblioteki od początku napisane były dobrze. Niekiedy z racji 
+  \item Refaktoring kodu - nie wszystkie moduły biblioteki od początku napisane były dobrze. Niekiedy z racji 
   na kolejne optymalizacje bądź korekcje w sposobie uczenia sieci należało szybko coś zmienić w kodzie,
-  co z czasem owocowało brakiem porządku i kodem niskiej jakości. Okresowe refactoringi pozwoliły temu zapobiec.
-  \item zlecenie dołączenia oraz analiza kodu - ze względu na złożoność modułów i potrzebe utrzymywania wysokiej
+  co z czasem owocowało brakiem porządku i kodem niskiej jakości. Okresowe refaktoringi pozwoliły temu zapobiec.
+  \item Zlecenie dołączenia (ang. pull request) oraz recezencja kodu (and. code review) - ze względu na złożoność modułów i potrzebę utrzymywania wysokiej
   jakości kodu zmiany wprowadzane w repozytorium były zazwyczaj poprzez tworzenie zleceń dołączenia oraz analizy kodu
   drugiego członka zespołu. W ten sposób obaj na bieżąco zapoznawaliśmy się ze zmianami oraz zwiększaliśmy
   jakość kodu, poprzez efektywniejsze wychwytywanie błędów oraz złych wzorców projektowych.
@@ -94,18 +94,18 @@ W ramach tworzenia pracy inżynierskiej wyodrębniliśmy następujące iteracje
 \end{enumerate}  
 
   Każda iteracja, ze względu na odmienny charakter trwała inną ilość czasu. Najdłuższa okazała się
-trzecia i ostatnia iteracja. W skład trzeciej wchodziło zapoznanie się z tematyką sieci typu RNN oraz
-jej implemetacja, w skład ostatniej uczenie sieci oraz szukanie najlepszych parametrów sieci do problemu 
+trzecia i szósta iteracja. W skład trzeciej iteracji wchodziło zapoznanie się z tematyką sieci typu RNN oraz
+jej implemetacja, w skład szóstej iteracji uczenie sieci oraz szukanie najlepszych parametrów sieci do problemu 
 identyfikacji autorstwa tekstu.
 
 \subsection{Wykonane prace}
 W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
 \begin{itemize}
-  \item stworzenie modułu preprocesingu - moduł który w wygodny sposób pozwala nam na przygotowanie tekstów 
+  \item stworzenie modułu preprocesingu - moduł, który w wygodny sposób pozwala nam na przygotowanie tekstów 
   do uczenia maszynowego. 
   \item stworzenie modułu batchowania - moduł, który bazując na danych przygotowanych przez moduł 
-  preprocesingu dzieli je na mini batche i dostarcza sieci. Jest on sparametryzowany dzięki czemu mogliśmy
-  w łatwy sposób wpływać na parametry mini batchy i efektywnie szukać tych najlepszych dla wyników sieci. 
+  preprocesingu dzieli je na mini-batche i dostarcza sieci. Jest on sparametryzowany, dzięki czemu mogliśmy
+  w łatwy sposób wpływać na parametry minibatchy i efektywnie szukać tych najlepszych dla wyników sieci. 
   \item stworzenie modułu sieci - moduł, który tworzy rekurencyjną sieć neuronową za pomocą
   biblioteki PyTorch.
   \item stworzenie modułu treningu - moduł, który pozwala na wytrenowanie rekurencyjnej sieci neuronowej. 
@@ -113,11 +113,12 @@ W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
   \item stworzenie modułu do przetwarzania wyjścia z sieci - odpowiedzialny za zbieranie informacji podczas procesu uczenia,
   następnie wybierania część z nich i umieszcza je w uporządkowanej formie w pliku csv oraz 
   jako standardowe wyjście. Jest on również odpowiedzialny za zapisywanie kolejnych wytrenowanych modeli. 
+  \item \TODO{nioegramatycznie}
   \item stworzenie skryptów do pracy na Prometheusie:
   \begin{itemize}
     \item skrypt do wysyłania przetworzonych tekstów na Prometheusa 
     \item skrypt do kopiowania danych po procesie uczenia maszynowego z Prometheusa na komputer osobisty
-    \item skrypt do rysowania wykresów na podstawie danych zerbanych w procesie uczenia sieci
+    \item skrypt do rysowania wykresów na podstawie danych zebranych w procesie uczenia sieci
     \item skrypt do definiownia parametrów sieci, których szkolenie było następnie w sposób z
     automatyzowany przeprowadzane na Prometheusie. Dzięki niemu nie musieliśmy pilnować procesu uczenia i 
    	każde z nich przeprowadzać osobno. Definiowaliśmy parametry wielu sieci, które chcieliśmy przetestować,
@@ -142,9 +143,9 @@ najbardziej problematyczne iteracje:
   
   \item Druga iteracja, podczas której tworzony był moduł preprocesingu okazała się trwać przez praktycznie
   cały okres pisania biblioteki. Ten moduł bowiem, biorąc za wejście przetworzone teksty w postaci tensorów,
-  przetwarza ich ``formę'' na taką, która nadaje się do efektywnego szkolenia sieci. Podczas pisania pracy 
+  przetwarza ich format na taki, który nadaje się do efektywnego szkolenia sieci. Podczas pisania pracy 
   nasze koncepcje na temat tego procesu wielokrotnie się zmieniały w związku z tym zmieniał się również
-  kod modułu batchowania. Początkowe, błędne decyzje projektowe sprawiły, że wielkorotnie musiał być 
+  kod modułu batchowania. Początkowe, błędne decyzje projektowe sprawiły, że wielokrotnie musiał być 
   napisany od początku. Te doświadczenia były dla nas bardzo cenne i nauczyły nas, żeby poświęcać
   więcej czasu na planowanie kodu przed właściwym jego pisaniem i stosować się do wzorców projektowych.
 
@@ -153,7 +154,7 @@ najbardziej problematyczne iteracje:
   na późniejszy problem przełożenia tej wiedzy na kod w bibliotece PyTorch.
   
   \item Piąta iteracja wymagała od nas dużej liczby eksperymentów w postaci szkolenia sieci z wykorzystaniem wybranych
-  parametrów, a następnie na podstawie otrzymanych rezultatów ponowne dobieranie parametrów aby rezultaty poprawić.
+  parametrów. \TODO{orzeczenie}Następnie na podstawie otrzymanych rezultatów ponowne dobieranie parametrów aby rezultaty poprawić.
   Najbardziej problematyczny okazał się czas uczenia, pomimo wykorzystania grantu wyszkolenie sieci trwało
-  wiele godzin.
+  wiele godzin. \TODO{poprawic - duza ilosc obliczen}
 \end{enumerate}

@@ -1,6 +1,6 @@
 \newpage
 \subsection{Wykorzystanie modułu do trenowania sieci}
-
+\TODO{jakis tekst}
 \myspace
 \dirtree{%
 .1 network.
@@ -29,13 +29,13 @@ rnn.train()
 \end{import}
 
 Przyjmuje następujące argumenty:
-\begin{enumerate}
+\begin{itemize}
 	\item hidden\_size: int
 		\newline Wartość oznaczająca rozmiar warstwy ukrytej.
 	\item num\_layers: int
-		\newline Ilość warstw ukrytych.
+		\newline Liczba warstw ukrytych.
 	\item num\_epochs: int
-		\newline Ilość epok.
+		\newline Liczba epok.
 	\item batch\_size: int
 		\newline Wielkość paczek danych wprowadzanych do sieci.
 	\item timesteps: int
@@ -53,19 +53,20 @@ Przyjmuje następujące argumenty:
 	\item language: str
 		\newline Język w jakim są teksty.
 		
-\end{enumerate}
+\end{itemize}
 
 \begin{itemize}
 
   \item{train}
   \newline Najważniejsza metoda tej klasy. Odpowiada za cały proces trenowania oraz ewaluacji sieci. Po 
-  odpowiednim zainicjalizowaniu obiektu rnn wystarczy jedyne wywołać tę metodę.
+  odpowiednim zainicjalizowaniu obiektu rekurencyjnej sieci neuronowej wystarczy jedyne wywołać tę metodę.
   \item{get\_accuracy}
+  \item \TODO{batch_processor czy wystepuje}
   \newline Metoda odpowiedzialna za proces ewaluacji, a dokładniej badania skuteczności sieci. Korzysta z 
-  oddzielnego batch-proccesora, stworzonego na podstawie zbioru walidacyjnego. Zwraca wyniki w zakresie
+  oddzielnego batch-procesora, stworzonego na podstawie zbioru walidacyjnego. Zwraca wyniki w zakresie
   [0,1], gdzie 1 oznacza stu procentową skuteczność a 0 brak poprawnych przyporządkowań.
   \item{OutputManager [klasa]}
   \newline Wykorzystywana do sprawnego i przejrzystego logowania aktualnych wyników. Informuje nas o aktualnej
-  skuteczności, wartości loss czy też czasie uczenia. Tak spreparowane wyniki zapisuje również do pliku.
+  skuteczności, wartości funkcji kosztu czy też czasie uczenia. Tak spreparowane wyniki zapisuje również do pliku.
 
 \end{itemize}

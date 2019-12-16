@@ -1,17 +1,17 @@
 \subsection{Wielogłowicowa głęboka rekurencyjna sieć neuronowa}
-Ideą rekurencyjnych sieci neuronowych (w skrócie RNN) jest wykorzystanie dancyh w postaci sekwencji. 
+Ideą rekurencyjnych sieci neuronowych (ang. Recurent Neural Networks, RNN) jest wykorzystanie danych w postaci sekwencji. 
 Sieć neuronowa typu feed forward przyjmuje za każdym razem stałą liczbę wejść, następnie na ich podstawie generuje wynik. 
-Rekurencyjna sieć neuronowa natomiast, nie konsumuje wszystkich danych wejściwych na raz. Zamiast tego,
+Rekurencyjna sieć neuronowa natomiast nie konsumuje wszystkich danych wejściwych na raz. Zamiast tego,
 dane pobierane są w krokach czasowych. W każdym kroku RNN wykonuje obliczenia i zwraca wyjście. 
 To wyjście jest w następnym kroku łączone z kolejnym wejściem by zwrócić kolejne dane wyjściowe. 
-Ten proces jest powtarzany dopóki model nie jest wyuczony. Możliwość korzystania z 
+Ten proces jest powtarzany dopóki model nie zostanie wyuczony. Możliwość korzystania z 
 informacji kontekstowych z poprzednich danych wejściowych jest szczególną cechą sieci typu RNN. Dlatego
-są one używane do problemów gdzie kluczem do rozwiązania jest sekwencyjność danych, na przykład
+są one używane do problemów gdzie dane mają strukturę sekwencyjną, na przykład
 przy analizie tekstów ale także sygnałów audio czy ruchów obiektów.
 
 \begin{figure}[!ht]
 \includegraphics[width=\linewidth]{./images/rnn.png}
-\caption{schemat sieci typu RNN}
+\caption{Schemat sieci typu RNN}
 \label{fig:test3}
 \end{figure}
 Jak widać na rysunku 2, obliczenia dla każdego kroku czasowego są wykonywne z nowymi danymi wejściowymi
@@ -19,11 +19,12 @@ ale biorąc pod uwagę kontekst z poprzedniego kroku czasowego.
 \begin{wrapfigure}{r}{0.17\textwidth}
 \vspace{-4mm}
 \includegraphics[width=\linewidth]{./images/many-to-one.png}
-\caption{sieć typu many to one}
+\caption{Sieć typu many to one}
 \label{fig:test3}
 \vspace{-4mm}
 \end{wrapfigure}
-Rnn cell jest dokładnie tą samą przez cały proces
+\TODO{dopisac o ukrytym}
+Funkcja odwzorowująca wejście na wyjście jest dokładnie tą samą przez cały proces
 uczenia się. Neurony z połączeniami rekurencyjnymi działają jak pamięć - potencjalnie są w stanie modelować relacje
 występujące z dowolnie długim odstępem czasowym. 
 Rozwinięta w czasie sieć tworzy głęboką sieć neuronową 
@@ -42,24 +43,25 @@ Rekurencyjną sieć neuronową definiujemy jako:
 \end{align}
 
 gdzie: \newline
-$f_h$ - funkcja aktywacji $tanh$, \newline
-$f_o$ - funkcja aktywacji $logSoftMax$, \newline
-$h_t$ - warstwa ukryta w czasie $t$, \newline
-$y_t$ - wektor wynikowy w czasie $t$ , \newline
-$x_t$ - wektor wejściowy w czasie $t$, \newline
+$f_h$ - funkcja aktywacji tanh, \newline
+$f_o$ - funkcja aktywacji logSoftMax, \newline
+$h_t$ - warstwa ukryta w czasie t, \newline
+$y_t$ - wektor wynikowy w czasie t , \newline
+$x_t$ - wektor wejściowy w czasie t, \newline
 $W, U, V$ - macierze wag, \newline
 $\theta_o, \theta_h$ - elementarne funkcje nieliniowe \newline
+%\TODO{theta - konlkrente funkcje, f_h f_o bez indeksow prawdopdobien}
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=7cm]{./images/multiheaded-rnn.png}
-\caption{schemat sieci wielogłowicowej}
+\caption{Schemat sieci wielogłowicowej}
 \label{fig:test5}
 \end{figure}
 
 Termin ``wielogłowicowa'' odnosi się do wielu warstw liniowych, które na podstawie danych wyjściowych z 
-sieci rekurencyjnej predykują rozkład prawdopodobieństwa następnego znaku. Każdy autor ma swoją głowice, która 
+sieci rekurencyjnej predykują rozkład prawdopodobieństwa następnego znaku. Każdy autor ma swoją głowicę, która 
 szkolona jest tylko na jego tekstach.
 
 

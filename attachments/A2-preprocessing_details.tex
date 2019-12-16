@@ -44,8 +44,8 @@ Budowa modułu preprocesingu:
 from library.preprocesing.preprocesing import preprocesing
 \end{import}
 
-Ta klasa, a raczej jej użycie zostało opisane w punkcie wyżej. Wszystkie elementy biblioteki opisane
-poniżej są wykorzystywane przez tą klasę. Jest to klasa modułu preprocesingu przeznaczona
+Ta klasa, a raczej jej użycie zostało opisane w punkcie \TODO{ktory punkt}. Wszystkie elementy biblioteki opisane
+poniżej są wykorzystywane przez tę klasę. Jest to klasa modułu preprocesingu przeznaczona
 do domyślnego użycia.
 
 \item  {CharactersMapper [ klasa ] }
@@ -63,7 +63,7 @@ Przyjmuje takie argumenty jak:
 	\item log\_lvl
 \end{itemize}
 
-Wszystkie te argumenty funkcojonują tak samo jak w klasie preprocesing.
+Wszystkie te argumenty funkcjonują tak samo jak w klasie \texttt{preprocesingu}.
 
 
 \item  {ToTensor [ klasa ] }
@@ -83,9 +83,10 @@ Przyjmuje takie argumenty jak:
 	\item reduced\_authors
 \end{itemize}
 
-Wszystkie te argumenty z jednym wyjątkiem funkcjonują tak samo jak w klasie preprocesing. 
+\TODO{poprawic wszystkie te nazwy wlasne}
+Wszystkie te argumenty z jednym wyjątkiem funkcjonują tak samo jak w klasie  \texttt{preprocesing}. 
 Tym wyjątkiem jest argument \texttt{reduced\_authors}, które pozwala na bezpośrednie przekazanie obiektu z danymi 
-zredukowanych tekstów do obiektu ToTensor. W ten sposób oszczędzany jest czas ładowania tekstów z 
+zredukowanych tekstów do obiektu  \texttt{ToTensor}. W ten sposób oszczędzany jest czas ładowania tekstów z 
 dysku. Jeśli jest on podany, to argument \texttt{mapped\_source\_path} jest ignorowany.
 
 \end{itemize}
@@ -109,7 +110,7 @@ dysku. Jeśli jest on podany, to argument \texttt{mapped\_source\_path} jest ign
 from library.preprocesing import exceptions
 \end{import}
 
-W tym pliku znajdują się deklaracje wszystkich wyjątków używanych w module preprocesing
+W tym pliku znajdują się deklaracje wszystkich wyjątków używanych w module preprocesing.
 
 Są to:
 \begin{itemize}
@@ -408,18 +409,18 @@ batch_processor = BatchProcessor(tensors_dir='data/tensors',
 
 Następnie tak stworzony procesor umożliwia nam wykonanie metod:
 
-\begin{enumerate}
+\begin{itemize}
 	\item {next\_batch } - 
 	Wywołanie tej metody umożliwia sprawdzenie czy istnieje kolejna paczka danych, w przypadku False
 	należy zakończyć epokę.
 	
 	\item {new\_epoch } - 
-	Tą metodę należy wywołać przed ropoczęciem kolejnej epoki w celu zresetowania poszczególnych 
+	Tę metodę należy wywołać przed ropoczęciem kolejnej epoki w celu zresetowania poszczególnych 
 	parametrów.
 	
 	\item { get\_results } - 
 	Powyższa metoda zwraca gotowe paczki danych oraz oczekiwane wyjście w postaci tupli. 
 	Wcześniej pamiętać należy o sprawdzeniu czy istnieją kolejne wyniki poprzez metodę next\_batch.
-\end{enumerate}
+\end{itemize}
 
 \end{itemize}

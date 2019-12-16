@@ -75,20 +75,20 @@ $
 Następnie ze wszystkich tych wektorów tworzymy batche.
 Dla tego przykładu każdy z batchy będzie wektorem o wymiarach $3 \times 4 \times 3$.
 Do każdej takiej paczki będziemy losować autorów oraz ich kolejność. Załóżmy, że do pierwszego batcha
-wylosowaliśmy autora 4, 1 oraz 3. Oznacza to, że w pierwszym kroku czasowych w wektorze zawarta będzie 
+wylosowaliśmy autora 4, 1 oraz 3. Oznacza to, że w pierwszym kroku czasowym w wektorze zawarta będzie 
 patrząc ``od góry'': pierwsza litera autora 4, pierwsza litera autora 1 oraz pierwsza litera autora 3.
 To ustawienie autorów w wektorach będzie już zawsze zachowane dla wszystkich kroków czasowych w tym batchu. 
-A więc dla drugiego kroku czasowego będzie to: druga litera autora 4, druga litera autora 1 oraz druga 
-litera autora 3. Dla trzeciego kroku czasowego analogicznie. 
+A więc dla drugiego kroku czasowego będzie to: druga litera tekstu autora 4, druga litera tekstu autora 1 oraz druga 
+litera tekstu autora 3. Dla trzeciego kroku czasowego analogicznie. 
 
 Może się zdarzyć sytuacja, że do batcha wylosowano kilkukrotnie tego samego autora. Na przykład wylosowano
 autorów 1 oraz 3, w kolejności: autor pierwszy, następnie znowu autor pierwszy, na końcu autor trzeci.
 Dla identycznych założeń jak we wcześniejszym przykładzie w pierwszym batchu w pierwszym kroku czasowym wyglądałoby to
- następująco: pierwsza litera autora 1, następnie pierwsza litera autora 1,
-na końcu pierwsza litera autora 3. W drugim kroku czasowym byłoby to:
-druga litera autora 1, druga litera autora 1 oraz druga litera autora 3, itd.
+ następująco: pierwsza litera tekstu autora 1, następnie pierwsza litera autora 1,
+na końcu pierwsza litera tekstu autora 3. W drugim kroku czasowym byłoby to:
+druga litera tekstu autora 1, druga litera autora tekstu 1 oraz druga litera autora tekstu 3, itd.
 
-Ilość batchy jest zależna od długości tekstów. Są tworzone dopóki nie skończą się znaki w wektorze
+Liczba batchy jest zależna od długości tekstów. Są tworzone dopóki nie skończą się znaki w wektorze
 najdłuższego z autorów, dlatego teksty powinny być mniej więcej tej samej długości. Dopóki nie skończy się 
-najdłuższy tekst teksty krótsze są zapętlane i ponownie podawane do sieci.  Sieć można
+najdłuższy tekst, teksty krótsze są zapętlane i ponownie podawane do sieci.  Sieć można
 wyszkolić dobrze tylko zachowując maksymalnie dużą losowość wystąpień autorów w każdym batchu.

@@ -15,7 +15,7 @@ Finalna wersja biblioteki powinna spełniać poniższe wymagania funkcjonalne:
 	    \begin{itemize}
 		    \item Dostarczenie mechanizmu redukcji alfabetu.
 		    \item Przygotowanie danych poprzez zamianę tekstów na tensory oraz możliwość 
-				zapisania tak przygotowanych danych w celu ponownego użycia bez potrzeby
+				zapisania tak przygotowanych danych w celu ponownego użycia, bez potrzeby
 				powtórzonego preprocesingu. 
 	    \end{itemize}
  	\item Dla modułu trenowania sieci:
@@ -29,15 +29,13 @@ Finalna wersja biblioteki powinna spełniać poniższe wymagania funkcjonalne:
 			\item Parametryzowania trenowania sieci dobierając:
 				\begin{itemize}
 			    	\item Rozmiar mini-batchów danych,
-			    	\item Współczynnik uczenia,
-			    	\item Tempo zmniejszania się współczynnika uczenia po przetworzeniu pojedynczej epoki,
 			    	\item Maksymalną liczbę epok,
 			    	\item Długość sekwencji znaków, na której uczony będzie model,
 		    	\end{itemize}
 		  \end{itemize}
 \end{itemize}
 Dodatkowo biblioteka dostarczać będzie moduł logujący aktualny progres uczenia 
-oraz finalne wyniki,w tym dokładność.	
+oraz finalne wyniki, w tym skuteczność w temacie identyfikacji autorstwa.	
 
 \subsection{Wymagania niefunkcjonalne}
 \begin{itemize}

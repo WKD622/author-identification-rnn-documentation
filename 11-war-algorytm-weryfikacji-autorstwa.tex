@@ -1,16 +1,16 @@
 \subsection{Algorytm identyfikacji autorstwa tekstu}
 
-Do wielogłowicowej sieci wprowadzamy w jednym momencie wielu autorów, pochodzących ze zbioru 
+Do wielogłowicowej sieci wprowadzamy w jednym momencie teksty wielu autorów, pochodzących ze zbioru 
 testowego w postaci paczek danych (batche). Oprócz danych moduł batchowania dostarcza również 
 oczekiwanie wyjście, które posłuży do obliczania wartości funkcji kosztu oraz ewaluacji skuteczności. 
 Sieć składa się z określonej przez parametr liczby warstw ukrytych oraz warstw wyjściowych, 
 liniowych (tzw. głowic), które predykują rozkład prawdopodobieństwa dla kolejnego znaku. 
-W tym celu na danych wyjściowych na każdej głowicy liczona jest funkcja Softmax wzdłuż osi poziomej. 
+W tym celu na danych wyjściowych na każdej głowicy liczona jest funkcja softmax. 
 Następnie wykorzystując
-krosentropię krzyżową wyliczany jest koszt, który odzwierciedla jak jak bardzo jeden rozklad 
-prawdopodobieństwa opisuje drugi. Następnie koszty, które nie ``należą'' do danej głowicy są wygaszane maską. Chodzi o to by 
+krosentropię wyliczany jest koszt, który odzwierciedla jak bardzo jeden rozkład 
+prawdopodobieństwa opisuje drugi rozkład. Następnie koszty, które nie ``należą'' do danej głowicy są wygaszane maską. Chodzi o to, by 
 każda głowica uczyła się tylko na tekstach swojego autora. Z niewygaszonych kosztów liczona jest średnia.
-Po przeprowadzeniu podobnego procesu na wszytskich głowicach oraz po przejściu całego batcha
+Po przeprowadzeniu podobnego procesu na wszystkich głowicach oraz po przejściu całego batcha
  dokonywana jest propagacja wsteczna. 
 Z wykorzystaniem algorytmu optymalizacji Adam uaktualniane są wagi. Proces szkolenia sieci
 możemy więc określić jako uczenie głowic predykcji kolejnych znaków dla swojego autora na podstawie
@@ -27,6 +27,6 @@ która najlepiej predykuje znaki dla nieznanego autora.
 Do badania skuteczności sieci wykorzystywany jest zbiór walidacyjny. Do modelu wprowadzane są dane, 
 następnie otrzymane wyniki są sprowadzane do wartości z przedziału [0,1], 
 gdzie wynik bliski 1 oznacza najmniej pasującego autora, a bliski 0 najbardziej dopasowanego.
-Dzięki temu możemy stwierdzić, którego autora przeiwduje sieć i zestawić to z prawdziwym wynikiem.
+Dzięki temu możemy stwierdzić, którego autora przewiduje sieć i zestawić to z prawdziwym wynikiem.
 Skuteczność opisana jest jako stosunek poprawnych odpowiedzi do wszystkich. Niska skuteczność może 
 świadczyć o źle dobranych parametrach sieci bądź niepoprawnie przeprowadzonym procesie uczenia.
