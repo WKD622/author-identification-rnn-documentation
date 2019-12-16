@@ -19,12 +19,11 @@ ale biorąc pod uwagę kontekst z poprzedniego kroku czasowego.
 \begin{wrapfigure}{r}{0.17\textwidth}
 \vspace{-4mm}
 \includegraphics[width=\linewidth]{./images/many-to-one.png}
-\caption{Sieć typu many to one}
+\caption{Sieć typu ``many to one''}
 \label{fig:test3}
 \vspace{-4mm}
 \end{wrapfigure}
-\TODO{dopisac o ukrytym}
-Funkcja odwzorowująca wejście na wyjście jest dokładnie tą samą przez cały proces
+Funkcja odwzorowująca wejście oraz poprzedni kontekst na wyjście jest dokładnie tą samą przez cały proces
 uczenia się. Neurony z połączeniami rekurencyjnymi działają jak pamięć - potencjalnie są w stanie modelować relacje
 występujące z dowolnie długim odstępem czasowym. 
 Rozwinięta w czasie sieć tworzy głęboką sieć neuronową 
@@ -38,31 +37,28 @@ z danych wyjściowych z ostatniego kroku czasowego.
 Rekurencyjną sieć neuronową definiujemy jako:
 
 \begin{align}
-  &h_t = f_h(x_t, h_{t-1}) = \theta_o_h(W^Th_{t-1} + U^Tx_t) \\ 
-  &y_t = f_o(h_t) = \theta_o(V^Th_t)
+  &h_t = f(x_t, h_{t-1}) = f(W^Th_{t-1} + U^Tx_t) \\ 
+  &y_t = g(h_t) = g(V^Th_t)
 \end{align}
 
 gdzie: \newline
-$f_h$ - funkcja aktywacji tanh, \newline
-$f_o$ - funkcja aktywacji logSoftMax, \newline
+$f$ - funkcja aktywacji tanh, \newline
+$g$ - funkcja aktywacji logSoftMax, \newline
 $h_t$ - warstwa ukryta w czasie t, \newline
 $y_t$ - wektor wynikowy w czasie t , \newline
 $x_t$ - wektor wejściowy w czasie t, \newline
 $W, U, V$ - macierze wag, \newline
-$\theta_o, \theta_h$ - elementarne funkcje nieliniowe \newline
-%\TODO{theta - konlkrente funkcje, f_h f_o bez indeksow prawdopdobien}
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=7cm]{./images/multiheaded-rnn.png}
-\caption{Schemat sieci wielogłowicowej}
+\caption{Schemat sieci wielogłowicowej użytej w naszej pracy - na rysunku widać wspólną część rekurencyjną zaznaczoną na zielono
+oraz kolejne głowice oznaczone literami Hk (gdzie k jest liczbą naturalną), które interpretują ostatni krok czasowy z sieci rekurencyjnej, każda
+dla swojego autora, i predukują kolejny znak.}
 \label{fig:test5}
 \end{figure}
 
 Termin ``wielogłowicowa'' odnosi się do wielu warstw liniowych, które na podstawie danych wyjściowych z 
 sieci rekurencyjnej predykują rozkład prawdopodobieństwa następnego znaku. Każdy autor ma swoją głowicę, która 
 szkolona jest tylko na jego tekstach.
-
-
-

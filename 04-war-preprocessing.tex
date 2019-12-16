@@ -7,7 +7,7 @@ Preprocesing to proces przygotowywania danych wejściowych tak by nadawały się
 W naszej pracy preprocesing dzieli się na dwa etapy:
 \begin{enumerate}
 	\item Redukcja alfabetu (mapowanie znaków)
-	\item Zamiana zredukowanych tekstów na one hot encoding
+	\item Zamiana zredukowanych tekstów na one-hot encoding
 \end{enumerate}
 
 Domyślnie dostępnymi językami w bibliotece są:
@@ -15,21 +15,20 @@ Domyślnie dostępnymi językami w bibliotece są:
  
 
 \subsubsection{Redukcja alfabetu}
-\TODO{Dodac definicje alfabetu}
+Alfabet definiujemy jako zbiór znaków występujących we wszystkich tekstach w zbiorze danych wejściowych. 
 Redukcja alfabetu pozwala na zredukowanie złożności obliczeniowej oraz zmniejsza wpływ bardzo rzadko
-występujących znaków na model języka. Pierwszym krok to normalizacja znaków (NKFD). 
-\TODO{NKFD - wyjasnic} 
-Przykładowo dla języka polskiego litera \texttt{ó}| została by zdekomponowana do litery o oraz znaku oznaczającego kreskę.
+występujących znaków na model języka. Pierwszym krok to normalizacja znaków. 
+Przykładowo dla języka polskiego litera \texttt{ó} zostałaby zdekomponowana do litery o oraz znaku oznaczającego kreskę.
 Następnie wykonywany jest szereg zdefiniowanych mapowań takich jak:
 \begin{enumerate}
-  \item Zamiana każdej cyfry na cyfrę 7
-  \item Znaki nie występujące w danym alfabecie są usuwane
-  \item Wielkie litery zastępowane są odpowiadającym im małym literom oraz prefiksem
-  \item Znaki interpunkcyjne sprowadzane do kanoniczej formy
+  \item zamiana każdej cyfry na cyfrę 7,
+  \item znaki nie występujące w danym alfabecie są usuwane,
+  \item wielkie litery zastępowane są odpowiadającym im małym literom oraz prefiksem,
+  \item znaki interpunkcyjne sprowadzane do kanoniczej formy.
 \end{enumerate}
 \newpage
-\TODO{jakiego pliku, co to za plik}
-Przykładowy fragment pliku do redukcji alfabetu języka
+W celu redukcji alfabetu definiujemy pliki, w których przechowujemy przepisy mapowań, to znaczy
+jaki znak mapujemy na jaki. Przykładowy fragment pliku do redukcji alfabetu języka
 angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
 czytelność)
 
@@ -55,8 +54,9 @@ szkolenia sieci na wybrane inne znaki. Jeśli znak nie jest ujęty w maperze, ni
 
 \subsubsection{Zamiana tekstów na kodowanie one-hot encoding}
 Teksty zamieniamy na tablice składająca się z wektorów w kodowaniu one-hot encoding. 
-Aby tego dokonać potrzebny jest nam alfabet. Alfabet definiujemy jako listę, której 
-elementy są znakami. Tak wygląda fragment alfabetu z języka angielskiego:
+Aby tego dokonać potrzebny jest nam alfabet. Alfabet definiujemy w tym przypadku jako listę, której 
+elementami są wszystkie znakami występujące w tekstach po redukcji alfabetu. Tak wygląda przykładowy fragment alfabetu dla tekstów
+ w języku angielskim:
 \begin{python}
 alphabet = [
     ' ',
@@ -73,8 +73,6 @@ alphabet = [
     'l',
     'd',
     'u',
-    'y',
-    'm',
 ]
 \end{python}
 

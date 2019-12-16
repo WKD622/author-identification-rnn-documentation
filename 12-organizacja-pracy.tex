@@ -43,8 +43,8 @@ Opiekunowie pracy:
 W trakcie pracy nad biblioteką odbywały się regularne spotkania Pracowni Projektowej, w ramach której 
 przedstawiane były kolejne postępy pracy nad biblioteką. W ramach tego przedmioru byliśmy również
 zobligowani do dostarczania kolejnych części dokumentacji w określonych terminach. Tempo pisania kolejnych modułów
-samo wyznaczało kolejne spotkania z głównym opiekunem pracy. Często w ramach przejścia do kolejnej iteracji
-pojawiały się nowe problemy, które wymagały pomocy lub dyskusji. Większość pytań kierowanych do opiekuna
+samo wyznaczało kolejne spotkania z opiekunem pracy. Często w ramach przejścia do kolejnej iteracji
+pojawiały się nowe problemy, które wymagały pomocy lub dyskusji. Część pytań kierowanych do opiekuna
  była realizowana drogą mailową.
 
 \subsection{Narzędzia}
@@ -110,17 +110,16 @@ W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
   biblioteki PyTorch.
   \item stworzenie modułu treningu - moduł, który pozwala na wytrenowanie rekurencyjnej sieci neuronowej. 
   Współpracuje bezpośrednio z modułem batchowania.
-  \item stworzenie modułu do przetwarzania wyjścia z sieci - odpowiedzialny za zbieranie informacji podczas procesu uczenia,
-  następnie wybierania część z nich i umieszcza je w uporządkowanej formie w pliku csv oraz 
-  jako standardowe wyjście. Jest on również odpowiedzialny za zapisywanie kolejnych wytrenowanych modeli. 
-  \item \TODO{nioegramatycznie}
+  \item stworzenie modułu do zbierania danych z procesu uczenia - dane te są porządkowane i 
+  zbieranie w pliku csv oraz wypisywane na bieżąco podczas szkolenia na standardowe wyjście. 
+  Jest on również odpowiedzialny za zapisywanie wytrenowanych modeli z kolejnych epok. 
   \item stworzenie skryptów do pracy na Prometheusie:
   \begin{itemize}
     \item skrypt do wysyłania przetworzonych tekstów na Prometheusa 
     \item skrypt do kopiowania danych po procesie uczenia maszynowego z Prometheusa na komputer osobisty
     \item skrypt do rysowania wykresów na podstawie danych zebranych w procesie uczenia sieci
-    \item skrypt do definiownia parametrów sieci, których szkolenie było następnie w sposób z
-    automatyzowany przeprowadzane na Prometheusie. Dzięki niemu nie musieliśmy pilnować procesu uczenia i 
+    \item skrypt do definiownia parametrów sieci, których szkolenie było następnie w sposób zautomatyzowany
+     przeprowadzane na Prometheusie. Dzięki niemu nie musieliśmy pilnować procesu uczenia i 
    	każde z nich przeprowadzać osobno. Definiowaliśmy parametry wielu sieci, które chcieliśmy przetestować,
    	następnie skrypt generował kod który kolejkował na Prometheusie uczenie wszystkich wyszczególnionych przez nas sieci 
    	jako kolejne zadania.
@@ -154,7 +153,7 @@ najbardziej problematyczne iteracje:
   na późniejszy problem przełożenia tej wiedzy na kod w bibliotece PyTorch.
   
   \item Piąta iteracja wymagała od nas dużej liczby eksperymentów w postaci szkolenia sieci z wykorzystaniem wybranych
-  parametrów. \TODO{orzeczenie}Następnie na podstawie otrzymanych rezultatów ponowne dobieranie parametrów aby rezultaty poprawić.
-  Najbardziej problematyczny okazał się czas uczenia, pomimo wykorzystania grantu wyszkolenie sieci trwało
-  wiele godzin. \TODO{poprawic - duza ilosc obliczen}
+  parametrów. Za każdym razem na podstawie otrzymanych rezultatów ponowne dobieraliśmy parametry aby rezultaty poprawić.
+  Najbardziej problematyczny okazał się czas uczenia, z racji na znaczną ilość operacji potrzebną do 
+  uczenia sieci proces ten trwał długo.
 \end{enumerate}

@@ -28,17 +28,15 @@ minimalizacja gradientu, itp.
 Jedna epoka trwała od kilku do kilkunastu godzin w zależności od ilości danych, co znacząco spowalniało 
 prace nad usprawnieniem modelu. 
  
-\TODO{opisać korpus}
 \subsubsection{Znajomość biblioteki}
 Zdobytą wiedzę i pomysł należało przełożyć na kod w Pythonie przy wykorzystaniu biblioteki Pytorch. 
 Problem który rozwiązywaliśmy był w jakimś stopniu niestandardowy, dlatego należało modyfikować 
 gotowe narzędzia i odpowiednio komponować z nich kod, często popełniane przy tym błędy prowadziły 
-stopniowych zmian w kodzie, które oddzielone były długim czasem uczenia na sprawdzenie poprawek.
+do stopniowych zmian w kodzie, które oddzielone były długim czasem uczenia na sprawdzenie poprawek.
 
 \subsubsection{Przeuczenie}
 Ze względu na specyfikę problemu, którego cechą są bardzo krótkie teksty wejściowe bardzo poważnym 
-problemem jest przeuczenie sieci, która
-bardzo szybko uczy się tekstów treningowych na pamięć. 
+problemem jest przeuczenie sieci, która bardzo szybko uczy się tekstów treningowych na pamięć. 
 
 \subsubsection{Eksplodujący gradient}
 Ze względu na zbyt wysoki współczynnik uczenia, bądź na zbyt mało danych występował problem eksplodującego
@@ -48,7 +46,7 @@ gradientu:
 	\includegraphics[height=7cm]{./images/exploading_gradient.png}
 	\caption{eksplodujący gradient}
 	\label{fig:test5}
-	\end{figure}
+\end{figure}
 
 \subsubsection{Różnice w długości tekstów}
 Teksty są bardzo krótkie, dodatkowo różnią się długością. Teksty mają od 1500 do 2600 znaków. 1100 znaków 
@@ -111,7 +109,7 @@ confide in me--fear not--i am a mother!
 	  \item {autorzy są podawani w losowej kolejności - poprzez sprawdzenie metody losującej numery autorów,
 	  a takze poprzez wypisywanie na ekran autorów w kolejnych batchach}
 	  \item {moduł ``przechodzi'' po tekstach poprawnie - to znaczy, czy kolejne sekwencje podawane do sieci to 
-	  kolejne litery danego autora - w tym celu odkodowywaliśmy z batcha wektory one hot przy pomocy 
+	  kolejne litery danego autora - w tym celu odkodowywaliśmy z batcha wektory one-hot przy pomocy 
 	  specjalnie przygotowanego skryptu. Odkodowywaliśmy także oczekiwanie wyjście. Żeby wykluczyć ewentualne błędy
 	  teksty były odkodowywane wykorzystując alfabet poprzez który były kodowane.
 	  Przykład dla jednego autora:
@@ -136,17 +134,17 @@ AUTHOR 0) SEQUENCE: |s forgetting all abo|     TARGET: |u|
 	\end{itemize}
 
 \subsubsection{Sprawdzenie modułu sieci}
-
+W skład sprawdzenia modułu sieci wchodziły następujące kroki:
 	\begin{itemize} 
 	  \item {czy warstwy są poprawnie zainicjalizowane - w szczególności chodziło tutaj o inicjalizacje głowic, 
-	  których musiało być tyle ile autorów}
+	  których musiało być tyle ile autorów,}
 	  \item {sprawdzenie metody forward - czy dane są poprawnie przekazywane do sieci rekurencyjnej, a następnie 
-	  z sieci rekurencyjnej do poszczególnych głowic}
+	  z sieci rekurencyjnej do poszczególnych głowic,}
 	  \item {czy do głowic przekazywany jest dobry krok czasowy - mieliśmy podejrzenie, że do głowic przekazywany jest przykładowo
-	  pierwszy krok czasowy, a powinien być ostatni}
+	  pierwszy krok czasowy, a powinien być ostatni,}
 	  \item {badanie wyjścia z poszczególnych warstw - okazało się, że wartości zbiegają do pewnego wektora przez kilka pierwszych epok,
 	  i potem już praktycznie dla każdej litery wszystkie elementy wektora wyjściowego oscylują blisko odpowiadającej wartości z  wektora,
-	  do którego zbiegały}
+	  do którego zbiegał.y}
 	\end{itemize}
 
 \subsubsection{Liczenie kosztu i propagacja wsteczna}
@@ -164,19 +162,18 @@ Rzeczy, które sprawdziliśmy:
 \begin{itemize}
 	  \item {czy funkcja kosztu liczy się w dobrej osi,}
 	  \item {czy maska tworzona jest poprawnie - to znaczy czy wygaszane są koszty właściwych autorów,}
-	  \item {całkowicie zlikwidowaliśmy maskowanie i uczyliśmy tylko na jednym autorze w batchu, żeby być pewnym, że ten fragment
+	  \item {całkowicie zlikwidowaliśmy maskowanie i uczyliśmy tylko na jednym autorze w batchu żeby być pewnym, że ten fragment
 	  kodu nie jest problematyczny.}
 \end{itemize}
 
 \subsubsection{Napisanie podobnego, uproszczonego modelu w Kerasie}
 Stworzyliśmy uproszczony model w Kerasie, który uczył się przewidywać kolejne znaki na podstawie podanego tekstu. 
 Wybraliśmy Kerasa z racji na fakt, że bardzo szybko pisze się w nim mało skomplikowane modele.
-Chcieliśmy się upewnić czy koncepcyjnie ma to szansę na powodzenie, z racji na to, że wejście w postaci one hot encoding 
-jest dość niespotykane w tego typu problemach. Najczęściej proponowanym rozwiązaniem jest podawanie znaków jako klasy, następnie 
+Chcieliśmy się upewnić czy koncepcyjnie ma to szansę na powodzenie, z racji na to, że dane wejściowe w postaci one-hot encoding 
+są dosyć niespotykanym podejściem w tego typu problemach. Najczęściej proponowanym rozwiązaniem jest podawanie znaków jako klasy, następnie 
 przekazywanie jej do warstwy embedding, która to dopiero przekazuje swoje dane wyjściowe do sieci rekurencyjnej. 
 Sieć napisana w Kerasie trenowała się i miała po kilku epokach więcej niż $50\%$ skuteczności, jednak uczyła się
-dużo wolniej od modelu z klasami i warstwą embedding. Nie rozwijaliśmy tego dalej, gdyż chodziło tylko o to,
-by sprawdzić samą koncepcję.
+dużo wolniej od modelu z klasami i warstwą embedding. Nie rozwijaliśmy tego dalej, gdyż chodziło tylko o to aby sprawdzić samą koncepcję.
 
 \newpage
 \subsection{Znalezione błędy}
@@ -198,7 +195,7 @@ w zwykłej liście pythonowej, przez co gradienty warstw liniowych nie były zer
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=7cm]{./images/loss_decrease.png}
-	\caption{Spadek kosztu na głowicy numer 1 na danych treningowych}
+	\caption{Spadek kosztu na głowicy numer 1 na danych treningowych.}
 	\label{fig:test5}
 \end{figure}
 
