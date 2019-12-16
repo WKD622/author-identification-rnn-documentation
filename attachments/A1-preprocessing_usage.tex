@@ -1,5 +1,52 @@
 \newpage
 \section{Podręcznik użytkownika}
+
+\subsection{Struktura plików systemu}
+
+\myspace
+\dirtree{% 
+.1 helpers.
+.2 files.
+.3 files\_operations.py.
+.3 json\_loader.py.
+.3 name\_convention.py.
+.1 preprocesing \DTcomment{moduł preprocesingu}.
+.2 chars\_mapping \DTcomment{metody niskopoziome odpowiedzialne za redukcje alfabetów}.
+.3 mappers.
+.4 en\_mapper.py.
+.4 es\_mapper.py.
+.4 gr\_mapper.py.
+.4 nl\_mapper.py.
+.3 map.py.
+.2 data\_structs	\DTcomment{klasy do trzymania tekstów w formie obiektów}.
+.3 reduced\_authors.py.
+.2 to\_tensor \DTcomment{metody niskopoziome odpowiedzialne za zamianę tekstu na tensory}.
+.3 alphabets.
+.4 en\_alphabet.py.
+.4 es\_alphabet.py.
+.4 gr\_alphabet.py.
+.4 nl\_alphabet.py.
+.3 convert.py.
+.2 constants.py.
+.2 exceptions.py.
+.2 preprocesing.py \DTcomment{główny plik modułu preprocesingu}.
+.1 network \DTcomment{moduł treningu}.
+.2 batch\_processing \DTcomment{moduł batchowania}.
+.3 batching.py.
+.3 evaluation\_batches.py.
+.2 model.py \DTcomment{moduł sieci}.
+.2 train.py. 
+}
+\myspace
+
+\subsection{Wymagania}
+\begin{itemize}
+    \item Python 3.7
+	\item torch 1.1.0.post2
+    \item matplotlib 3.1.1
+    \item numpy 1.17.0
+ \end{itemize}
+
 \subsection{Wykorzystanie modułu preprocesingu}
 
 Aby korzystać z modułu preprocesingu należy zachować określoną konwencję danych wejściowych. 
