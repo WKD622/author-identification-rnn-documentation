@@ -44,7 +44,7 @@ Budowa modułu preprocesingu:
 from library.preprocesing.preprocesing import preprocesing
 \end{import}
 
-Ta klasa, a raczej jej użycie zostało opisane w punkcie \TODO{ktory punkt}. Wszystkie elementy biblioteki opisane
+Ta klasa, a raczej jej użycie zostało opisane w punkcie 8.4.6. Wszystkie elementy biblioteki opisane
 poniżej są wykorzystywane przez tę klasę. Jest to klasa modułu preprocesingu przeznaczona
 do domyślnego użycia.
 
@@ -83,7 +83,6 @@ Przyjmuje takie argumenty jak:
 	\item reduced\_authors
 \end{itemize}
 
-\TODO{poprawic wszystkie te nazwy wlasne}
 Wszystkie te argumenty z jednym wyjątkiem funkcjonują tak samo jak w klasie  \texttt{preprocesing}. 
 Tym wyjątkiem jest argument \texttt{reduced\_authors}, które pozwala na bezpośrednie przekazanie obiektu z danymi 
 zredukowanych tekstów do obiektu  \texttt{ToTensor}. W ten sposób oszczędzany jest czas ładowania tekstów z 
@@ -407,7 +406,7 @@ batch_processor = BatchProcessor(tensors_dir='data/tensors',
                                              vocab_size=40)
 \end{import}
 
-Następnie tak stworzony procesor umożliwia nam wykonanie metod:
+Następnie tak stworzony \texttt{batch_processor} umożliwia nam wykonanie metod:
 
 \begin{itemize}
 	\item {next\_batch } - 

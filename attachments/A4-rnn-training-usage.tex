@@ -1,6 +1,8 @@
 \newpage
 \subsection{Wykorzystanie modułu do trenowania sieci}
-\TODO{jakis tekst}
+Moduł trenujący sieć to najważniejsza część naszej biblioteki. Pozwala na dobór odpowiednich parametrów uczenia,
+a następnie ropoczyna trening.
+
 \myspace
 \dirtree{%
 .1 network.
@@ -61,7 +63,6 @@ Przyjmuje następujące argumenty:
   \newline Najważniejsza metoda tej klasy. Odpowiada za cały proces trenowania oraz ewaluacji sieci. Po 
   odpowiednim zainicjalizowaniu obiektu rekurencyjnej sieci neuronowej wystarczy jedyne wywołać tę metodę.
   \item{get\_accuracy}
-  \item \TODO{batch_processor czy wystepuje}
   \newline Metoda odpowiedzialna za proces ewaluacji, a dokładniej badania skuteczności sieci. Korzysta z 
   oddzielnego batch-procesora, stworzonego na podstawie zbioru walidacyjnego. Zwraca wyniki w zakresie
   [0,1], gdzie 1 oznacza stu procentową skuteczność a 0 brak poprawnych przyporządkowań.
