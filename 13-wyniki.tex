@@ -1,5 +1,5 @@
 \newpage
-\section{Wyniki}
+\section{Wyniki oraz napotkane problemy}
 
 Parametry modelu:
 \begin{itemize}
@@ -10,7 +10,7 @@ Parametry modelu:
 	  \item czas uczenia - $40$h
 	  \item współczynnik uczenia - $0.004$
 	  \item liczba kroków czasowych - $50$
-	  \item skuteczność - $5\%$
+	  \item skuteczność - $5\%$ \todo{wydzielic}
 	\end{itemize}
 	
 Nie udało nam się otrzymać wyników zbliżonych do tych osiągniętych podczas konkursu PAN. Sprawdziła się
@@ -44,12 +44,12 @@ gradientu:
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=7cm]{./images/exploading_gradient.png}
-	\caption{eksplodujący gradient}
+	\caption{Rosnąca wartość funkcji kosztu spowodowana przez eksplodujący gradient.}
 	\label{fig:test5}
 \end{figure}
 
 \subsubsection{Różnice w długości tekstów}
-Teksty są bardzo krótkie, dodatkowo różnią się długością. Teksty mają od 1500 do 2600 znaków. 1100 znaków 
+Teksty z korpusu PAN 2015 \cite{pan} są bardzo krótkie, dodatkowo różnią się długością. Teksty te mają od 1500 do 2600 znaków, 1100 znaków 
 różnicy w tym przypadku to aż $43\%$ różnicy w długości. Teoretycznie głowica powinna uczyć się przewidywać znaki dla 
 swojego autora i podczas ewaluacji jego tekstów robić to lepiej od pozostałych głowic. Problemem jest
  jednak sytuacja wyżej opisana. Kiedy znaków jest tak mało 
@@ -57,15 +57,15 @@ możliwa jest sytuacja w której głowica, której teksty są tymi najdłuższym
 pozostałych głowic więc skuteczniej przewiduje kolejne znaki dla wszystkich nieznanych teksów.
 
 Popularne modele, które potrafią przewidywać kolejne słowa bądź litery szkolone są przykładowo na danych w postaci licznych 
-artykułów z \texttt{Wikipedii}, gdzie liczba danych do wyczuenia jest znacznie większa.
+artykułów z \texttt{Wikipedii}, gdzie liczba danych do wyuczenia jest znacznie większa.
 
 \newpage
 \subsubsection{Błędy implementacyjne}
-Błędy w implementacji sieci, które prowadziły do skrajnie złych wyników i znacznie opóźniały tempo pracy.
+Błędy w implementacji sieci prowadziły do skrajnie złych wyników i znacznie opóźniały tempo pracy.
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=7cm]{./images/result1.png}
-	\caption{przykładowe dane z uczenia sieci błędnie zaimplementowanej}
+	\caption{Przykładowe dane z uczenia sieci błędnie zaimplementowanej.}
 	\label{fig:test5}
 	\end{figure}
 
@@ -97,18 +97,18 @@ of yonder tear that trembles on your eyelash
 proclaims a sorrow far more deep than common;
 confide in me--fear not--i am a mother!
 	\end{bash}
-	Widać zmapowane duże znaki na małe. Jest to zachowanie oczekiwane.
+	Widać zmapowane duże znaki na małe. Jest to zachowanie oczekiwane. \todo{wyjasnic, sprawdzic}
 	
 \subsubsection{Sprawdzenie modułu batchowania}
 	  Jest to bardzo obszerny moduł, który czyta dane z tensorów zapisanych na dysku
 	  i na ich podstawie generuje kolejne batche, podając kolejnych autorów w możliwie losowej kolejności, tak by sieć
 	  nie uczyła się artefaktów. Generuje przy tym oczekiwane wyjście, które następnie jest wykorzystywane do 
-	  liczenia kosztu. Ilość błędów do popełnienia przy tego typu module była bardzo duża i nie wykluczalaliśmy
+	  liczenia kosztu. Liczba błędów do popełnienia przy tego typu module była bardzo duża i nie wykluczalaliśmy
 	  żadnego scenariusza. Upewniliśmy się, że:
 	\begin{itemize} 
 	  \item {autorzy są podawani w losowej kolejności - poprzez sprawdzenie metody losującej numery autorów,
-	  a takze poprzez wypisywanie na ekran autorów w kolejnych batchach}
-	  \item {moduł ``przechodzi'' po tekstach poprawnie - to znaczy, czy kolejne sekwencje podawane do sieci to 
+	  a także poprzez wypisywanie na ekran autorów w kolejnych batchach}
+	  \item {moduł iteruje po tekstach poprawnie - to znaczy, czy kolejne sekwencje podawane do sieci to 
 	  kolejne litery danego autora - w tym celu odkodowywaliśmy z batcha wektory one-hot przy pomocy 
 	  specjalnie przygotowanego skryptu. Odkodowywaliśmy także oczekiwanie wyjście. Żeby wykluczyć ewentualne błędy
 	  teksty były odkodowywane wykorzystując alfabet poprzez który były kodowane.
@@ -128,7 +128,7 @@ AUTHOR 0) SEQUENCE: |was forgetting all a|     TARGET: |b|
 AUTHOR 0) SEQUENCE: |as forgetting all ab|     TARGET: |o|
 AUTHOR 0) SEQUENCE: |s forgetting all abo|     TARGET: |u|
 \end{bash} }
-	  \item {rozmiary zwracanych macierzy - sprawdziliśmy czy wymiary macierzy z danymi wejściowymi jest zgodny 
+	  \item {rozmiary macierzy z danymi wejściowymi - sprawdziliśmy czy wymiary macierzy z danymi wejściowymi jest zgodny 
 	  z dokumentacją modułu sieci neuronowej dostarczonej przez PyTorcha. W naszym przypadku były to 
 	  (liczba batchy) $\times$ (liczba sekwencji) $\times$ (rozmiar alfabetu) }
 	\end{itemize}
@@ -144,11 +144,11 @@ W skład sprawdzenia modułu sieci wchodziły następujące kroki:
 	  pierwszy krok czasowy, a powinien być ostatni,}
 	  \item {badanie wyjścia z poszczególnych warstw - okazało się, że wartości zbiegają do pewnego wektora przez kilka pierwszych epok,
 	  i potem już praktycznie dla każdej litery wszystkie elementy wektora wyjściowego oscylują blisko odpowiadającej wartości z  wektora,
-	  do którego zbiegał.y}
+	  do którego zbiegały.} \todo{komentarz, manifestacja bledu wykrytego dalej}
 	\end{itemize}
 
 \subsubsection{Liczenie kosztu i propagacja wsteczna}
-Liczenie kosztu jest u nas zaimplemnetowane nietypowo i polega na maskowaniu kosztów, które pochodzą od autorów
+Liczenie kosztu jest u nas zaimplementowane nietypowo i polega na maskowaniu kosztów, które pochodzą od autorów
 nienależących do danej głowicy. 
 \begin{python}
 mask = (torch.tensor(authors_order) == head + 1).float()
@@ -166,14 +166,14 @@ Rzeczy, które sprawdziliśmy:
 	  kodu nie jest problematyczny.}
 \end{itemize}
 
-\subsubsection{Napisanie podobnego, uproszczonego modelu w Kerasie}
-Stworzyliśmy uproszczony model w Kerasie, który uczył się przewidywać kolejne znaki na podstawie podanego tekstu. 
+\subsubsection{Uproszczony model w Kerasie}
+Stworzyliśmy uproszczony model w bibliotece Keras + \todo{wersja + do bibliotek} , który uczył się przewidywać kolejne znaki na podstawie podanego tekstu. 
 Wybraliśmy Kerasa z racji na fakt, że bardzo szybko pisze się w nim mało skomplikowane modele.
-Chcieliśmy się upewnić czy koncepcyjnie ma to szansę na powodzenie, z racji na to, że dane wejściowe w postaci one-hot encoding 
+Chcieliśmy się upewnić czy koncepcyjnie ma to szansę na powodzenie, z racji na to, że dane wejściowe w kodowaniu one-hot 
 są dosyć niespotykanym podejściem w tego typu problemach. Najczęściej proponowanym rozwiązaniem jest podawanie znaków jako klasy, następnie 
-przekazywanie jej do warstwy embedding, która to dopiero przekazuje swoje dane wyjściowe do sieci rekurencyjnej. 
+przekazywanie jej do warstwy osadzenia (ang. embedding), która dopiero przekazuje swoje dane wyjściowe do sieci rekurencyjnej. 
 Sieć napisana w Kerasie trenowała się i miała po kilku epokach więcej niż $50\%$ skuteczności, jednak uczyła się
-dużo wolniej od modelu z klasami i warstwą embedding. Nie rozwijaliśmy tego dalej, gdyż chodziło tylko o to aby sprawdzić samą koncepcję.
+dużo wolniej od modelu z klasami i warstwą embedding. Nie rozwijaliśmy tego modelu dalej, gdyż chodziło tylko o sprawdzenie poprawności samej koncepcji.
 
 \newpage
 \subsection{Znalezione błędy}
@@ -189,8 +189,8 @@ self.linears = nn.ModuleList([nn.Linear(hidden_size, vocab_size) for i in range(
 
 \end{python} 
 
-Lista warstw liniowych nie była widoczna dla modułu PyTorchowego (module.nn), ponieważ warstwy były przechowywane
-w zwykłej liście pythonowej, przez co gradienty warstw liniowych nie były zerowane pomiędzy iteracjami.
+Lista warstw liniowych nie była widoczna dla modułu PyTorchowego (\texttt{module.nn}), ponieważ warstwy były przechowywane
+w zwykłej liście, przez co gradienty warstw liniowych nie były zerowane pomiędzy iteracjami.
 
 \begin{figure}[H]
 	\centering
@@ -199,12 +199,12 @@ w zwykłej liście pythonowej, przez co gradienty warstw liniowych nie były zer
 	\label{fig:test5}
 \end{figure}
 
-Po poprawce sieć zaczęła się uczyć i na danych treningowych zaczął spadać koszt, efektem było to, że 
-jeśli używaliśmy tekstów treningowych do testowania skuteczności, każda głowica faktycznie najlepiej przewidywała
-znaki dla tekstu na którym się uczyła i szybko wynosiła ona blisko $100\%$, jednak na danych testowych 
-skuteczność pozosotała wciąż bardzo niska, między $0\%$ a $5\%$. Nie mieliśmy czasu aby dalej dobierać parametry uczenia,
-niska skuteczność spowodowana była eksplozją gradientu. 
+Po poprawce sieć zaczęła się uczyć i na danych treningowych zaczęła spadać wartość funkcji kosztu. W efektcie jeśli
+używaliśmy tekstów treningowych do testowania skuteczności, każda głowica faktycznie najlepiej przewidywała
+znaki dla tekstu na którym się uczyła i szybko dokładność wynosiła blisko $100\%$. Jednak na danych testowych 
+skuteczność pozosotawała bardzo niska, między $0\%$ a $5\%$. Nie mieliśmy czasu aby lepiej dobrać parametry uczenia,
+niska skuteczność spowodowana była eksplozją gradientu. \todo{przemyslec, gradient clipping, spojnosc}
 
 Pozostałym elementom kodu nie udało nam się nic zarzucić. Na dalsze szukanie błędów brakło nam czasu. 
-Jednak wszystko wskazuje na to, że sieć uczy się poprawnie, dalszy czas należałoby poświęcić na dobranie odpowiednich
+Jednak wszystko wskazuje na to, że sieć uczy się poprawnie, a dalszy czas należałoby poświęcić na dobranie odpowiednich
 parametrów.

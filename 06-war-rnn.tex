@@ -11,7 +11,7 @@ przy analizie tekstów ale także sygnałów audio czy ruchów obiektów.
 
 \begin{figure}[!ht]
 \includegraphics[width=\linewidth]{./images/rnn.png}
-\caption{Schemat sieci typu RNN}
+\caption{Schemat sieci typu RNN.}
 \label{fig:test3}
 \end{figure}
 Jak widać na rysunku 2, obliczenia dla każdego kroku czasowego są wykonywne z nowymi danymi wejściowymi
@@ -19,7 +19,7 @@ ale biorąc pod uwagę kontekst z poprzedniego kroku czasowego.
 \begin{wrapfigure}{r}{0.17\textwidth}
 \vspace{-4mm}
 \includegraphics[width=\linewidth]{./images/many-to-one.png}
-\caption{Sieć typu ``many to one''}
+\caption{Sieć typu ``many to one''.}
 \label{fig:test3}
 \vspace{-4mm}
 \end{wrapfigure}
@@ -30,7 +30,7 @@ Rozwinięta w czasie sieć tworzy głęboką sieć neuronową 
 ze wszystkimi tego konsekwencjami jak zanikający lub znacznie rzadziej wybuchający gradient. 
 Ważną cechą tych sieci jest również fakt, że obliczenia dla długich sekwencji są bardzo kosztowne.
 Sieci typu RNN generują bardzo dużo danych wyjściowych w procesie uczenia i to od nas zależy jak je 
-wykorzystamy. Dla naszego problemu korzystamy z sieci typu ``many to one'' co oznacza, że korzystamy
+wykorzystamy. Dla naszego problemu korzystamy z sieci typu ``many to one'', co oznacza, że korzystamy
 z danych wyjściowych z ostatniego kroku czasowego.
 
 \newpage
@@ -41,9 +41,11 @@ Rekurencyjną sieć neuronową definiujemy jako:
   &y_t = g(h_t) = g(V^Th_t)
 \end{align}
 
+\todo{funkcje wstawic od razu}
+
 gdzie: \newline
-$f$ - funkcja aktywacji tanh, \newline
-$g$ - funkcja aktywacji logSoftMax, \newline
+$f$ - funkcja aktywacji, \newline
+$g$ - funkcja aktywacji, \newline
 $h_t$ - warstwa ukryta w czasie t, \newline
 $y_t$ - wektor wynikowy w czasie t , \newline
 $x_t$ - wektor wejściowy w czasie t, \newline
@@ -58,6 +60,8 @@ oraz kolejne głowice oznaczone literami Hk (gdzie k jest liczbą naturalną), k
 dla swojego autora, i predukują kolejny znak.}
 \label{fig:test5}
 \end{figure}
+
+\todo{w obrazku h na y}
 
 Termin ``wielogłowicowa'' odnosi się do wielu warstw liniowych, które na podstawie danych wyjściowych z 
 sieci rekurencyjnej predykują rozkład prawdopodobieństwa następnego znaku. Każdy autor ma swoją głowicę, która 

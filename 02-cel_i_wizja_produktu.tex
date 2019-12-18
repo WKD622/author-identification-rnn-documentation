@@ -3,41 +3,41 @@
 \section{Cel i wizja produktu}
 
 \subsection{Definicja problemu}
-W dzisiejszych czasach internet umożliwia dostęp do wielu publikacji autorstwa różnych osób.
-Pozwala to na spojrzenie na problemy z wielu perspektyw, co pozytywnie wpływa na zapoznanie się z tematem.
-Istnieje jednak niebezpieczeństwo, że czyjaś praca może zostać splagiatowana. Plagiat nie zawsze polega jednak
-na prostym skopiowaniu cudzych słów. Zamiast porównywać teksty w celu weryfikacji autorstwa, 
-spróbować można stwierdzić, czy model używanego języka zgodny jest z tym, którego normalnie używa osoba
-podpisująca się pod pracą. Problem ten był tematem zadania konkursowego PAN 2015 \cite{pan}.
+Sieci neuronowe pozwalają nam sprawnie ropoznawać i klasyfikować pewne wzorce. Można je zastosować, aby
+mając do dyspozycji zestaw tekstów znanych autorów oraz tekst o nieznanym pochodzeniu stwierdzić, któremu z nich 
+przypisać jego autorstwo. W celu identyfikacji, należy porównać model języka stosowanego w tekście
+ze stosowanym przez znanych autorów.
+\newline
+\newline
+Problem ten był tematem zadania konkursowego PAN 2015 \cite{pan}.
 Najskuteczniejszym rozwiązaniem okazało się użycie wielogłowicowych, rekurencyjnych sieci 
-neuronowych Douglasa Bagnalla \cite{bagnall}, dlatego zdecydowaliśmy się na jego użycie.
+neuronowych Douglasa Bagnalla \cite{bagnall}, dlatego zdecydowaliśmy się na ich użycie.
 
  
 \subsection{Cel pracy}
 Celem projektu jest stworzenie biblioteki do tworzenia i trenowania sieci dla zadania 
-identyfikacji autorstwa tekstów. Praca ta jest rozwinięciem pracy inżynierskiej \cite{radzio}. Osiągnięto w 
-niej pozytywne wyniki dla języka holenderskiego, natomiast dla pozostałych z wyżej wymienionych języków 
-wciąż można poprawić rezultaty,co jest również celem tej pracy.
+identyfikacji autorstwa tekstów. Praca ta jest rozwinięciem innej pracy inżynierskiej z poprzednich lat \cite{radzio}.
+Osiągnięto w niej pozytywne wyniki dla języka holenderskiego, natomiast dla pozostałych z wyżej wymienionych języków 
+wciąż można poprawić rezultaty,co jest również celem tej pracy.\todo{opisac lepiej ta poprawe wynikow}
 
 
 \subsection{Motywacja}
 Mimo pojawienia się wielu zaawansowanych narzędzi do łatwego tworzenia nawet bardzo skomplikowanych sieci, 
-zapewniających przy tym szybką naukę oraz kontrolę nad jej przebiegiem wciąż brakuje biblioteki dla zadania identyfikacji autorstwa 
+zapewniających przy tym naukę oraz kontrolę nad jej przebiegiem wciąż brakuje biblioteki dla zadania identyfikacji autorstwa 
 tekstu.
 Biblioteka weryfikująca autorstwo może posłużyć jako podstawa systemu antyplagiatowego. Systemy takie, 
 jak na przykład Jednolity System Antyplagiatowy (JSA) używane są na wszystkich uczelniach w kraju.
 Niedopuszczalne jest aby student otrzymał tytuł na podstawie pracy innej osoby. Innym zastosowaniem
-wykonanej przez nas biblioteki może być idenftyfikacja autorstwa tekstów historycznych, którego autorstwo jest
-nieznane na podstawie porównania ze stylami językowymi osób piszących w tamtym okresie czasu.
+wykonanej przez nas biblioteki może być idenftyfikacja autorstwa tekstów historycznych, których autorstwo jest
+nieznane, na podstawie porównania ze stylami językowymi osób piszących w tamtym okresie czasu.
 
 \subsection{Wizja}
 Wizją tej pracy jest stworzenie dopracowanej biblioteki pozwalającej na konfigurowalne tworzenie 
-głębokich sieci typu RNN, trening, oraz preprocesing danych wejściowych. Oprócz tego powinna ona 
+głębokich sieci typu RNN, ich trening, oraz preprocesing danych wejściowych. Oprócz tego powinna ona 
 zapewnić persystencję wytrenowanych modeli oraz ich dalsze testowanie. Biblioteka powinna wspierać 
 naukę w czterech językach: angielskim, greckim, hiszpańskim oraz holenderskim. Wyżej wspomniana konfigurowalność powinna 
 pozwalać na tworzenie dowolnych sieci parametryzowanych hiperparametrami: głębokość sieci, wymiar 
-wektorów wejściowych, liczba neuronów w warstwach ukrytych, wielkość mini-batchów, itd. Ważna jest 
-też możliwość wizualizacji modelu, np. poprzez generację grafu obrazującego strukturę sieci. 
+wektorów wejściowych, liczba neuronów w warstwach ukrytych, wielkość mini-batchów, itd.
 Biblioteka powstanie w języku Python przy wykorzystaniu biblioteki PyTorch.
 
 \subsection{Analiza ryzyka}

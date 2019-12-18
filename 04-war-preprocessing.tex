@@ -5,12 +5,13 @@
 Korpus tekstów wykorzystywany do trenowania sieci został przygotowany przez autorów konkursu PAN 2015 \cite{pan}.
 W katalogu dla każdego języka znajdują się katalogi składające się z tekstów danego autora oraz jednego
 tekstu nieznanego autorstwa. Oprócz tego dla każdego zestawu autorów dostarczany jest plik \texttt{truth.txt}.
-Zawarta w nim jest informacja, czy dany autor napisał tekst nieznanego pochodzenia znajdujący się w katalogu.
+Zawarta jest w nim informacja, czy dany autor napisał tekst nieznanego pochodzenia znajdujący się w katalogu.
+
+\todo{wiecej i konkretniej}
 
 \subsection{Preprocesing}
 Preprocesing to proces przygotowywania danych wejściowych tak by nadawały się do szkolenia sieci.
-
-W naszej pracy preprocesing dzieli się na dwa etapy:
+W naszej pracy preprocesing podzielony jest na dwa etapy:
 \begin{enumerate}
 	\item Redukcja alfabetu (mapowanie znaków)
 	\item Zamiana zredukowanych tekstów na one-hot encoding
@@ -21,22 +22,21 @@ Domyślnie dostępnymi językami w bibliotece są:
  
 
 \subsubsection{Redukcja alfabetu}
-Alfabet definiujemy jako zbiór znaków występujących we wszystkich tekstach w zbiorze danych wejściowych. 
+Alfabet definiujemy jako zbiór znaków występujących we wszystkich tekstach w zbiorze danych wejściowych. \todo{treningowy czy testowy}
 Redukcja alfabetu pozwala na zredukowanie złożności obliczeniowej oraz zmniejsza wpływ bardzo rzadko
 występujących znaków na model języka. Pierwszym krok to normalizacja znaków. 
-Przykładowo dla języka polskiego litera \texttt{ó} zostałaby zdekomponowana do litery o oraz znaku oznaczającego kreskę.
+Przykładowo dla języka polskiego litera \texttt{ó} zostałaby zdekomponowana do litery \texttt{o} oraz znaku oznaczającego kreskę.
 Następnie wykonywany jest szereg zdefiniowanych mapowań takich jak:
 \begin{enumerate}
-  \item zamiana każdej cyfry na cyfrę 7,
+  \item zamiana każdej cyfry na cyfrę 7,\todo{zdanie}
   \item znaki nie występujące w danym alfabecie są usuwane,
   \item wielkie litery zastępowane są odpowiadającym im małym literom oraz prefiksem,
   \item znaki interpunkcyjne sprowadzane do kanoniczej formy.
 \end{enumerate}
 \newpage
-W celu redukcji alfabetu definiujemy pliki, w których przechowujemy przepisy mapowań, to znaczy
-jaki znak mapujemy na jaki. Przykładowy fragment pliku do redukcji alfabetu języka
+W celu redukcji alfabetu definiujemy pliki, w których przechowujemy sposób mapowania. Przykładowy fragment pliku do redukcji alfabetu języka
 angielskiego znajduje się poniżej (został on znacznie skrócony wzlgędem oryginału żeby zachować lepszą
-czytelność)
+czytelność):
 
 \begin{python}
 charmap = {
@@ -55,10 +55,10 @@ charmap = {
 }
 \end{python}
 
-Tak przygotowany maper pozwala na zamianę wybranych znaków, które nie są kluczowe w procesie 
-szkolenia sieci na wybrane inne znaki. Jeśli znak nie jest ujęty w maperze, nie jest zamieniany. 
+Tak przygotowane mapowanie pozwala na zamianę wybranych znaków, które nie są kluczowe w procesie 
+szkolenia sieci na wybrane inne znaki. Jeśli znak nie jest ujęty w mapowaniu, nie jest zamieniany. 
 
-\subsubsection{Zamiana tekstów na kodowanie one-hot encoding}
+\subsubsection{Zamiana tekstów na kodowanie one-hot}
 Teksty zamieniamy na tablice składająca się z wektorów w kodowaniu one-hot encoding. 
 Aby tego dokonać potrzebny jest nam alfabet. Alfabet definiujemy w tym przypadku jako listę, której 
 elementami są wszystkie znakami występujące w tekstach po redukcji alfabetu. Tak wygląda przykładowy fragment alfabetu dla tekstów

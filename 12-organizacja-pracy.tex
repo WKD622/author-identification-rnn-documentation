@@ -46,6 +46,8 @@ zobligowani do dostarczania kolejnych części dokumentacji w określonych termi
 samo wyznaczało kolejne spotkania z opiekunem pracy. Często w ramach przejścia do kolejnej iteracji
 pojawiały się nowe problemy, które wymagały pomocy lub dyskusji. Część pytań kierowanych do opiekuna
  była realizowana drogą mailową.
+ 
+ \todo{daty i co sie dzialo}
 
 \subsection{Narzędzia}
 Sprawna realizacja projektu wymagała użycia odpowiednich narzędzi. Wśród wielu z nich
@@ -76,7 +78,7 @@ tworzenie kodu o dobrej jakości:
   \item Refaktoring kodu - nie wszystkie moduły biblioteki od początku napisane były dobrze. Niekiedy z racji 
   na kolejne optymalizacje bądź korekcje w sposobie uczenia sieci należało szybko coś zmienić w kodzie,
   co z czasem owocowało brakiem porządku i kodem niskiej jakości. Okresowe refaktoringi pozwoliły temu zapobiec.
-  \item Zlecenie dołączenia (ang. pull request) oraz recezencja kodu (and. code review) - ze względu na złożoność modułów i potrzebę utrzymywania wysokiej
+  \item Zlecenie dołączenia (ang. pull request) oraz recenzja kodu (and. code review) - ze względu na złożoność modułów i potrzebę utrzymywania wysokiej
   jakości kodu zmiany wprowadzane w repozytorium były zazwyczaj poprzez tworzenie zleceń dołączenia oraz analizy kodu
   drugiego członka zespołu. W ten sposób obaj na bieżąco zapoznawaliśmy się ze zmianami oraz zwiększaliśmy
   jakość kodu, poprzez efektywniejsze wychwytywanie błędów oraz złych wzorców projektowych.
@@ -112,7 +114,7 @@ W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
   Współpracuje bezpośrednio z modułem batchowania.
   \item stworzenie modułu do zbierania danych z procesu uczenia - dane te są porządkowane i 
   zbieranie w pliku csv oraz wypisywane na bieżąco podczas szkolenia na standardowe wyjście. 
-  Jest on również odpowiedzialny za zapisywanie wytrenowanych modeli z kolejnych epok. 
+  Jest on również odpowiedzialny za zapisywanie wytrenowanych modeli z kolejnych epok. \todo{gdzie zapisywane}
   \item stworzenie skryptów do pracy na Prometheusie:
   \begin{itemize}
     \item skrypt do wysyłania przetworzonych tekstów na Prometheusa 
@@ -154,6 +156,6 @@ najbardziej problematyczne iteracje:
   
   \item Piąta iteracja wymagała od nas dużej liczby eksperymentów w postaci szkolenia sieci z wykorzystaniem wybranych
   parametrów. Za każdym razem na podstawie otrzymanych rezultatów ponowne dobieraliśmy parametry aby rezultaty poprawić.
-  Najbardziej problematyczny okazał się czas uczenia, z racji na znaczną ilość operacji potrzebną do 
+  Najbardziej problematyczny okazał się czas uczenia. Z racji na znaczną liczbę operacji potrzebną do 
   uczenia sieci proces ten trwał długo.
 \end{enumerate}

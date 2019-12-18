@@ -44,8 +44,8 @@ nam były do rysowania wykresów.
 
 \newpage
 \subsection{Skrypty}
-Skrypty potrzebne nam były do wygodnego kolejkowania zadań na Prometheusie, chodziło o to aby za 
-każdym razem nie zmieniać kodu sieci. Służyły także do przedstawiania danych z procesu uczenia w postaci wykresów
+Skrypty potrzebne nam były do wygodnego kolejkowania zadań na Prometheusie, aby za 
+każdym uruchomieniem nie zmieniać kodu sieci RNN. Służyły także do przedstawiania danych z procesu uczenia w postaci wykresów
 lub do przesyłania plików pomiędzy Prometheusem a komputerem osobistym. Chcielibyśmy wyróżnić następujące:
 \begin{enumerate}
 	\item {\texttt{create\_scripts.py} } - 
@@ -140,7 +140,7 @@ index,epoch,loss,accuracy,time
 	Uruchamia skrypty utworzone poprzez \texttt{create\_scripts.py} odpowiednio je kolejkując.
 	
 	\item {\texttt{copy\_data\_to\_prometheus.sh} } - używany przez nas do przesyłania tekstów po preprocesingu
-	bezpośrednio na Prometheusie. 
+	bezpośrednio na Prometheusa. 
 	
 	\item {\texttt{copy\_results\_LOCAL.sh} } - skrypt służący do kopiowania rezultatów uczenia z Prometheusa na 
 	na komputer osobisty. Wykonujemy go lokalnie z naszego komputera. 
@@ -154,7 +154,7 @@ index,epoch,loss,accuracy,time
  	\begin{figure}[H]
 	\centering
 	\includegraphics[height=7cm]{./images/plot.png}
-	\caption{Przykładowy wykres kosztu od skuteczności.}
+	\caption{Zmiana funkcji kosztu oraz skuteczności wraz z kolejnymi epokami uczenia.} \todo{jednostki procenty}
 	\label{fig:test5}
 	\end{figure}
  	
