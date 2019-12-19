@@ -17,23 +17,27 @@ neuronowych Douglasa Bagnalla \cite{bagnall}, dlatego zdecydowaliśmy się na ic
 \subsection{Cel pracy}
 Celem projektu jest stworzenie biblioteki do tworzenia i trenowania sieci dla zadania 
 identyfikacji autorstwa tekstów. Praca ta jest rozwinięciem innej pracy inżynierskiej z poprzednich lat \cite{radzio}.
-Osiągnięto w niej pozytywne wyniki dla języka holenderskiego, natomiast dla pozostałych z wyżej wymienionych języków 
-wciąż można poprawić rezultaty,co jest również celem tej pracy.\todo{opisac lepiej ta poprawe wynikow}
+Osiągnięto w niej dokładność na poziomie 85\% dla języka holenderskiego. Dla  języka angielskiego, greckiego
+oraz hiszpańskiego dokładność oscylowała w okolicach 50\%. Celem pracy jest poprawa tych wyników.
 
 
 \subsection{Motywacja}
 Mimo pojawienia się wielu zaawansowanych narzędzi do łatwego tworzenia nawet bardzo skomplikowanych sieci, 
 zapewniających przy tym naukę oraz kontrolę nad jej przebiegiem wciąż brakuje biblioteki dla zadania identyfikacji autorstwa 
-tekstu.
+tekstu. Internet pozwala na wysyłanie wiadomości z poczuciem anonimowości, co może być wykorzystane do pisania
+gróźb lub do innych celów łamiących prawo. Istnieją techniki pozwalające nam na stwierdzenie z jakiego adresu IP nadana
+została wiadomość, nie zawsze jednak dzięki temu jesteśmy w stanie poznać dokładną tożsamość osoby stojącej za groźbami.
+Z pomocą mogła by przyjść nasza biblioteka, która na podstawie różnych komentarzy internetowych pomogła
+by zidentyfikować przestępce.
+Innym zastosowaniem wykonanej przez nas biblioteki może być idenftyfikacja autorstwa tekstów historycznych, których autorstwo jest
+nieznane, na podstawie porównania ze stylami językowymi osób piszących w tamtym okresie czasu.
 Biblioteka weryfikująca autorstwo może posłużyć jako podstawa systemu antyplagiatowego. Systemy takie, 
 jak na przykład Jednolity System Antyplagiatowy (JSA) używane są na wszystkich uczelniach w kraju.
-Niedopuszczalne jest aby student otrzymał tytuł na podstawie pracy innej osoby. Innym zastosowaniem
-wykonanej przez nas biblioteki może być idenftyfikacja autorstwa tekstów historycznych, których autorstwo jest
-nieznane, na podstawie porównania ze stylami językowymi osób piszących w tamtym okresie czasu.\todo{plagiat na koniec + lepsze przyklady}
+Niedopuszczalne jest aby student otrzymał tytuł na podstawie pracy innej osoby
 
 \subsection{Wizja}
 Wizją tej pracy jest stworzenie dopracowanej biblioteki pozwalającej na konfigurowalne tworzenie 
-głębokich sieci typu RNN\todo{rozwiniecie}, ich trening, oraz preprocesing danych wejściowych. Oprócz tego powinna ona 
+głębokich, rekurencyjnych sieci neuronowych (RNN), ich trening, oraz preprocesing danych wejściowych. Oprócz tego powinna ona 
 zapewnić persystencję wytrenowanych modeli oraz ich dalsze testowanie. Biblioteka powinna wspierać 
 naukę w czterech językach: angielskim, greckim, hiszpańskim oraz holenderskim. Wyżej wspomniana konfigurowalność powinna 
 pozwalać na tworzenie dowolnych sieci parametryzowanych hiperparametrami: głębokość sieci, wymiar 

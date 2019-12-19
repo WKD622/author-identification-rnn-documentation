@@ -37,11 +37,9 @@ z danych wyjściowych z ostatniego kroku czasowego.
 Rekurencyjną sieć neuronową definiujemy jako:
 
 \begin{align}
-  &h_t = f(x_t, h_{t-1}) = f(W^Th_{t-1} + U^Tx_t) \\ 
-  &y_t = g(h_t) = g(V^Th_t)
+  &h_t = f(x_t, h_{t-1}) = tanh(W^Th_{t-1} + U^Tx_t) \\ 
+  &y_t = g(h_t) = logSoftMax(V^Th_t)
 \end{align}
-
-\todo{funkcje wstawic od razu}
 
 gdzie: \newline
 $f$ - funkcja aktywacji, \newline
@@ -61,7 +59,7 @@ dla swojego autora, i predukują kolejny znak.}
 \label{fig:test5}
 \end{figure}
 
-\todo{w obrazku h na y}
+\todo{zamienic h na y w obrazku}
 
 Termin ``wielogłowicowa'' odnosi się do wielu warstw liniowych, które na podstawie danych wyjściowych z 
 sieci rekurencyjnej predykują rozkład prawdopodobieństwa następnego znaku. Każdy autor ma swoją głowicę, która 

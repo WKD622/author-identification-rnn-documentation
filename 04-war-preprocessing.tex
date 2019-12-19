@@ -3,11 +3,50 @@
 
 \subsection{Korpus tekstów}
 Korpus tekstów wykorzystywany do trenowania sieci został przygotowany przez autorów konkursu PAN 2015 \cite{pan}.
-W katalogu dla każdego języka znajdują się katalogi składające się z tekstów danego autora oraz jednego
+W katalogu głównym znajdują się 4 katalogi, każdy dla innego języka (angielskiego, holenderskiego, greckiego oraz hiszpańskiego).
+W obrębie katalogu jednego języka znajduje się 100 katalogów, każdy składa się z tekstów danego autora oraz jednego
 tekstu nieznanego autorstwa. Oprócz tego dla każdego zestawu autorów dostarczany jest plik \texttt{truth.txt}.
 Zawarta jest w nim informacja, czy dany autor napisał tekst nieznanego pochodzenia znajdujący się w katalogu.
 
-\todo{wiecej i konkretniej}
+\myspace
+\dirtree{%
+.1 spanish.
+.2 SP001.
+.3 known01.txt.
+.3 unknown.txt.
+.2 \ldots.
+.2 SP100.
+.3 known01.txt.
+.3 unknown.txt.
+.2 truth.txt.
+.1 greek.
+.2 GR001.
+.3 known01.txt.
+.3 unknown.txt.
+.2 \ldots.
+.2 GR100.
+.3 known01.txt.
+.3 unknown.txt.
+.2 truth.txt.
+.1 english.
+.2 EN001.
+.3 known01.txt.
+.3 unknown.txt.
+.2 \ldots.
+.2 EN100.
+.3 known01.txt.
+.3 unknown.txt.
+.2 truth.txt.
+.1 dutch.
+.2 DU001.
+.3 known01.txt.
+.3 unknown.txt.
+.2 \ldots.
+.2 DU100.
+.3 known01.txt.
+.3 unknown.txt.
+}
+\myspace
 
 \subsection{Preprocesing}
 Preprocesing to proces przygotowywania danych wejściowych tak by nadawały się do szkolenia sieci.
@@ -28,7 +67,7 @@ występujących znaków na model języka. Pierwszym krok to normalizacja znaków
 Przykładowo dla języka polskiego litera \texttt{ó} zostałaby zdekomponowana do litery \texttt{o} oraz znaku oznaczającego kreskę.
 Następnie wykonywany jest szereg zdefiniowanych mapowań takich jak:
 \begin{enumerate}
-  \item zamiana każdej cyfry na cyfrę 7,\todo{zdanie}
+  \item każda cyfra zamieniana jest na cyfrę 7,
   \item znaki nie występujące w danym alfabecie są usuwane,
   \item wielkie litery zastępowane są odpowiadającym im małym literom oraz prefiksem,
   \item znaki interpunkcyjne sprowadzane do kanoniczej formy.
