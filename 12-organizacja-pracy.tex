@@ -3,8 +3,8 @@
 
 \subsection{Metodyka}
 
-Prace nad projektem były prowadzone zgodnie z iteracyjnym modelem wytwarzania oprogramowania. 
-Większość iteracji opierała się na następującym schemacie: 
+Prace nad projektem były prowadzone zgodnie z iteracyjnym modelem wytwarzania oprogramowania.
+Większość iteracji opierała się na następującym schemacie:
 \begin{enumerate}
   \item wybranie funkcjonalności do zaimplementowania,
   \item zdobycie informacji na temat tej funkcjonalności,
@@ -23,9 +23,9 @@ Bazując na zadaniach wykonywanych podczas pracy nad biblioteką, można wyróż
 \end{itemize}
 Projekt wykonywany był przez dwie osoby:
 \begin{itemize}
-  \item Jakub Ziarko - implementacja modułu preprocesingu, implementacja modułu sieci RNN, 
+  \item Jakub Ziarko - implementacja modułu preprocesingu, implementacja modułu sieci RNN,
   trenowanie sieci, pisanie dokumentacji, stworzenie skrytpów ułatwiających prace na Prometheusie.
-  \item Jan Liberacki - implementacja modułu odpowiedzialnego za podział danych na batche, 
+  \item Jan Liberacki - implementacja modułu odpowiedzialnego za podział danych na batche,
   implementacja modułu sieci RNN, trenowanie sieci, pisanie dokumentacji, testowanie kodu.
 \end{itemize}
 Opiekunowie pracy:
@@ -34,20 +34,30 @@ Opiekunowie pracy:
   \item dr inż. Marcin Kuta - główny opiekun pracy, pełniący rolę klienta końcowego i osoby nadzorującej
   postęp prac nad realizacją i implementacją projektu. Z tą osobą zespół konsultował wszelkie wątpliwości
   natury technicznej. Dzięki jego uwagom doprowadzono do wielu usprawnień w zakresie działania sieci.
-  \item dr inż. Rafał Dreżewski - prowadzący Pracownię Projektową, nadzorował postęp prac, 
+  \item dr inż. Rafał Dreżewski - prowadzący Pracownię Projektową, nadzorował postęp prac,
   szczególnie ten w dokumentacji. Dzięki jego uwagom udało się dokonać wielu usprawnień w zakresie podziału
   dokumentacji oraz jej formy.
 \end{itemize}
 
 \subsection{Komunikacja z opiekunem pracy}
-W trakcie pracy nad biblioteką odbywały się regularne spotkania Pracowni Projektowej, w ramach której 
+W trakcie pracy nad biblioteką odbywały się regularne spotkania Pracowni Projektowej, w ramach której
 przedstawiane były kolejne postępy pracy nad biblioteką. W ramach tego przedmioru byliśmy również
 zobligowani do dostarczania kolejnych części dokumentacji w określonych terminach. Tempo pisania kolejnych modułów
 samo wyznaczało kolejne spotkania z opiekunem pracy. Często w ramach przejścia do kolejnej iteracji
 pojawiały się nowe problemy, które wymagały pomocy lub dyskusji. Część pytań kierowanych do opiekuna
  była realizowana drogą mailową.
- 
- \todo{daty i co sie dzialo}
+
+ Spotkania z promotorem oraz ich tematy:
+\begin{itemize}
+  \item 9.09.2019 - omówienie pierwszych trzech rozdziałów dokumentacji,
+  \item 25.09.2019 - omówienie kwestii technicznych związanych z siecią RNN,
+  \item 04.11.2019 - formalny zapis rekurencyjnej sieci neuronowej z głowicami,
+  \item 15.11.2019 - omówienie kwestii technicznych związanych z siecią RNN,
+  \item 04.12.2019 - omówienie kwestii technicznych związanych z siecią RNN oraz poprawki w tekście pracy,
+  \item 15.12.2019 - poprawki w tekście pracy,
+  \item 18.12.2019 - poprawki w tekście pracy,
+
+\end{itemize}
 
 \subsection{Narzędzia}
 Sprawna realizacja projektu wymagała użycia odpowiednich narzędzi. Wśród wielu z nich
@@ -56,26 +66,26 @@ chcielibyśmy wyróżnić te najważniejsze:
 \begin{itemize}
   \item PyCharm - zintegrowane środowisko programistyczne dla języka Python od firmy JetBrains.
   Wybrane przez nas ze względu na nasze wcześniejsze pozytywne doświadczenia.
-  \item Git - rozporoszony system kontroli wersji. Zdecydowaliśmy się na niego ponieważ ze względu na 
+  \item Git - rozporoszony system kontroli wersji. Zdecydowaliśmy się na niego ponieważ ze względu na
   dwuosobowy zespół zależało nam na możliwości współbieżnej pracy nad kodem i dokumentacją.
   \item GitHub - służył jako repozytorium do przechowywania dokumentacji oraz kodu.
   \item Facebook - główne narzędzie komunikacji pomiędzy członkami zespołu.
-  \item Latex - oprogramowanie do zautomatyzowanego składu tekstu, a także związany z nim język 
-  znaczników, służący do formatowania dokumentów tekstowych i tekstowo-graficznych. 
-  \item Eclipse - zintegrowane środowisko programistyczne do tworzenia programów, wybrane przez nas 
+  \item Latex - oprogramowanie do zautomatyzowanego składu tekstu, a także związany z nim język
+  znaczników, służący do formatowania dokumentów tekstowych i tekstowo-graficznych.
+  \item Eclipse - zintegrowane środowisko programistyczne do tworzenia programów, wybrane przez nas
   w celu tworzenia dokumentacji.
-  \item TeXlipse - rozbudowana wtyczka do środowiska Eclipse ułatwiająca pisanie w Latex.  
-  \item Matplotlib - biblioteka Pythonowa do rysowania wykresów, wykorzystana przez nas do analizy danych 
-  z procesu uczenia sieci. 
-  \item Draw.io - aplikacja webowa do rysowania diagramów, korzystaliśmy z niej do tworzenia 
+  \item TeXlipse - rozbudowana wtyczka do środowiska Eclipse ułatwiająca pisanie w Latex.
+  \item Matplotlib - biblioteka Pythonowa do rysowania wykresów, wykorzystana przez nas do analizy danych
+  z procesu uczenia sieci.
+  \item Draw.io - aplikacja webowa do rysowania diagramów, korzystaliśmy z niej do tworzenia
   schematów do dokumentacji.
 \end{itemize}
 
 \subsection{Zastosowane techniki i praktyki}
-Realizacji biblioteki towarzyszyło zastosowanie kilku technik i praktyk mających na celu efektywne 
+Realizacji biblioteki towarzyszyło zastosowanie kilku technik i praktyk mających na celu efektywne
 tworzenie kodu o dobrej jakości:
 \begin{itemize}
-  \item Refaktoring kodu - nie wszystkie moduły biblioteki od początku napisane były dobrze. Niekiedy z racji 
+  \item Refaktoring kodu - nie wszystkie moduły biblioteki od początku napisane były dobrze. Niekiedy z racji
   na kolejne optymalizacje bądź korekcje w sposobie uczenia sieci należało szybko coś zmienić w kodzie,
   co z czasem owocowało brakiem porządku i kodem niskiej jakości. Okresowe refaktoringi pozwoliły temu zapobiec.
   \item Zlecenie dołączenia (ang. pull request) oraz recenzja kodu (and. code review) - ze względu na złożoność modułów i potrzebę utrzymywania wysokiej
@@ -93,68 +103,68 @@ W ramach tworzenia pracy inżynierskiej wyodrębniliśmy następujące iteracje
   \item Zaimplementowanie modułu treningu sieci.
   \item Stworzenie skryptów ułatwiających szkolenie sieci na Prometheusie oraz analizę wyników.
   \item Zbieranie wyników, ich analiza oraz poprawianie parametrów sieci.
-\end{enumerate}  
+\end{enumerate}
 
   Każda iteracja, ze względu na odmienny charakter trwała inną ilość czasu. Najdłuższa okazała się
 trzecia i szósta iteracja. W skład trzeciej iteracji wchodziło zapoznanie się z tematyką sieci typu RNN oraz
-jej implemetacja, w skład szóstej iteracji uczenie sieci oraz szukanie najlepszych parametrów sieci do problemu 
+jej implemetacja, w skład szóstej iteracji uczenie sieci oraz szukanie najlepszych parametrów sieci do problemu
 identyfikacji autorstwa tekstu.
 
 \subsection{Wykonane prace}
 W trakcie realizacji pracy inżynierskiej wykonaliśmy następujące prace:
 \begin{itemize}
-  \item stworzenie modułu preprocesingu - moduł, który w wygodny sposób pozwala nam na przygotowanie tekstów 
-  do uczenia maszynowego. 
-  \item stworzenie modułu batchowania - moduł, który bazując na danych przygotowanych przez moduł 
+  \item stworzenie modułu preprocesingu - moduł, który w wygodny sposób pozwala nam na przygotowanie tekstów
+  do uczenia maszynowego.
+  \item stworzenie modułu batchowania - moduł, który bazując na danych przygotowanych przez moduł
   preprocesingu dzieli je na mini-batche i dostarcza sieci. Jest on sparametryzowany, dzięki czemu mogliśmy
-  w łatwy sposób wpływać na parametry minibatchy i efektywnie szukać tych najlepszych dla wyników sieci. 
+  w łatwy sposób wpływać na parametry minibatchy i efektywnie szukać tych najlepszych dla wyników sieci.
   \item stworzenie modułu sieci - moduł, który tworzy rekurencyjną sieć neuronową za pomocą
   biblioteki PyTorch.
-  \item stworzenie modułu treningu - moduł, który pozwala na wytrenowanie rekurencyjnej sieci neuronowej. 
+  \item stworzenie modułu treningu - moduł, który pozwala na wytrenowanie rekurencyjnej sieci neuronowej.
   Współpracuje bezpośrednio z modułem batchowania.
-  \item stworzenie modułu do zbierania danych z procesu uczenia - dane te są porządkowane i 
-  zbieranie w pliku csv oraz wypisywane na bieżąco podczas szkolenia na standardowe wyjście. 
+  \item stworzenie modułu do zbierania danych z procesu uczenia - dane te są porządkowane i
+  zbieranie w pliku csv oraz wypisywane na bieżąco podczas szkolenia na standardowe wyjście.
   Jest on również odpowiedzialny za zapisywanie wytrenowanych modeli z kolejnych epok do katalogu z wynikami.
   \begin{itemize}
-    \item skrypt do wysyłania przetworzonych tekstów na Prometheusa 
+    \item skrypt do wysyłania przetworzonych tekstów na Prometheusa
     \item skrypt do kopiowania danych po procesie uczenia maszynowego z Prometheusa na komputer osobisty
     \item skrypt do rysowania wykresów na podstawie danych zebranych w procesie uczenia sieci
     \item skrypt do definiownia parametrów sieci, których szkolenie było następnie w sposób zautomatyzowany
-     przeprowadzane na Prometheusie. Dzięki niemu nie musieliśmy pilnować procesu uczenia i 
+     przeprowadzane na Prometheusie. Dzięki niemu nie musieliśmy pilnować procesu uczenia i
    	każde z nich przeprowadzać osobno. Definiowaliśmy parametry wielu sieci, które chcieliśmy przetestować,
-   	następnie skrypt generował kod który kolejkował na Prometheusie uczenie wszystkich wyszczególnionych przez nas sieci 
+   	następnie skrypt generował kod który kolejkował na Prometheusie uczenie wszystkich wyszczególnionych przez nas sieci
    	jako kolejne zadania.
   \end{itemize}
   \item wykonanie niniejszej dokumentacji
-  \item zrozumienie działania rekurencyjnych sieci neuronowych oraz dobranie właściwych parametrów sieci 
+  \item zrozumienie działania rekurencyjnych sieci neuronowych oraz dobranie właściwych parametrów sieci
   w celu uzyskania lepszych wyników w zakresie indentyfikacji autorstwa tekstu w języku angielskim.
 \end{itemize}
 
 
 \subsection{Problemy napotkane w trakcie realizacji projektu}
-Podczas tworzenia biblioteki napotkaliśmy na wiele problemów. Zdecydowaliśmy się je opisać z podziałem na 
+Podczas tworzenia biblioteki napotkaliśmy na wiele problemów. Zdecydowaliśmy się je opisać z podziałem na
 najbardziej problematyczne iteracje:
 
 \begin{enumerate}
   \item Dużym wyzwaniem podczas pierwszej iteracji okazało
   się zaprojektowanie modułu preprocesingu. Moduł ten okazał się być bardzo obszerny w porównaniu do
-  pozostałych części biblioteki. W związku z tym należało przedsięwziąć odpowiednie decyzje projektowe 
+  pozostałych części biblioteki. W związku z tym należało przedsięwziąć odpowiednie decyzje projektowe
   już na samym początku, a kod dokładnie zaplanować.
-  
+
   \item Druga iteracja, podczas której tworzony był moduł preprocesingu okazała się trwać przez praktycznie
   cały okres pisania biblioteki. Ten moduł bowiem, biorąc za wejście przetworzone teksty w postaci tensorów,
-  przetwarza ich format na taki, który nadaje się do efektywnego szkolenia sieci. Podczas pisania pracy 
+  przetwarza ich format na taki, który nadaje się do efektywnego szkolenia sieci. Podczas pisania pracy
   nasze koncepcje na temat tego procesu wielokrotnie się zmieniały w związku z tym zmieniał się również
-  kod modułu batchowania. Początkowe, błędne decyzje projektowe sprawiły, że wielokrotnie musiał być 
+  kod modułu batchowania. Początkowe, błędne decyzje projektowe sprawiły, że wielokrotnie musiał być
   napisany od początku. Te doświadczenia były dla nas bardzo cenne i nauczyły nas, żeby poświęcać
   więcej czasu na planowanie kodu przed właściwym jego pisaniem i stosować się do wzorców projektowych.
 
-  \item Trzecia iteracja, a więc zaimplementowanie modułu sieci okazało się wysoce problematyczne ze względu na obszerność 
+  \item Trzecia iteracja, a więc zaimplementowanie modułu sieci okazało się wysoce problematyczne ze względu na obszerność
   wiedzy potrzebnej do tego aby poruszać się w tematyce rekurencyjnych sieci neuronowych, ale także
   na późniejszy problem przełożenia tej wiedzy na kod w bibliotece PyTorch.
-  
+
   \item Piąta iteracja wymagała od nas dużej liczby eksperymentów w postaci szkolenia sieci z wykorzystaniem wybranych
   parametrów. Za każdym razem na podstawie otrzymanych rezultatów ponowne dobieraliśmy parametry aby rezultaty poprawić.
-  Najbardziej problematyczny okazał się czas uczenia. Z racji na znaczną liczbę operacji potrzebną do 
+  Najbardziej problematyczny okazał się czas uczenia. Z racji na znaczną liczbę operacji potrzebną do
   uczenia sieci proces ten trwał długo.
 \end{enumerate}

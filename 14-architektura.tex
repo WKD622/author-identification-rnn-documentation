@@ -8,51 +8,51 @@ Nasza biblioteka składa się z wielu współpracujących ze sobą modułów:
 \end{figure}
 
 \subsection{Moduł preprocesingu}
-Największy i całkowicie niezależny od pozostałych części biblioteki moduł, którego zadaniem jest 
+Największy i całkowicie niezależny od pozostałych części biblioteki moduł, którego zadaniem jest
 przetworzenie tekstów z formy tekstowej na formę binarną (tensory), która jest następnie wykorzystywana
 do szkolenia sieci. Na tym etapie następuje również redukcja znaków w tekście, tak by wyeliminować
-informacje, które nie są potrzebne z perspektywy szkolenia sieci. Teksty po przetworzeniu są 
-zapisywane na dysku i mogą być wykorzystywane wielokrotnie. 
+informacje, które nie są potrzebne z perspektywy szkolenia sieci. Teksty po przetworzeniu są
+zapisywane na dysku i mogą być wykorzystywane wielokrotnie.
 Wadą tego modułu jest długi czas przetwarzania tekstów, która trwa zwykle kilkanaście sekund oraz spora ilość
 przestrzeni dyskowej i RAMu które są wykorzystywane w wyniku tego procesu.
 
 \subsection{Moduł batchowania}
 Moduł, który korzystając z dostarczonych danych binarnych dzieli je na batche i dostarcza modułowi treningowemu.
 Pozwala na specyfikowanie parametrów tych danych, jak na przykład rozmiar batcha.
-Decyduje również o tym, kiedy kończy się proces uczenia oraz o losowości ustawienia autorów w batchu. 
-Jego kod jest ściśle powiązany z kodem modułu treningu sieci ale z racji na jego obszerność zdecydowaliśmy 
-się go wyodrębnić jako osobny moduł. 
-Jest on niezależny od modułu preprocesingu, jednak format danych wyjściowych z modułu preprocesingu 
-jest zbieżny z formatem danych wejściwych wymaganym przez modułu batchowania. 
+Decyduje również o tym, kiedy kończy się proces uczenia oraz o losowości ustawienia autorów w batchu.
+Jego kod jest ściśle powiązany z kodem modułu treningu sieci ale z racji na jego obszerność zdecydowaliśmy
+się go wyodrębnić jako osobny moduł.
+Jest on niezależny od modułu preprocesingu, jednak format danych wyjściowych z modułu preprocesingu
+jest zbieżny z formatem danych wejściwych wymaganym przez modułu batchowania.
 
-\subsection{Moduł sieci} 
+\subsection{Moduł sieci}
 Moduł sieci jest małym modułem odpowiedzialnym za deklarację sieci neuronowej w PyTorchu.
- 
+
 \subsection{Moduł treningu sieci}
 Ten moduł spina moduł sieci oraz moduł batchowania przprowadzając za ich pomocą proces treningu sieci.
-To w kodzie tego modułu następuje interacja przez epoki, przekazywanie danych z modułu batchowania 
-do sieci, wykorzystanie funkcji kosztu, propagacja wsteczna i wszystkie inne składniki potrzebne do 
-szkolenia sieci. 
+To w kodzie tego modułu następuje interacja przez epoki, przekazywanie danych z modułu batchowania
+do sieci, wykorzystanie funkcji kosztu, propagacja wsteczna i wszystkie inne składniki potrzebne do
+szkolenia sieci.
 
 \subsection{OutputManager}
 Ten moduł odpowiedzialny jest za odbieranie danych z modułu treningu sieci, a następnie tworzenie z nich
-wygodnego do analizy wyjścia. Wyjście to jest realizowane w formie danych ze szkolenia wyświetlanych 
+wygodnego do analizy wyjścia. Wyjście to jest realizowane w formie danych ze szkolenia wyświetlanych
 w konsoli oraz zapisywanych do pliku csv, w formie parametrów sieci, które są zapisywane
 w pliku txt oraz w formie kolejnych modeli sieci, które są zapisywane na dysku jako pliki binarne.
-Logi w konsoli pozowiły nam na wygodne kontrolowanie procesu szkolenia, a dane w plikach csv potrzebne 
+Logi w konsoli pozowiły nam na wygodne kontrolowanie procesu szkolenia, a dane w plikach csv potrzebne
 nam były do rysowania wykresów.
 
 \newpage
 \subsection{Skrypty}
-Skrypty potrzebne nam były do wygodnego kolejkowania zadań na Prometheusie, aby za 
+Skrypty potrzebne nam były do wygodnego kolejkowania zadań na Prometheusie, aby za
 każdym uruchomieniem nie zmieniać kodu sieci RNN. Służyły także do przedstawiania danych z procesu uczenia w postaci wykresów
 lub do przesyłania plików pomiędzy Prometheusem a komputerem osobistym. Chcielibyśmy wyróżnić następujące:
 \begin{enumerate}
-	\item {\texttt{create\_scripts.py} } - 
+	\item {\texttt{create\_scripts.py} } -
 	tworzy skrypty, które służą do kolejkowania zadań na Prometheusie. Korzysta z pliku konfiguracyjnego \texttt{to\_run.json},
 	w którym możemy definiować zarówno parametry sieci, jak i parametry związane ze zlecaniem zadań na Prometheusie.
 	Zawartość pliku \texttt{to\_run.json} wraz z przykładowymi parametrami:
-	
+
 	\begin{import}
 		[
 		  {
@@ -95,21 +95,21 @@ lub do przesyłania plików pomiędzy Prometheusem a komputerem osobistym. Chcie
 	  \item output - plik ze standardowym wyjściem,
 	  \item errors - plik ze standardowym wyjściem błędów.
 	\end{itemize}
-	
-	Po wykonaniu komendy \texttt{python3 create\_scripts.py} w katalogu \texttt{scripts} zostaną 
-	wygenerowane skrypty pozwalające na uczenie sieci z podanymi parametrami oraz foldery 
+
+	Po wykonaniu komendy \texttt{python3 create\_scripts.py} w katalogu \texttt{scripts} zostaną
+	wygenerowane skrypty pozwalające na uczenie sieci z podanymi parametrami oraz foldery
 	wynikowe dla danej nazwy zlecenia w folderze \texttt{results}. Nazwa zlecenia to ostatni wyraz dla składnika \texttt{name},
 	dla przykładu wyżej byłaby to nazwa \texttt{test}:
-	
+
 	\begin{import}
 	"name": "#SBATCH -J test",
 	\end{import}
-	
-	W folderze każdego zlecenia inicjalizowane są 4 pliki: 
-	
+
+	W folderze każdego zlecenia inicjalizowane są 4 pliki:
+
 	\begin{itemize}
-	  \item network\_info.txt - plik z danymi na temat sieci i parametrami uczenia. Przykładowa zawartość pliku: 
-	\begin{import}	
+	  \item network\_info.txt - plik z danymi na temat sieci i parametrami uczenia. Przykładowa zawartość pliku:
+	\begin{import}
 	num_layers: 2
 	hidden_size: 100
 	batch_size: 1
@@ -121,56 +121,53 @@ lub do przesyłania plików pomiędzy Prometheusem a komputerem osobistym. Chcie
 	\end{import}
 	  \item output-<nazwa\_zlecenia>.out - plik ze standardowym wyjściem z wywołania programu.
 	  \item errors-<nazwa\_zlecenia>.out -  plik gdzie zapisywane są logi z błędami.
-	  \item results.csv - plik z danymi z uczenia jak skuteczność, wartość funkcji kosztu, czas uczenia, 
-	  numer epoki. Wypełniany jest podczas procesu uczenia sieci. Służy do rysowania wykresów. 
+	  \item results.csv - plik z danymi z uczenia jak skuteczność, wartość funkcji kosztu, czas uczenia,
+	  numer epoki. Wypełniany jest podczas procesu uczenia sieci. Służy do rysowania wykresów.
 	  Przykładowa zawartość pliku:
-	  	  \begin{import}	
+	  	  \begin{import}
 index,epoch,loss,accuracy,time
 1,1,3.5167935148152436,0.012658227848101266,0:27:30.020267
 2,2,1.6148932912132955,0.127848101235212313,0:57:28.588744
 3,3,0.8160962337213797,0.312658256743278567,1:27:04.476756
 4,4,0.7149949056285243,0.382658226754242341,1:58:06.904183
 	  \end{import}
-	  
+
 	\end{itemize}
-	 
+
 	oraz folder \texttt{models} gdzie zapisywane są pliki z zawartością modelu z poszczególnych epok.
-	
-	\item {\texttt{run.sh} } - 
+
+	\item {\texttt{run.sh} } -
 	Uruchamia skrypty utworzone poprzez \texttt{create\_scripts.py} odpowiednio je kolejkując.
-	
+
 	\item {\texttt{copy\_data\_to\_prometheus.sh} } - używany przez nas do przesyłania tekstów po preprocesingu
-	bezpośrednio na Prometheusa. 
-	
-	\item {\texttt{copy\_results\_LOCAL.sh} } - skrypt służący do kopiowania rezultatów uczenia z Prometheusa na 
-	na komputer osobisty. Wykonujemy go lokalnie z naszego komputera. 
+	bezpośrednio na Prometheusa.
+
+	\item {\texttt{copy\_results\_LOCAL.sh} } - skrypt służący do kopiowania rezultatów uczenia z Prometheusa na
+	na komputer osobisty. Wykonujemy go lokalnie z naszego komputera.
 
 	\item {\texttt{draw\_plots.py} } - Analizuje dane otrzymane z procesu uczenia i przedstawia je w formie wykresów.
 	Uruchumiony szuka folderu \texttt{results }w folderze w którym się aktualnie znajduje. Następnie iteruje po folderach
 	wykonanych zadań z folderu \texttt{results}, z każdego z nich czyta plik \texttt{results.csv} i rysuje dla niego wykres epoki od kosztu
- 	oraz epoki od skuteczności. Wykresy zapisuje w folderze \texttt{plots}, gdzie plik każdego wykresu ma nazwę 
+ 	oraz epoki od skuteczności. Wykresy zapisuje w folderze \texttt{plots}, gdzie plik każdego wykresu ma nazwę
  	zlecenia, którego dane przedstawia.
- 	 
+
  	\begin{figure}[H]
 	\centering
-	\includegraphics[height=7cm]{./images/plot.png}
-	\caption{Zmiana funkcji kosztu oraz skuteczności wraz z kolejnymi epokami uczenia.} \todo{jednostki procenty}
+	\includegraphics[height=7cm]{./images/plot.jpg}
+	\caption{Zmiana funkcji kosztu oraz skuteczności wraz z kolejnymi epokami uczenia.}
 	\label{fig:test5}
 	\end{figure}
- 	
-	
+
+
 	\item {\texttt{clean.sh} } - usuwa dotychczasowe wyniki, pliki tymczasowe itp.
-	
-	\item {\texttt{uncode\_tensor.py} } - skrypt służący do odkowawania tekstu w postaci tablicy wektorów one hot powtórnie do 
- 	formy tekstowej. Służył do debugowania sieci, w szczególności sprawdzania czy dane wejściowe oraz 
+
+	\item {\texttt{uncode\_tensor.py} } - skrypt służący do odkowawania tekstu w postaci tablicy wektorów one hot powtórnie do
+ 	formy tekstowej. Służył do debugowania sieci, w szczególności sprawdzania czy dane wejściowe oraz
  	oczekiwane znaki wyjściowe są poprawne.
- 	
+
  	\item {\texttt{list\_lengths.py} } - skrypt służący do listowania łącznej długości tekstów dla każdego z autorów
  	w podanym folderze. Służył do analizy zbioru danych wejściowych.
-	
-	
-	
+
+
+
 \end{enumerate}
-
-
-
