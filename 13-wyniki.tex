@@ -94,7 +94,7 @@ Debugowanie prowadziliśmy etapami, sprawdzając kolejne elementy sieci. Wyróż
 	  a także poprzez wypisywanie na ekran autorów w kolejnych batchach}
 	  \item {moduł iteruje po tekstach poprawnie - to znaczy, czy kolejne sekwencje podawane do sieci to
 	  kolejne litery danego autora - w tym celu odkodowywaliśmy z batcha wektory one-hot przy pomocy
-	  specjalnie przygotowanego skryptu. Odkodowywaliśmy także oczekiwanie wyjście. Żeby wykluczyć ewentualne błędy
+	  specjalnie przygotowanego skryptu. Odkodowywaliśmy także oczekiwanie wyjście. Żeby wykluczyć ewentualne błędy,
 	  teksty były odkodowywane wykorzystując alfabet poprzez który były kodowane.
 	  Przykład dla jednego autora:
 \begin{bash}
@@ -128,7 +128,7 @@ W skład sprawdzenia modułu sieci wchodziły następujące kroki:
 	  pierwszy krok czasowy, a powinien być ostatni,}
 	  \item {badanie wyjścia z poszczególnych warstw - okazało się, że wartości zbiegają do pewnego wektora przez kilka pierwszych epok,
 	  i potem już praktycznie dla każdej litery wszystkie elementy wektora wyjściowego oscylują blisko odpowiadającej wartości z  wektora,
-	  do którego zbiegały. Okazała się to manifestacja błędu, który wykryliśmy w innym miejscu kodu i opisaliśmy kilka punktów dalej.}
+	  do którego zbiegały. Okazała się to manifestacją błędu, który wykryliśmy w innym miejscu kodu i opisaliśmy kilka punktów dalej.}
 	\end{itemize}
 
 \subsubsection{Liczenie kosztu i propagacja wsteczna}
@@ -146,7 +146,7 @@ Rzeczy, które sprawdziliśmy:
 \begin{itemize}
 	  \item {czy funkcja kosztu liczy się w dobrej osi,}
 	  \item {czy maska tworzona jest poprawnie - to znaczy czy wygaszane są koszty właściwych autorów,}
-	  \item {całkowicie zlikwidowaliśmy maskowanie i uczyliśmy tylko na jednym autorze w batchu żeby być pewnym, że ten fragment
+	  \item {całkowicie zlikwidowaliśmy maskowanie i uczyliśmy tylko na jednym autorze w batchu, żeby być pewnym, że ten fragment
 	  kodu nie jest problematyczny.}
 \end{itemize}
 

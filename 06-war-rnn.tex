@@ -37,8 +37,8 @@ z danych wyjściowych z ostatniego kroku czasowego.
 Rekurencyjną sieć neuronową definiujemy jako:
 
 \begin{align}
-  &h_t = f(x_t, h_{t-1}) = tanh(W^Th_{t-1} + U^Tx_t) \\ 
-  &y_t = g(h_t) = logSoftMax(V^Th_t)
+  &h_t = f(x_t, h_{t-1}) = \text{tanh}(W^Th_{t-1} + U^Tx_t) \\ 
+  &y_t = g(h_t) = \text{logSoftMax}(V^Th_t)
 \end{align}
 
 gdzie: \newline
