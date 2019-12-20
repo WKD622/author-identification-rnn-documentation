@@ -129,7 +129,7 @@ W skład sprawdzenia modułu sieci wchodziły następujące kroki:
 	  \newpage
 	  \item {badanie wyjścia z poszczególnych warstw - okazało się, że wartości zbiegają do pewnego wektora przez kilka pierwszych epok,
 	  i potem już praktycznie dla każdej litery wszystkie elementy wektora wyjściowego oscylują blisko odpowiadającej wartości z  wektora,
-	  do którego zbiegały. Okazała się to manifestacją błędu, który wykryliśmy w innym miejscu kodu i opisaliśmy kilka punktów dalej.}
+	  do którego zbiegały. Okazało się to manifestacją błędu, który wykryliśmy w innym miejscu kodu i opisaliśmy kilka punktów dalej.}
 	\end{itemize}
 
 \subsubsection{Liczenie kosztu i propagacja wsteczna}
@@ -162,7 +162,7 @@ dużo wolniej od modelu z klasami i warstwą embedding. Nie rozwijaliśmy tego m
 
 \newpage
 \subsection{Znalezione błędy}
-Poważnym błędem jaki znaleliśmy była inicjalizacja warstw liniowych.
+Poważnym błędem jaki znaleźliśmy była inicjalizacja warstw liniowych.
 Przed zmianą:
 \begin{python}
 self.linears = [nn.Linear(hidden_size, vocab_size) for i in range(authors_size)]
@@ -187,8 +187,8 @@ w zwykłej liście, przez co gradienty warstw liniowych nie były zerowane pomi�
 Po poprawce sieć zaczęła się uczyć i na danych treningowych zaczęła spadać wartość funkcji kosztu. W efektcie jeśli
 używaliśmy tekstów treningowych do testowania skuteczności, każda głowica faktycznie najlepiej przewidywała
 znaki dla tekstu na którym się uczyła i szybko dokładność wynosiła blisko $100\%$. Jednak na danych testowych
-skuteczność pozosotawała bardzo niska, między $5\%$ a $15\%$. Nie mieliśmy czasu aby lepiej dobrać parametry uczenia.
-Odpowiedzialny za złe rezultaty prawdopodobnie był wcześniej opisany problem, który objawiał 
+skuteczność pozostawała bardzo niska, między $5\%$ a $15\%$. Nie mieliśmy czasu aby lepiej dobrać parametry uczenia.
+Odpowiedzialny za złe rezultaty prawdopodobnie był problem opisany w sekcji 6.1.5, który objawiał 
 się wzrastającą wartością kosztu po kilkunastu epokach uczenia.
 
 Pozostałym elementom kodu nie udało nam się nic zarzucić. Na dalsze szukanie błędów brakło nam czasu.
