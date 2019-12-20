@@ -12,7 +12,7 @@ Parametry modelu:
 	  \item liczba kroków czasowych - $50$
 	\end{itemize}
 
-Skuteczność - $15\%$
+Skuteczność wyniosła $15\%$.
 
 Nie udało nam się otrzymać wyników zbliżonych do tych osiągniętych podczas konkursu PAN. Sprawdziła się
 część elementów z analizy ryzyka, które przewidywaliśmy.
@@ -39,13 +39,15 @@ do stopniowych zmian w kodzie, które oddzielone były długim czasem uczenia na
 Ze względu na specyfikę problemu, którego cechą są bardzo krótkie teksty wejściowe bardzo poważnym
 problemem jest przeuczenie sieci, która bardzo szybko uczy się tekstów treningowych na pamięć.
 
-\subsubsection{Eksplodujący gradient}
-Ze względu na zbyt wysoki współczynnik uczenia, bądź na zbyt mało danych występował problem eksplodującego
-gradientu:
+\subsubsection{Rosnąca wartość kosztu}
+Doświadczyliśmy problemu z wartością kosztu, która najpierw stopniowo spadała, następnie gwałtownie wzrosła.
+Nie udało nam się wyjaśnić czym była spowodowana. Zachowanie tego typu może wystąpić z wielu powodów - na przykład przy eksplozji gradientu,
+spowodowanej przez przykładowo zbyt duży współczynnik uczenia. Jednak w naszym przypadku mieliśmy zastosowany
+algorytm optymalizacji Adam, a także gradient kliping. Może być ono również spowodowane błędem w kodzie sieci.
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=7cm]{./images/exploading_gradient.png}
-	\caption{Rosnąca wartość funkcji kosztu spowodowana przez eksplodujący gradient.}
+	\caption{Rosnąca wartość funkcji kosztu.}
 	\label{fig:test5}
 \end{figure}
 
@@ -97,7 +99,7 @@ Debugowanie prowadziliśmy etapami, sprawdzając kolejne elementy sieci. Wyróż
 	  specjalnie przygotowanego skryptu. Odkodowywaliśmy także oczekiwanie wyjście. Żeby wykluczyć ewentualne błędy,
 	  teksty były odkodowywane wykorzystując alfabet poprzez który były kodowane.
 	  Przykład dla jednego autora:
-\begin{bash}
+\begin{bash} 
 AUTHOR 0) SEQUENCE: |my, my, i was forget|     TARGET: |t|
 AUTHOR 0) SEQUENCE: |y, my, i was forgett|     TARGET: |i|
 AUTHOR 0) SEQUENCE: |, my, i was forgetti|     TARGET: |n|
@@ -126,6 +128,7 @@ W skład sprawdzenia modułu sieci wchodziły następujące kroki:
 	  z sieci rekurencyjnej do poszczególnych głowic,}
 	  \item {czy do głowic przekazywany jest dobry krok czasowy - mieliśmy podejrzenie, że do głowic przekazywany jest przykładowo
 	  pierwszy krok czasowy, a powinien być ostatni,}
+	  \newpage
 	  \item {badanie wyjścia z poszczególnych warstw - okazało się, że wartości zbiegają do pewnego wektora przez kilka pierwszych epok,
 	  i potem już praktycznie dla każdej litery wszystkie elementy wektora wyjściowego oscylują blisko odpowiadającej wartości z  wektora,
 	  do którego zbiegały. Okazała się to manifestacją błędu, który wykryliśmy w innym miejscu kodu i opisaliśmy kilka punktów dalej.}
@@ -186,8 +189,9 @@ w zwykłej liście, przez co gradienty warstw liniowych nie były zerowane pomi�
 Po poprawce sieć zaczęła się uczyć i na danych treningowych zaczęła spadać wartość funkcji kosztu. W efektcie jeśli
 używaliśmy tekstów treningowych do testowania skuteczności, każda głowica faktycznie najlepiej przewidywała
 znaki dla tekstu na którym się uczyła i szybko dokładność wynosiła blisko $100\%$. Jednak na danych testowych
-skuteczność pozosotawała bardzo niska, między $5\%$ a $15\%$. Nie mieliśmy czasu aby lepiej dobrać parametry uczenia,
-niska skuteczność spowodowana była eksplozją gradientu.
+skuteczność pozosotawała bardzo niska, między $5\%$ a $15\%$. Nie mieliśmy czasu aby lepiej dobrać parametry uczenia.
+Odpowiedzialny za złe rezultaty prawdopodobnie był wcześniej opisany problem, który objawiał 
+się wzrastającą wartością kosztu po kilkunastu epokach uczenia.
 
 Pozostałym elementom kodu nie udało nam się nic zarzucić. Na dalsze szukanie błędów brakło nam czasu.
 Jednak wszystko wskazuje na to, że sieć uczy się poprawnie, a dalszy czas należałoby poświęcić na dobranie odpowiednich

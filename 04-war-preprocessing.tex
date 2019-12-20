@@ -4,9 +4,12 @@
 \subsection{Korpus tekstów}
 Korpus tekstów wykorzystywany do trenowania sieci został przygotowany przez autorów konkursu PAN 2015 \cite{pan}.
 W katalogu głównym znajdują się 4 katalogi, każdy dla innego języka (angielskiego, holenderskiego, greckiego oraz hiszpańskiego).
-W obrębie katalogu jednego języka znajduje się 100 katalogów, każdy składa się z tekstów danego autora oraz jednego
+W obrębie katalogu jednego języka znajduje się między 100 a 500 katalogów autorów, każdy składa się z tekstów danego autora oraz jednego
 tekstu nieznanego autorstwa. Oprócz tego dla każdego zestawu autorów dostarczany jest plik \texttt{truth.txt}.
-Zawarta jest w nim informacja, czy dany autor napisał tekst nieznanego pochodzenia znajdujący się w katalogu.
+Zawarta jest w nim informacja, czy dany autor napisał tekst nieznanego pochodzenia znajdujący się w jego katalogu.
+Taką strukturę ma zbiór treningowy oraz testowy. Z racji na problemy techniczne z kodem uprościliśmy ten problem 
+aby zminimalizować obszar, w którym może wystąpić błąd. Dlatego tak przygotowany zbiór dzieliliśmy na zbiór treningowy, który
+składał się z tekstów znanych autorów oraz zbiór testowy, który składał się z tekstów nieznanego autorstwa. 
 
 \myspace
 \dirtree{%
@@ -16,7 +19,7 @@ Zawarta jest w nim informacja, czy dany autor napisał tekst nieznanego pochodze
 .3 unknown.txt.
 .2 \ldots.
 .2 SP100.
-.3 known01.txt.
+.3 known01.txt. 
 .3 unknown.txt.
 .2 truth.txt.
 .1 greek.
@@ -61,7 +64,8 @@ Domyślnie dostępnymi językami w bibliotece są:
  
 
 \subsubsection{Redukcja alfabetu}
-Alfabet definiujemy jako zbiór znaków występujących we wszystkich tekstach w zbiorze danych wejściowych. \todo{treningowy czy testowy}
+Alfabet definiujemy jako zbiór znaków występujących we wszystkich tekstach w zbiorze danych wejściowych.
+Redukcja następuje bez względu na to, czy mówimy o zbiorze testowym czy treningowym.
 Redukcja alfabetu pozwala na zredukowanie złożności obliczeniowej oraz zmniejsza wpływ bardzo rzadko
 występujących znaków na model języka. Pierwszym krok to normalizacja znaków. 
 Przykładowo dla języka polskiego litera \texttt{ó} zostałaby zdekomponowana do litery \texttt{o} oraz znaku oznaczającego kreskę.
